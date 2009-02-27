@@ -1,0 +1,14 @@
+*~
+Thumbs.db
+*.generated.cs
+_ReSharper.*
+*.resharper.user
+.svn
+*.suo
+*.user
+*.sln.cache
+*.swp
+Generated
+obj
+bin
+/Build
