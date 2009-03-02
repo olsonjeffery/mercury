@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Mercury.ExampleSite</RootNamespace>
     <AssemblyName>Mercury.ExampleSite</AssemblyName>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\jolson\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -20,7 +21,12 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boo.Lang.Useful" />
+    <Reference Include="Boo.Lang.CodeDom">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Useful">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.Useful.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -49,10 +55,31 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="Default.aspx.boo" />
+    <Compile Include="Global.asax.boo" />
+    <None Include="Content\Site.css" />
+    <None Include="Controllers\AccountController.cs" />
+    <None Include="Controllers\HomeController.cs" />
     <None Include="Default.aspx" />
     <None Include="Default.aspx.cs" />
     <None Include="Global.asax" />
     <None Include="Global.asax.cs" />
+    <None Include="Scripts\jquery-1.2.6-vsdoc.js" />
+    <None Include="Scripts\jquery-1.2.6.js" />
+    <None Include="Scripts\jquery-1.2.6.min-vsdoc.js" />
+    <None Include="Scripts\jquery-1.2.6.min.js" />
+    <None Include="Scripts\MicrosoftAjax.debug.js" />
+    <None Include="Scripts\MicrosoftAjax.js" />
+    <None Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <None Include="Scripts\MicrosoftMvcAjax.js" />
+    <None Include="Views\Account\ChangePassword.aspx" />
+    <None Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <None Include="Views\Account\LogOn.aspx" />
+    <None Include="Views\Account\Register.aspx" />
+    <None Include="Views\Home\About.aspx" />
+    <None Include="Views\Home\Index.aspx" />
+    <None Include="Views\Shared\Error.aspx" />
+    <None Include="Views\Shared\LogOnUserControl.ascx" />
+    <None Include="Views\Shared\Site.Master" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +87,14 @@
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
+    <Folder Include="Content" />
+    <Folder Include="Controllers" />
+    <Folder Include="Models" />
+    <Folder Include="Views" />
+    <Folder Include="Scripts" />
+    <Folder Include="Views\Account" />
+    <Folder Include="Views\Home" />
+    <Folder Include="Views\Shared" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
