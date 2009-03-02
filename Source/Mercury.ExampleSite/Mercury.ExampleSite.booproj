@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="Controllers\AccountController.boo" />
+    <Compile Include="Controllers\HomeController.boo" />
     <Compile Include="Default.aspx.boo" />
     <Compile Include="Global.asax.boo" />
     <None Include="Content\Site.css" />
