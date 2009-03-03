@@ -5,16 +5,22 @@ import System.Reflection
 import System.Web
 import System.Web.Routing
 
-class MercuryRoute(RouteBase):
-"""Description of MercuryRoute"""
+public class MercuryRoute(RouteBase):
+  
+  private _routes as List of Route;
+  
   def constructor():
-    pass
+    ParseReferencedAssembliesForRoutes()
+  
   public def GetRouteData(httpContext as HttpContextBase) as RouteData:
-    blah = System.AppDomain.CurrentDomain.GetAssemblies();
-    assemblyNames = "";
-    for i in blah:
-      assemblyNames += (i.FullName + "\n") if not i.FullName.Contains("System");
-    raise 'method: '+ httpContext.Request.HttpMethod +' url: ' + httpContext.Request.Url + '\n '+ assemblyNames
+    routeData = RouteData();
+    routeData.RouteHandler = MercuryRouteHandler()
   
   public def GetVirtualPath(requestContext as RequestContext, routeValueDictionary as RouteValueDictionary) as VirtualPathData:
     raise "fuck!"
+  
+  public def ParseReferencedAssembliesForRoutes() as void:
+    assemblies = System.AppDomain.CurrentDomain.GetAssemblies()
+    for assembly in assemblies:
+      for type in assembly.GetTypes():
+        pass

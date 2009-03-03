@@ -3,6 +3,7 @@ namespace Mercury.Core.Routing
 import System
 import System.Web
 import System.Web.Routing
+import System.Web.Mvc
 
 class MercuryRouteHandler(IRouteHandler):
 """Description of MercuryRouteHandler"""
@@ -10,5 +11,5 @@ class MercuryRouteHandler(IRouteHandler):
     pass
   
   public def GetHttpHandler(requestContext as RequestContext) as IHttpHandler:
-    raise "fuck! this shit. request type: '"+requestContext.HttpContext.Request.HttpMethod+"' url: "+requestContext.HttpContext.Request.Url
+    raise "method: '"+requestContext.HttpContext.Request.HttpMethod+"' url: "+requestContext.HttpContext.Request.Url
 
