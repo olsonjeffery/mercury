@@ -1,9 +1,19 @@
-namespace Mercury.ExampleSite.Controllers
+namespace MvcApplication1.Controllers
 
 import System
+import System.Collections.Generic
+import System.Web
+import System.Web.Mvc
 
-class HomeController:
-"""Description of HomeController"""
-	def constructor():
-		pass
+[HandleError]
+public class HomeController(Controller):
+
+	public def Index() as ActionResult:
+		ViewData['Message'] = 'Welcome to ASP.NET MVC!'
+		
+		return View()
+
+	
+	public def About() as ActionResult:
+		return View()
 

@@ -7,10 +7,12 @@
     <RootNamespace>Mercury.ExampleSite</RootNamespace>
     <AssemblyName>Mercury.ExampleSite</AssemblyName>
     <SourceAnalysisOverrideSettingsFile>C:\Users\jolson\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <NoStdLib>False</NoStdLib>
+    <Ducky>False</Ducky>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
   </PropertyGroup>
@@ -21,6 +23,9 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Boo.Lang">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.dll</HintPath>
+    </Reference>
     <Reference Include="Boo.Lang.CodeDom">
       <HintPath>..\..\Libraries\boo\Boo.Lang.CodeDom.dll</HintPath>
     </Reference>
@@ -29,28 +34,19 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Extensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
@@ -58,13 +54,12 @@
     <Compile Include="Controllers\HomeController.boo" />
     <Compile Include="Default.aspx.boo" />
     <Compile Include="Global.asax.boo" />
+    <Compile Include="RouteInfo.boo" />
     <None Include="Content\Site.css" />
     <None Include="Controllers\AccountController.cs" />
     <None Include="Controllers\HomeController.cs" />
     <None Include="Default.aspx" />
-    <None Include="Default.aspx.cs" />
     <None Include="Global.asax" />
-    <None Include="Global.asax.cs" />
     <None Include="Scripts\jquery-1.2.6-vsdoc.js" />
     <None Include="Scripts\jquery-1.2.6.js" />
     <None Include="Scripts\jquery-1.2.6.min-vsdoc.js" />
