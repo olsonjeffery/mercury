@@ -6,7 +6,7 @@ Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Core", "Mercury.Cor
 EndProject
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.ExampleSite", "Mercury.ExampleSite\Mercury.ExampleSite.booproj", "{C8992617-8D7D-46EF-9204-81DEC657E532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.MVC.CS", "Mercery.ExampleSite.MVC.CS\Mercury.ExampleSite.MVC.CS.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.Mvc.Cs", "Mercery.ExampleSite.Mvc.Cs\Mercury.ExampleSite.Mvc.Cs.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
