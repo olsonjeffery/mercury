@@ -23,11 +23,20 @@
     <Reference Include="Boo.Lang.Useful" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="Routing\MercuryRoute.boo" />
+    <Compile Include="Routing\MercuryRouteHandler.boo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Routing" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
