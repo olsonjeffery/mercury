@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Spark.Web.Mvc;
 
 namespace MvcApplication1
 {
@@ -30,6 +31,8 @@ namespace MvcApplication1
     protected void Application_Start()
     {
       RegisterRoutes(RouteTable.Routes);
+      ViewEngines.Engines.Add(new SparkViewFactory());
+
     }
   }
 }
