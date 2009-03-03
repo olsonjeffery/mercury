@@ -22,10 +22,6 @@ namespace MvcApplication1
           "{controller}/{action}/{id}",                           // URL with parameters
           new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
       );
-
-      var foo = new { that = "foo",  bleh = "bar"};
-      
-
     }
 
     protected void Application_Start()

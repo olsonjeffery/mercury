@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Views\Home\Index.spark" />
+    <None Include="Views\Layouts\Application.spark" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -104,6 +105,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Home" />
+    <Folder Include="Views\Layouts" />
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
