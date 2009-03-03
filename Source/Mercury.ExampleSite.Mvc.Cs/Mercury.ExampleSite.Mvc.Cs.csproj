@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mercury.ExampleSite</RootNamespace>
-    <AssemblyName>Mercury.ExampleSite.MVC.CS</AssemblyName>
+    <AssemblyName>Mercury.ExampleSite.Mvc.Cs</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <SourceAnalysisOverrideSettingsFile>C:\Users\jolson\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
