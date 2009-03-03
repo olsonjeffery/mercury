@@ -4,7 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # SharpDevelop 3.1.0.3816
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Core", "Mercury.Core\Mercury.Core.booproj", "{71D3D7E3-7648-4068-A657-5521E5E25BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.Mvc.Cs", "Mercery.ExampleSite.Mvc.Cs\Mercury.ExampleSite.Mvc.Cs.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.Mvc.Cs", "Mercury.ExampleSite.Mvc.Cs\Mercury.ExampleSite.Mvc.Cs.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
