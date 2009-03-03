@@ -11,7 +11,7 @@ public class MercuryRoutingEngine(RouteBase):
   private _routes as List of Route;
   private container as object
     
-  def constructor(container as object):
+  def constructor(container as IServiceLocator):
     self.container = container
     
     ParseReferencedAssembliesForRoutes()
