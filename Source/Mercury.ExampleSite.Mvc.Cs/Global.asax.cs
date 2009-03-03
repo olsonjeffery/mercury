@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Spark.Web.Mvc;
 using Mercury.Core.Routing;
+using Machine.Container;
 
 namespace Mercury.ExampleSite
 {
@@ -18,7 +19,7 @@ namespace Mercury.ExampleSite
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
       
-      var route = new MercuryRoute();
+      var route = new MercuryRoutingEngine(GetContainer());
       routes.Add(route);
       /*routes.MapRoute(
           "Default",                                              // Route name
@@ -32,6 +33,10 @@ namespace Mercury.ExampleSite
       RegisterRoutes(RouteTable.Routes);
       ViewEngines.Engines.Add(new SparkViewFactory());
 
+    }
+    
+    protected static MachineContainer GetContainer() {
+      return new Machine.Container.MachineContainer();
     }
   }
 }
