@@ -36,7 +36,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
-    <Compile Include="MercuryRoutingEngine.boo" />
+    <Compile Include="MercuryEngine.boo" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>

@@ -1,4 +1,4 @@
-namespace Mercury.Core.Routing
+namespace Mercury.Core
 
 import System
 import System.Web
