@@ -1,4 +1,4 @@
-namespace Mercury.Core.Routing
+namespace Mercury.Core
 
 import System
 import System.Reflection
@@ -6,7 +6,7 @@ import System.Web
 import System.Web.Routing
 import Microsoft.Practices.ServiceLocation
 
-public class MercuryRoutingEngine(RouteBase):
+public class MercuryEngine(RouteBase):
   
   private _routes as List of Route;
   private container as object

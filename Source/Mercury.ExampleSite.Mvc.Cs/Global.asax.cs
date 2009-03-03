@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Spark.Web.Mvc;
-using Mercury.Core.Routing;
+using Mercury.Core;
 using Machine.Container;
 using Microsoft.Practices.ServiceLocation;
 using Machine.Container.ServiceLocatorAdapter;
@@ -21,7 +21,7 @@ namespace Mercury.ExampleSite
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
       
-      var route = new MercuryRoutingEngine(GetContainer());
+      var route = new MercuryEngine(GetContainer());
       routes.Add(route);
       /*routes.MapRoute(
           "Default",                                              // Route name
