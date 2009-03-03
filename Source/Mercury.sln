@@ -6,6 +6,8 @@ Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Core", "Mercury.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.Mvc.Cs", "Mercury.ExampleSite.Mvc.Cs\Mercury.ExampleSite.Mvc.Cs.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Machine.Container.ServiceLocatorAdapter", "Machine.Container.ServiceLocatorAdapter\Machine.Container.ServiceLocatorAdapter.csproj", "{2EAFBD9A-6D30-449F-87F8-F91D166E3178}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,5 +22,9 @@ Global
 		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAFBD9A-6D30-449F-87F8-F91D166E3178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAFBD9A-6D30-449F-87F8-F91D166E3178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAFBD9A-6D30-449F-87F8-F91D166E3178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAFBD9A-6D30-449F-87F8-F91D166E3178}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal
