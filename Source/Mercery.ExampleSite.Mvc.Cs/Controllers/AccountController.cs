@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
 
-namespace MvcApplication1.Controllers
+namespace Mercury.ExampleSite.Controllers
 {
 
   [HandleError]

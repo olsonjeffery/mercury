@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.UI;
 
-namespace MvcApplication1
+namespace Mercury.ExampleSite
 {
   public partial class _Default : Page
   {

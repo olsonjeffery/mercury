@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MvcApplication1.Controllers
+namespace Mercury.ExampleSite.Controllers
 {
   [HandleError]
   public class HomeController : Controller
