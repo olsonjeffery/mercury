@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
-    <Compile Include="IMercuryRoute.boo" />
+    <Compile Include="IMercuryRouteAction.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="MercuryRouteBuilder.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
