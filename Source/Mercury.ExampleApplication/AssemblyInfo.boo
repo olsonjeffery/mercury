@@ -1,19 +1,15 @@
-﻿#region Using directives
-
-using System;
-using System.Reflection;
-using System.Runtime.InteropServices;
-
-#endregion
+﻿import System.Reflection
+import System.Runtime.CompilerServices
+import System.Runtime.InteropServices
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Machine.Container.ServiceLocatorAdapter")]
+[assembly: AssemblyTitle("Mercury.ExampleApplication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Machine.Container.ServiceLocatorAdapter")]
+[assembly: AssemblyProduct("Mercury.ExampleApplication")]
 [assembly: AssemblyCopyright("Copyright 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -26,6 +22,7 @@ using System.Runtime.InteropServices;
 //
 // Major.Minor.Build.Revision
 //
-// You can specify all the values or you can use the default the Revision and 
-// Build Numbers by using the '*' as shown below:
+// You can specify all values by your own or you can build default build and revision
+// numbers with the '*' character (the default):
+
 [assembly: AssemblyVersion("1.0.*")]
