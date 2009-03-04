@@ -25,26 +25,6 @@ public class GetMacro(AbstractAstMacro):
     while not parent isa Module:
       parent = parent.ParentNode
     
-    rand = Random().Next()
-      
-    classDef = [|
-      public class Mercury_route(IMercuryRoute):
-        public def constructor():
-          pass
-          
-        public def Execute():
-          $(macro.Body)
-        
-        public HttpMethod as string:
-          get:
-            return $(method)
-        public RouteString as string:
-          get:
-            return $(routeString)
-    |]
-    theType = [| typeof(System.String) |]
-    
-    classDef.GetConstructor(0).Parameters.Add(ParameterDeclaration("foo", theType.Type))
-    classDef.Name = classDef.Name  + rand
+    classDef = MercuryRouteBuilder.BuildRouteClass(method, routeString, parent as Module, macro.Body)
     
     (parent as Module).Members.Add(classDef)
