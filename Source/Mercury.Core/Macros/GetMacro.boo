@@ -11,8 +11,15 @@ public class GetMacro(AbstractAstMacro):
     pass
   
   public override def Expand(macro as MacroStatement) as Statement:
+    arg = macro.Arguments[0]
     raise "only one argument (string or regex) is allowed to get" if macro.Arguments.Count != 1
-    raise "only string or regex is allowed as the argument to get, you provided: " + macro.Arguments[0].GetType() if not macro.Arguments[0].GetType() in (typeof(StringLiteralExpression), typeof(RELiteralExpression))
+    raise "only string or regex is allowed as the argument to get, you provided: " + arg.GetType() if not arg.GetType() in (typeof(StringLiteralExpression), typeof(RELiteralExpression))
+    
+    routeString = (arg as RELiteralExpression).Value if arg isa RELiteralExpression
+    routeString = routeString.Substring(1,routeString.Length-2) if arg isa RELiteralExpression
+    routeString = (arg as StringLiteralExpression).ToString() if arg isa StringLiteralExpression
+    
+    method = 'GET'
     
     parent as Node = macro
     while not parent isa Module:
@@ -27,6 +34,13 @@ public class GetMacro(AbstractAstMacro):
           
         public def Execute():
           $(macro.Body)
+        
+        public HttpMethod as string:
+          get:
+            return $(method)
+        public RouteString as string:
+          get:
+            return $(routeString)
     |]
     theType = [| typeof(System.String) |]
     
