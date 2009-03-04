@@ -14,7 +14,7 @@ public class MercuryRouteBuilder:
     rand = Random().Next()
       
     classDef = [|
-      public class Mercury_route(IMercuryRoute):
+      public class Mercury_route(IMercuryRouteAction):
         public def constructor():
           pass
           
@@ -29,15 +29,20 @@ public class MercuryRouteBuilder:
             return $(routeString)
     |]
     
-    inActionDependencies = PullDependenciesFromMacroBody(body)
-    moduleLevelDependencies = PullDependenciesFromModule(module)
+    rawDependencies = GetDependenciesForClass(body, module)
     
-    rawDependencies = MergeDependencyDictionaries(inActionDependencies, moduleLevelDependencies)
     
     classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
     classDef.Name = classDef.Name  + rand
     
     return classDef
+  
+  public static def GetDependenciesForClass(body as Block, module as Module) as Dictionary[of string, ParameterDeclaration]:
+    inActionDependencies = PullDependenciesFromMacroBody(body)
+    moduleLevelDependencies = PullDependenciesFromModule(module)
+    
+    return MergeDependencyDictionaries(inActionDependencies, moduleLevelDependencies)
+    
   
   public static def PullDependenciesFromMacroBody(body as Block) as Dictionary [of string, ParameterDeclaration]:
     dict = Dictionary[of string, ParameterDeclaration]()

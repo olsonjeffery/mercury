@@ -11,9 +11,13 @@ public class MercuryEngine(RouteBase):
   
   private _uninstantiatedRoutes as IEnumerable of Type;
   private _container as object
-    
+  private _routes as RouteCollection
+  
   def constructor(container as IServiceLocator):
     self._container = container
+    
+  public def Initialize(routes as RouteCollection):
+    _routes = routes;
     _uninstantiatedRoutes = ParseReferencedAssembliesForUninstantiatedRoutes()
   
   public def GetRouteData(httpContext as HttpContextBase) as RouteData:
@@ -33,7 +37,7 @@ public class MercuryEngine(RouteBase):
     for assembly in assemblies:
       names += assembly.FullName + "\n"
       for type in assembly.GetTypes():
-        if typeof(IMercuryRoute) in (type.GetInterfaces()):
+        if typeof(IMercuryRouteAction) in (type.GetInterfaces()):
           routes.Add(type)
     
     return routes

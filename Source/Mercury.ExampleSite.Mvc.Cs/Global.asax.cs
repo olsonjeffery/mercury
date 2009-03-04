@@ -17,13 +17,14 @@ namespace Mercury.ExampleSite
   public class MercuryApplication : System.Web.HttpApplication
   {
     
-    public static void RegisterRoutes(RouteCollection routes)
+    public static void ConfigureMercuryEngine(RouteCollection routes, IServiceLocator container)
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
       
-      var container = ConfigureContainer();
-      var route = new MercuryEngine(container);
-      routes.Add(route);
+      var engine = new MercuryEngine(container);
+      engine.Initialize(routes);
+      routes.Add(engine);
+      
       /*routes.MapRoute(
           "Default",                                              // Route name
           "{controller}/{action}/{id}",                           // URL with parameters
@@ -33,7 +34,8 @@ namespace Mercury.ExampleSite
 
     protected void Application_Start()
     {
-      RegisterRoutes(RouteTable.Routes);
+      var container = ConfigureContainer();
+      ConfigureMercuryEngine(RouteTable.Routes, container);
       ViewEngines.Engines.Add(new SparkViewFactory());
     }
     
