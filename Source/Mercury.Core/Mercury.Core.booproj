@@ -20,7 +20,16 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Boo.Lang">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Compiler">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
     <Reference Include="Boo.Lang.Useful" />
+    <Reference Include="Boo.Lang.Useful">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.Useful.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -35,8 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="IMercuryRoute.boo" />
+    <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
     <Compile Include="MercuryEngine.boo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Macros" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
