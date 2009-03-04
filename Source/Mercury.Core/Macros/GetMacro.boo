@@ -12,8 +12,8 @@ public class GetMacro(AbstractAstMacro):
   
   public override def Expand(macro as MacroStatement) as Statement:
     arg = macro.Arguments[0]
-    raise "only one argument (string or regex) is allowed to get" if macro.Arguments.Count != 1
-    raise "only string or regex is allowed as the argument to get, you provided: " + arg.GetType() if not arg.GetType() in (typeof(StringLiteralExpression), typeof(RELiteralExpression))
+    raise "only one argument (string) is allowed to get" if macro.Arguments.Count != 1
+    raise "only string is allowed as the argument to get, you provided: " + arg.GetType() if not arg isa StringLiteralExpression
     
     routeString = (arg as RELiteralExpression).Value if arg isa RELiteralExpression
     routeString = routeString.Substring(1,routeString.Length-2) if arg isa RELiteralExpression
