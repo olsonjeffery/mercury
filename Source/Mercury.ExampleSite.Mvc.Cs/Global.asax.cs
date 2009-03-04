@@ -8,7 +8,6 @@ using Spark.Web.Mvc;
 using Mercury.Core;
 using Machine.Container;
 using Microsoft.Practices.ServiceLocation;
-using Machine.Container.ServiceLocatorAdapter;
 
 namespace Mercury.ExampleSite
 {
@@ -34,7 +33,6 @@ namespace Mercury.ExampleSite
     {
       RegisterRoutes(RouteTable.Routes);
       ViewEngines.Engines.Add(new SparkViewFactory());
-
     }
     
     protected static IServiceLocator GetContainer() {

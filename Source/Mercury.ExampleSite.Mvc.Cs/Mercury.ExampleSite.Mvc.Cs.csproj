@@ -112,13 +112,13 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Home" />
     <Folder Include="Views\Layouts" />
-    <ProjectReference Include="..\Machine.Container.ServiceLocatorAdapter\Machine.Container.ServiceLocatorAdapter.csproj">
-      <Project>{2EAFBD9A-6D30-449F-87F8-F91D166E3178}</Project>
-      <Name>Machine.Container.ServiceLocatorAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mercury.ExampleApplication\Mercury.ExampleApplication.booproj">
+      <Project>{A92463A6-83D7-4BB2-817C-0A58D8874370}</Project>
+      <Name>Mercury.ExampleApplication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
