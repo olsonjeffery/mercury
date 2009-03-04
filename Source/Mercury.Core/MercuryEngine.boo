@@ -9,10 +9,10 @@ import Microsoft.Practices.ServiceLocation
 public class MercuryEngine(RouteBase):
   
   private _routes as List of Route;
-  private container as object
+  private _container as object
     
   def constructor(container as IServiceLocator):
-    self.container = container
+    self._container = container
     
     ParseReferencedAssembliesForRoutes()
   

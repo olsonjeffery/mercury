@@ -39,7 +39,7 @@ namespace Mercury.ExampleSite
     
     protected static IServiceLocator GetContainer() {
       var container = new MachineContainer();
-      return new MachineServiceLocator(container);
+      return new CommonServiceLocatorAdapter(container);
     }
   }
 }
