@@ -22,9 +22,15 @@ public class GetMacro(AbstractAstMacro):
       
     classDef = [|
       public class Mercury_route(IMercuryRoute):
+        public def constructor():
+          pass
+          
         public def Execute():
           $(macro.Body)
     |]
+    theType = [| typeof(System.String) |]
+    
+    classDef.GetConstructor(0).Parameters.Add(ParameterDeclaration("foo", theType.Type))
     classDef.Name = classDef.Name  + rand
     
     (parent as Module).Members.Add(classDef)
