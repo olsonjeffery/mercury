@@ -11,7 +11,7 @@
   </Target>
 
   <Target Name="Rebuild">
-    <MsBuild Projects="Source\Mercury.sln" Targets="Rebuild" Properties="BooBinPath=..\..\Libraries\boo">
+    <MsBuild Projects="Source\Mercury.sln" Targets="Rebuild" Properties="BooBinPath=..\..\Libraries\boo, Configuration=Debug">
     </MsBuild>
   </Target>
   
