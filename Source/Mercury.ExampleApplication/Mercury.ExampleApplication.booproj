@@ -29,6 +29,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="Home.boo" />
+    <Compile Include="ITestService.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
