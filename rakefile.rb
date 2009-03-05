@@ -19,6 +19,10 @@ end
 
 task :specs => "specs:view"
 
+task :build do
+  system "msbuild default.msbuild /t:Build"
+end
+
 namespace :specs do
   desc "Run Server Specs"
   task :run do
