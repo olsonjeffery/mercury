@@ -8,4 +8,10 @@ Get "~/Home/":
 
 Get "~/Home/List":
   print "arggg!"
+  dependency:
+    testService as ITestService
+    anotherService as ITestService
+
+Get "~/Test":
+  print "fail!"
   dependency testService as ITestService
