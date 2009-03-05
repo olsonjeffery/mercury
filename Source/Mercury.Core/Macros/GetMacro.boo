@@ -6,9 +6,10 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 public class GetMacro(AbstractAstMacro):
-"""Description of GetMacro"""
+  _builder as MercuryRouteBuilder
+
   def constructor():
-    pass
+    _builder = MercuryRouteBuilder()
   
   public override def Expand(macro as MacroStatement) as Statement:
     arg = macro.Arguments[0]
@@ -25,6 +26,6 @@ public class GetMacro(AbstractAstMacro):
     while not parent isa Module:
       parent = parent.ParentNode
     
-    classDef = MercuryRouteBuilder.BuildRouteClass(method, routeString, parent as Module, macro.Body)
+    classDef = _builder.BuildRouteClass(method, routeString, parent as Module, macro.Body)
     
     (parent as Module).Members.Add(classDef)

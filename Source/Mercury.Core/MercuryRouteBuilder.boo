@@ -10,7 +10,7 @@ public class MercuryRouteBuilder:
   def constructor():
     pass
 
-  public static def BuildRouteClass(method as string, routeString as string, module as Module, body as Block) as ClassDefinition:
+  public def BuildRouteClass(method as string, routeString as string, module as Module, body as Block) as ClassDefinition:
     rand = Random().Next()
       
     classDef = [|
@@ -37,27 +37,27 @@ public class MercuryRouteBuilder:
     
     return classDef
   
-  public static def GetDependenciesForClass(body as Block, module as Module) as Dictionary[of string, ParameterDeclaration]:
+  public def GetDependenciesForClass(body as Block, module as Module) as Dictionary[of string, ParameterDeclaration]:
     inActionDependencies = PullDependenciesFromMacroBody(body)
     moduleLevelDependencies = PullDependenciesFromModule(module)
     
     return MergeDependencyDictionaries(inActionDependencies, moduleLevelDependencies)
     
   
-  public static def PullDependenciesFromMacroBody(body as Block) as Dictionary [of string, ParameterDeclaration]:
+  public def PullDependenciesFromMacroBody(body as Block) as Dictionary [of string, ParameterDeclaration]:
     dict = Dictionary[of string, ParameterDeclaration]()
-    foo = [| foo as IMercuryRoute |]
-    field = Field(foo.Type, [| null |])
+    
+    
     return dict
   
-  public static def PullDependenciesFromModule(module as Module) as Dictionary [of string,ParameterDeclaration]:
+  public def PullDependenciesFromModule(module as Module) as Dictionary [of string,ParameterDeclaration]:
     dict = Dictionary[of string, ParameterDeclaration]()
     return dict
     
-  public static def MergeDependencyDictionaries(inAction as Dictionary [of string, ParameterDeclaration], moduleLevel as Dictionary [of string, ParameterDeclaration]) as Dictionary [of string, ParameterDeclaration]:
+  public def MergeDependencyDictionaries(inAction as Dictionary [of string, ParameterDeclaration], moduleLevel as Dictionary [of string, ParameterDeclaration]) as Dictionary [of string, ParameterDeclaration]:
     return Dictionary[of string, ParameterDeclaration]()
   
-  public static def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as Dictionary[of string, ParameterDeclaration]) as ClassDefinition:
+  public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as Dictionary[of string, ParameterDeclaration]) as ClassDefinition:
     theType = [| typeof(System.String) |]
     classDef.GetConstructor(0).Parameters.Add(ParameterDeclaration("foo", theType.Type))
     
