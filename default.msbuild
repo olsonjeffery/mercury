@@ -1,0 +1,32 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="Build">
+    <MsBuild Projects="Source\Mercury.sln" Targets="Build" Properties="BooBinPath=..\..\Libraries\boo">
+    </MsBuild>
+  </Target>
+  
+  <Target Name="Clean">
+    <MsBuild Projects="Source\Mercury.sln" Targets="Clean" Properties="BooBinPath=..\..\Libraries\boo">
+    </MsBuild>
+  </Target>
+
+  <Target Name="Rebuild">
+    <MsBuild Projects="Source\Mercury.sln" Targets="Rebuild" Properties="BooBinPath=..\..\Libraries\boo">
+    </MsBuild>
+  </Target>
+  
+  <Target Name="RunSpecsBase">
+    <PropertyGroup>
+      <MSpecCommand>
+        libraries\machine\specifications\Machine.Specifications.ConsoleRunner.exe $(AdditionalSettings) Source\Mercury.Specs\bin\Debug\Mercury.Specs.dll
+      </MSpecCommand>
+    </PropertyGroup>
+    <Message Importance="high" Text="Running Eleutian Specs with this command: $(MSpecCommand)"/>
+    <Exec Command="$(MSpecCommand)" />
+  </Target>
+
+  <Target Name="RunSpecs">
+    <MSBuild Projects="default.msbuild" Targets="RunSpecsBase" Properties="AdditionalSettings=-s --html Specs.html"/>
+  </Target>
+  
+</Project>
