@@ -33,7 +33,7 @@ public class MercuryRouteBuilder:
     
     
     classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
-    classDef.Name = classDef.Name  + rand
+    classDef.Name = classDef.Name + "_" + method + "_" + rand
     
     return classDef
   
@@ -47,6 +47,13 @@ public class MercuryRouteBuilder:
   public def PullDependenciesFromMacroBody(body as Block) as Dictionary [of string, ParameterDeclaration]:
     dict = Dictionary[of string, ParameterDeclaration]()
     
+    deps = List of DeclarationStatement()
+    for i in body.Statements:
+      if i["dependency"]  == true:
+        for j in (i as Block).Statements:
+          deps.Add(j)
+    
+    raise "da count" + deps.Count
     
     return dict
   
