@@ -6,15 +6,19 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 public class MercuryRouteBuilder:
-"""Description of MercuryRouteBuilder"""
+  private static _randomNumber as Random = Random()
+  
   def constructor():
     pass
 
   public def BuildRouteClass(method as string, routeString as string, module as Module, body as Block) as ClassDefinition:
-    rand = Random().Next()
+    rand = _randomNumber.Next()
       
     classDef = [|
       public class Mercury_route(IMercuryRouteAction):
+        public def constructor():
+          pass
+
         public def constructor():
           pass
           
@@ -31,7 +35,6 @@ public class MercuryRouteBuilder:
     
     rawDependencies = GetDependenciesForClass(body, module)
     
-    
     classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
     classDef.Name = classDef.Name + "_" + method + "_" + rand
     
@@ -47,14 +50,11 @@ public class MercuryRouteBuilder:
   public def PullDependenciesFromMacroBody(body as Block) as Dictionary [of string, ParameterDeclaration]:
     dict = Dictionary[of string, ParameterDeclaration]()
     
-    deps = List of DeclarationStatement()
+    deps = Dictionary [of string, DeclarationStatement]()
     for i in body.Statements:
       if i["dependency"]  == true:
-        for j in (i as Block).Statements:
-          deps.Add(j)
-    
-    raise "da count" + deps.Count
-    
+        for j as DeclarationStatement in (i as Block).Statements:
+          deps.Add(j.Declaration.Name, j)
     return dict
   
   public def PullDependenciesFromModule(module as Module) as Dictionary [of string,ParameterDeclaration]:
@@ -66,6 +66,6 @@ public class MercuryRouteBuilder:
   
   public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as Dictionary[of string, ParameterDeclaration]) as ClassDefinition:
     theType = [| typeof(System.String) |]
-    classDef.GetConstructor(0).Parameters.Add(ParameterDeclaration("foo", theType.Type))
+    classDef.GetConstructor(1).Parameters.Add(ParameterDeclaration("foo", theType.Type))
     
     return classDef
