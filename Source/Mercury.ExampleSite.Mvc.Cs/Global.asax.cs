@@ -21,7 +21,7 @@ namespace Mercury.ExampleSite
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
       
-      var engine = new MercuryEngine(container);
+      var engine = new MercuryStartupService(container);
       engine.Initialize(routes);
       routes.Add(engine);
       

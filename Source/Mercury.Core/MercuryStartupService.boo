@@ -7,7 +7,7 @@ import System.Web
 import System.Web.Routing
 import Microsoft.Practices.ServiceLocation
 
-public class MercuryEngine(RouteBase):
+public class MercuryStartupService(RouteBase):
   
   private _uninstantiatedRoutes as IEnumerable of Type;
   private _container as object
