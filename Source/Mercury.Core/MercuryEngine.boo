@@ -19,7 +19,11 @@ public class MercuryEngine(RouteBase):
   public def Initialize(routes as RouteCollection):
     _routes = routes;
     _uninstantiatedRoutes = ParseReferencedAssembliesForUninstantiatedRoutes()
-  
+    
+    
+    for routeAction in _uninstantiatedRoutes:
+      pass
+    
   public def GetRouteData(httpContext as HttpContextBase) as RouteData:
     url = httpContext.Request.Url;
     method = httpContext.Request.HttpMethod;
