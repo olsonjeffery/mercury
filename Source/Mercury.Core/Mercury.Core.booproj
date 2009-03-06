@@ -48,6 +48,7 @@
     <Compile Include="IMercuryRouteAction.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="MercuryHttpHandler.boo" />
+    <Compile Include="MercuryRoute.boo" />
     <Compile Include="MercuryRouteBuilder.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
     <Compile Include="MercuryStartupService.boo" />
