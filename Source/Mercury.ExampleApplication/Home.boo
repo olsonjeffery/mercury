@@ -3,15 +3,18 @@ namespace Mercury.ExampleApplication
 import System
 import Mercury.Core
 
-Get "~/Home/":
+Get "":
+  print "hi-lo!"
+
+Get "Home":
   print "hello world!!!"
 
-Get "~/Home/List":
+Get "Home/List":
   print "arggg!"
   dependency:
     testService as ITestService
     anotherService as ITestService
 
-Get "~/Test":
+Get "Test":
   print "fail!"
   dependency testService as ITestService
