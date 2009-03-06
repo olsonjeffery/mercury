@@ -50,7 +50,7 @@
     <Compile Include="MercuryHttpHandler.boo" />
     <Compile Include="MercuryRouteBuilder.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
-    <Compile Include="MercuryEngine.boo" />
+    <Compile Include="MercuryStartupService.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
