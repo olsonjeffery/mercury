@@ -11,7 +11,7 @@ public class MercuryRouteBuilder:
   def constructor():
     pass
 
-  public def BuildRouteClass(method as string, routeString as string, module as Module, body as Block) as ClassDefinition:
+  public def BuildRouteClass(method as string, routeString as StringLiteralExpression, module as Module, body as Block) as ClassDefinition:
     rand = _randomNumber.Next()
       
     classDef = [|
@@ -27,10 +27,10 @@ public class MercuryRouteBuilder:
         
         public HttpMethod as string:
           get:
-            return $(method)
+            return $method
         public RouteString as string:
           get:
-            return $(routeString)
+            return $routeString
     |]
     
     rawDependencies = GetDependenciesForClass(body, module)

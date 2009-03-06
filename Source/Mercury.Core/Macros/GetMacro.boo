@@ -16,9 +16,7 @@ public class GetMacro(AbstractAstMacro):
     raise "only one argument (string) is allowed to get" if macro.Arguments.Count != 1
     raise "only string is allowed as the argument to get, you provided: " + arg.GetType() if not arg isa StringLiteralExpression
     
-    routeString = (arg as RELiteralExpression).Value if arg isa RELiteralExpression
-    routeString = routeString.Substring(1,routeString.Length-2) if arg isa RELiteralExpression
-    routeString = (arg as StringLiteralExpression).ToString() if arg isa StringLiteralExpression
+    routeString = (arg as StringLiteralExpression)
     
     method = 'GET'
     
