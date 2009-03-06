@@ -11,12 +11,17 @@ require 'active_record'
 require 'fileutils'
 include FileUtils
 
-task :sln do
+task :vssln do
   Thread.new do
     system "devenv Source/Mercury.sln"
   end
 end
 
+task :sln do
+  Thread.new do
+    system "SharpDevelop Source/Mercury.sln"
+  end
+end
 task :specs => "specs:view"
 
 task :build do
