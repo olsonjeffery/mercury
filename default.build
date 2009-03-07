@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project name="Mercury" default="build">
+    <target name="*">
+        <nant target="${target::get-current-target()}">
+            <buildfiles>
+                <include name="**/*.build" />
+
+                <!-- avoid recursive execution of current build file -->
+                <exclude name="${project::get-buildfile-path()}" />
+            </buildfiles>
+        </nant>
+    </target>
+	<target name="build">
+		<msbuild project="Source\Mercury.sln" target="Build">
+			<property name="BooBinPath" value="..\..\Libraries\boo" />
+		</msbuild>
+	</target>
+	
+	<target name="clean">
+		<msbuild project="Source\Mercury.sln" target="Clean">
+			<property name="BooBinPath" value="..\..\Libraries\boo" />
+		</msbuild>
+	</target>
+</project>
