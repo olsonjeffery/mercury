@@ -54,7 +54,7 @@ public class MercuryRouteBuilder:
     for i in body.Statements:
       if i["dependency"]  == true:
         for j as DeclarationStatement in (i as Block).Statements:
-          deps.Add(j.Declaration.Name, j)
+          dict.Add(j.Declaration.Name, ParameterDeclaration(j.Declaration.Name, j.Declaration.Type))
     return dict
   
   public def PullDependenciesFromModule(module as Module) as Dictionary [of string,ParameterDeclaration]:
