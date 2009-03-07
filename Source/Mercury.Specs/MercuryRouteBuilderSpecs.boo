@@ -34,7 +34,7 @@ public class when_parsing_dependencies_from_a_route_action_whose_method_body_con
     dependency = GenerateDependencyOn(typeof(string))
     methodBody = [|
       $(dependency)
-      foo = "bar"
+      foo = 1
     |]
   
   of_ as Because = def():
@@ -46,4 +46,3 @@ public class when_parsing_dependencies_from_a_route_action_whose_method_body_con
   should_find_a_dependency_of_type_string as It = def():
     for i in parameters.Values:
       ShouldEqual(i.Type.ToString(), typeof(string).ToString())
-

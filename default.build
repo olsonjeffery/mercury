@@ -21,8 +21,15 @@
 			<property name="BooBinPath" value="..\..\Libraries\boo" />
 		</msbuild>
 	</target>
-
+	
+	<target name="buildSpecs">
+		<msbuild project="Source\Mercury.Specs\Mercury.Specs.booproj">
+			<property name="BooBinPath" value="..\..\Libraries\boo" />
+		</msbuild>
+	</target>
+	
   <target name="runSpecs">
+	<call target="buildSpecs" />
     <exec program="libraries\machine\specifications\Machine.Specifications.ConsoleRunner.exe">
 	  <arg line="-s -t --html Specs.html Source\Mercury.Specs\bin\Debug\Mercury.Specs.dll" />
 	</exec>
