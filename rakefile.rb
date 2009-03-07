@@ -25,13 +25,17 @@ end
 task :specs => "specs:view"
 
 task :build do
-  system "msbuild default.msbuild /t:Build"
+  system "nant default.build build"
+end
+
+task :clean do
+  system "nant default.build clean"
 end
 
 namespace :specs do
   desc "Run Server Specs"
   task :run do
-    system "msbuild default.msbuild /t:RunSpecs"
+    system "nant default.build runSpecs"
   end
 
   desc "Run and View Server Specs"
