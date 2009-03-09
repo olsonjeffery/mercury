@@ -1,14 +1,20 @@
 namespace Mercury.Core
 
 import System
+import System.Web
+import System.Web.Routing
 
-public class MercuryRoute:
-  [property(RouteHandler)]
-  _routeHandler as MercuryRouteHandler
+public class MercuryRoute(Route):  
+  [property(HttpMethod)]
+  _httpMethod as string
   
-  [property(Url)]
-  _url as string
+  //public def constructor(url as string, routeHandler as MercuryRouteHandler)
   
-  public def constructor(url as string, routeHandler as MercuryRouteHandler):
-    _routeHandler = routeHandler
-    _url = url
+  public def constructor(url as string, routeHandler as MercuryRouteHandler, method as string):
+    super(url, routeHandler)
+    _httpMethod = method
+    
+  public override def GetRouteData(httpContext as HttpContextBase) as RouteData:
+    routeData = super.GetRouteData(httpContext)
+    return null if httpContext.Request.HttpMethod != _httpMethod
+    return routeData
