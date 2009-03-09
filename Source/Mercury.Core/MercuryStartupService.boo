@@ -20,7 +20,7 @@ public class MercuryStartupService(RouteBase):
     routes = List of Route()
     for routeType in _uninstantiatedRoutes:
       routeAction = routeType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IMercuryRouteAction
-      routes.Add(Route(routeAction.RouteString, MercuryRouteHandler(_container, routeType, null)))
+      routes.Add(MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, null), routeAction.HttpMethod))
     
     //raise "number of routes: " + routes.Count + '\n route 0 url: '+routes[0].Url+ '\n route 1 url: '+routes[1].Url+ '\n route 2 url: '+routes[2].Url
     return routes
