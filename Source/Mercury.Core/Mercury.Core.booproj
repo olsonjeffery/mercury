@@ -35,9 +35,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web">
-		<!--<HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath> for 32bit-->
-		<HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath> <!-- for 64bit -->
-	</Reference>
+      <!--<HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath> for 32bit-->
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath>
+      <!-- for 64bit -->
+    </Reference>
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="DependencyMacro.boo" />
+    <Compile Include="Exceptions\DuplicateDependencyException.boo" />
     <Compile Include="IMercuryRouteAction.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="MercuryHttpHandler.boo" />
@@ -57,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
+    <Folder Include="Exceptions" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
