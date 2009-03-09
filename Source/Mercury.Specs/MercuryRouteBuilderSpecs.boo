@@ -73,7 +73,7 @@ public class when_parsing_dependencies_from_a_route_action_whose_method_body_con
   should_find_two_dependencies  as It = def():
     ShouldEqual(parameters.Count(),2)
   
-  should_find_a_dependencies_of_either_int_or_decimal as It = def():
+  should_find_dependencies_of_either_int_or_decimal as It = def():
     for i in parameters:
       (i.Type.ToString() in (intType, decimalType)).ShouldBeTrue()
 
@@ -85,10 +85,10 @@ public class when_parsing_a_given_group_of_three_dependencies_where_two_dependen
     deps.Add(GeneratedParsedDependencyOn(typeof(decimal), "dep2"))
   
   of_ as Because = def():
-    exception = Catch.Exception({ builder.VerifyNoOverlappingDependencies(deps) })
+    verificationSucceeded = builder.VerifyNoOverlappingDependencyNames(deps)
   
-  should_cause_an_error as It = def():
-    exception.ShouldNotBeNull()
+  should_fail_to_verify_the_dependencies as It = def():
+    verificationSucceeded.ShouldBeFalse()
   
   static deps as List of ParameterDeclaration
-  static exception as Exception
+  static verificationSucceeded as bool

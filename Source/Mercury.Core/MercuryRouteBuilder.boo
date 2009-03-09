@@ -53,6 +53,7 @@ public class MercuryRouteBuilder:
       if i["dependency"]  == true:
         for j as DeclarationStatement in (i as Block).Statements:
           list.Add(ParameterDeclaration(j.Declaration.Name, j.Declaration.Type))
+    raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
     return list
   
   public def PullDependenciesFromModule(module as Module) as ParameterDeclaration*:
@@ -68,5 +69,9 @@ public class MercuryRouteBuilder:
     
     return classDef
   
-  public def VerifyNoOverlappingDependencies(deps as ParameterDeclaration*) as bool:
-    return false
+  public def VerifyNoOverlappingDependencyNames(deps as ParameterDeclaration*) as bool:
+    tempDict = Dictionary[of string, ParameterDeclaration]()
+    for i in deps:
+      return false if tempDict.ContainsKey(i.Name)
+      tempDict[i.Name] = i
+    return true
