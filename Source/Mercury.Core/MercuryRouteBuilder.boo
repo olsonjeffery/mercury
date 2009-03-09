@@ -44,7 +44,7 @@ public class MercuryRouteBuilder:
     inActionDependencies = PullDependenciesFromMacroBody(body)
     moduleLevelDependencies = PullDependenciesFromModule(module)
     
-    return MergeDependencyDictionaries(inActionDependencies, moduleLevelDependencies)
+    return MergeDependencyLists(inActionDependencies, moduleLevelDependencies)
     
   
   public def PullDependenciesFromMacroBody(body as Block) as ParameterDeclaration*:
@@ -60,8 +60,14 @@ public class MercuryRouteBuilder:
     list = List of ParameterDeclaration()
     return list
     
-  public def MergeDependencyDictionaries(inAction as ParameterDeclaration*, moduleLevel as ParameterDeclaration*) as ParameterDeclaration*:
-    return List of ParameterDeclaration()
+  public def MergeDependencyLists(inAction as ParameterDeclaration*, moduleLevel as ParameterDeclaration*) as ParameterDeclaration*:
+    list = List of ParameterDeclaration()
+    for i in inAction:
+      list.Add(i)
+    for i in moduleLevel:
+      list.Add(i)
+    raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
+    return list
   
   public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as ParameterDeclaration*) as ClassDefinition:
     theType = [| typeof(System.String) |]
