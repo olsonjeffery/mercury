@@ -8,6 +8,8 @@ import Boo.Lang.Compiler.Ast
 //import Machine.Specifications.NUnitCollectionExtensionMethods from Machine.Specifications
 import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifications.NUnit
 
+import System.Linq.Enumerable from System.Core
+
 import Mercury.Core
 
 public class MercuryRouteBuilderSpecs:
@@ -32,9 +34,12 @@ public class MercuryRouteBuilderSpecs:
   protected static random as Random = Random()
   protected static builder as MercuryRouteBuilder
   protected static methodBody as Block
-  protected static parameters as List of ParameterDeclaration
+  protected static parameters as ParameterDeclaration*
   protected static stringTypeRef as TypeReference
-
+  protected static stringType as string = typeof(string).ToString()
+  protected static intType as string = typeof(int).ToString()
+  protected static decimalType as string = typeof(decimal).ToString()
+  
 public class when_parsing_dependencies_from_a_route_action_whose_method_body_contains_a_single_dependency_on_string(MercuryRouteBuilderSpecs):
   context as Establish = def():
     dependency = GenerateUnparsedDependencyOn(typeof(string))
@@ -47,7 +52,7 @@ public class when_parsing_dependencies_from_a_route_action_whose_method_body_con
     parameters = builder.PullDependenciesFromMacroBody(methodBody)
   
   should_find_a_single_dependency  as It = def():
-    ShouldEqual(parameters.Count,1)
+    ShouldEqual(parameters.Count(),1)
   
   should_find_a_dependency_of_type_string as It = def():
     for i in parameters:
@@ -66,11 +71,11 @@ public class when_parsing_dependencies_from_a_route_action_whose_method_body_con
     parameters = builder.PullDependenciesFromMacroBody(methodBody)
   
   should_find_two_dependencies  as It = def():
-    ShouldEqual(parameters.Count,2)
+    ShouldEqual(parameters.Count(),2)
   
   should_find_a_dependencies_of_either_int_or_decimal as It = def():
     for i in parameters:
-      ShouldBeTrue(i.Type.ToString() in (typeof(int).ToString(), typeof(decimal).ToString()))
+      (i.Type.ToString() in (intType, decimalType)).ShouldBeTrue()
 
 public class when_parsing_a_given_group_of_three_dependencies_where_two_dependencies_share_the_same_name(MercuryRouteBuilderSpecs):
   context as Establish = def():
@@ -83,7 +88,7 @@ public class when_parsing_a_given_group_of_three_dependencies_where_two_dependen
     exception = Catch.Exception({ builder.VerifyNoOverlappingDependencies(deps) })
   
   should_cause_an_error as It = def():
-    ShouldNotBeNull(exception)
+    exception.ShouldNotBeNull()
   
   static deps as List of ParameterDeclaration
   static exception as Exception
