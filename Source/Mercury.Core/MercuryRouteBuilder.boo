@@ -40,14 +40,14 @@ public class MercuryRouteBuilder:
     
     return classDef
   
-  public def GetDependenciesForClass(body as Block, module as Module) as List of ParameterDeclaration:
+  public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
     inActionDependencies = PullDependenciesFromMacroBody(body)
     moduleLevelDependencies = PullDependenciesFromModule(module)
     
     return MergeDependencyDictionaries(inActionDependencies, moduleLevelDependencies)
     
   
-  public def PullDependenciesFromMacroBody(body as Block) as List of ParameterDeclaration:
+  public def PullDependenciesFromMacroBody(body as Block) as ParameterDeclaration*:
     list = List of ParameterDeclaration()
     for i in body.Statements:
       if i["dependency"]  == true:
@@ -55,18 +55,18 @@ public class MercuryRouteBuilder:
           list.Add(ParameterDeclaration(j.Declaration.Name, j.Declaration.Type))
     return list
   
-  public def PullDependenciesFromModule(module as Module) as List of ParameterDeclaration:
+  public def PullDependenciesFromModule(module as Module) as ParameterDeclaration*:
     list = List of ParameterDeclaration()
     return list
     
-  public def MergeDependencyDictionaries(inAction as List of ParameterDeclaration, moduleLevel as List of ParameterDeclaration) as List of ParameterDeclaration:
+  public def MergeDependencyDictionaries(inAction as ParameterDeclaration*, moduleLevel as ParameterDeclaration*) as ParameterDeclaration*:
     return List of ParameterDeclaration()
   
-  public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as List of ParameterDeclaration) as ClassDefinition:
+  public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as ParameterDeclaration*) as ClassDefinition:
     theType = [| typeof(System.String) |]
     classDef.GetConstructor(1).Parameters.Add(ParameterDeclaration("foo", theType.Type))
     
     return classDef
   
-  public def VerifyNoOverlappingDependencies(deps as List of ParameterDeclaration) as bool:
+  public def VerifyNoOverlappingDependencies(deps as ParameterDeclaration*) as bool:
     return false
