@@ -2,6 +2,7 @@ namespace Mercury.Core
 
 import System
 import System.Collections.Generic
+import System.Linq.Enumerable from System.Core
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
@@ -18,10 +19,7 @@ public class MercuryRouteBuilder:
       public class Mercury_route(IMercuryRouteAction):
         public def constructor():
           pass
-
-        public def constructor():
-          pass
-          
+        
         public def Execute():
           $(body)
         
@@ -69,10 +67,26 @@ public class MercuryRouteBuilder:
     raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
     return list
   
+  public def PopulateConstructorWithParametersFromDependencies(ctor as Constructor, params as ParameterDeclaration*):
+    for i in params:
+      ctor.Parameters.Add(i)
+    return ctor
+  
+  public def PopulateClassDefinitionWithFieldsFromDependencies(classDef as ClassDefinition, fields as ParameterDeclaration*):
+    return classDef
+  
+  public def PopulateConstructorWithFieldAssignmentsFromMethodParameters(ctor as Constructor):
+    return ctor
+  
   public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as ParameterDeclaration*) as ClassDefinition:
-    theType = [| typeof(System.String) |]
-    classDef.GetConstructor(1).Parameters.Add(ParameterDeclaration("foo", theType.Type))
+    return classDef if deps.Count() == 0
+    ctor = Constructor()
     
+    classDef = PopulateClassDefinitionWithFieldsFromDependencies(classDef, deps)
+    ctor = PopulateConstructorWithParametersFromDependencies(ctor, deps)
+    ctor = PopulateConstructorWithFieldAssignmentsFromMethodParameters(ctor)
+    
+    classDef.Members.Add(ctor)
     return classDef
   
   public def VerifyNoOverlappingDependencyNames(deps as ParameterDeclaration*) as bool:
