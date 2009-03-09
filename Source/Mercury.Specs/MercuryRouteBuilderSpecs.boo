@@ -62,7 +62,6 @@ public class when_parsing_a_given_group_of_three_dependencies_where_two_dependen
   should_fail_to_verify_the_dependencies as It = def():
     verificationSucceeded.ShouldBeFalse()
   
-  static depsList as List of ParameterDeclaration
   static verificationSucceeded as bool
 
 public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_no_dependencies(MercuryRouteBuilderSpecs):
@@ -75,11 +74,31 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
     deps = List of ParameterDeclaration()
   
   of_ as Because = def():
-    classDefintion = MercuryRouteBuilder().PopulateConstructorWithParametersFromDependencies(classDefinition.GetConstructor(0), deps)
+    classDefintion = MercuryRouteBuilder().PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, deps)
   
   should_not_create_an_additional_constructor as It = def():
-    //memberIsAConstructor = { member as TypeMember | member isa Constructor }
     classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(1)
+
+public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
+  context as Establish = def():
+    classDefinition = [|
+      public class foo:
+        public def constructor():
+          pass
+    |]
+    depsList = List of ParameterDeclaration()
+    depsList.Add(ParameterDeclaration("foo", [| typeof(string) |].Type))
+    depsList.Add(ParameterDeclaration("bar", [| typeof(int) |].Type))
+  
+  of_ as Because = def():
+    classDefintion = MercuryRouteBuilder().PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, depsList)
+  
+  should_create_an_additional_constructor as It = def():
+    classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(2)
+
+  should_have_the_constructors_parameters_be_of_the_same_type_as_the_dependencies as It = def():
+    for parameter in (classDefinition.Members.Where(memberIsAConstructor).ElementAt(1) as Constructor).Parameters:
+      (parameter.Type.ToString() in ("string", "int")).ShouldBeTrue()
 
 public class MercuryRouteBuilderSpecs:
   context as Establish = def():
@@ -111,3 +130,4 @@ public class MercuryRouteBuilderSpecs:
   protected static deps as ParameterDeclaration*
   protected static classDefinition as ClassDefinition
   protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
+  protected static depsList as List of ParameterDeclaration
