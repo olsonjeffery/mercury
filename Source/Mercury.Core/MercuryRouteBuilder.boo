@@ -81,6 +81,12 @@ public class MercuryRouteBuilder:
     return classDef
   
   public def PopulateConstructorWithFieldAssignmentsFromMethodParameters(ctor as Constructor):
+    ctor.Body = Block()
+    for i in ctor.Parameters:
+      refExp = ReferenceExpression(i.Name)
+      assignment = [| self.$(i.Name) = $(refExp) |]
+      ctor.Body.Add(assignment)
+    
     return ctor
   
   public def PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef as ClassDefinition, deps as ParameterDeclaration*) as ClassDefinition:

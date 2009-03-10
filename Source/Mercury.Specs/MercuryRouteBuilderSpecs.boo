@@ -110,12 +110,9 @@ public class when_attempting_to_add_dependencies_to_a_generated_route_action_cla
   should_make_the_fields_of_the_same_name_as_the_dependencies as It = def():
     for field as Field in classDefinition.Members.Where(memberIsAField):
       (field.Name in ("foo", "bar")).ShouldBeTrue()
-
-public class when_adding_fields_to_a_route_action_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
   
-  of_ as Because = def():
-    classDefintion = builder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, depsList)
-  
+  should_make_two_assignments_to_store_the_constructor_parameters_in_fields as It = def():
+    (classDefinition.Members.Where(memberIsAConstructor).Where(constructorHasMoreThanZeroParameters).Single() as Constructor).Body.Statements.Count.ShouldEqual(2)
 
 public class MercuryRouteBuilderSpecs:
   context as Establish = def():
@@ -150,3 +147,4 @@ public class MercuryRouteBuilderSpecs:
   
   protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
   protected static memberIsAField = { member as TypeMember | member  isa Field }
+  protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
