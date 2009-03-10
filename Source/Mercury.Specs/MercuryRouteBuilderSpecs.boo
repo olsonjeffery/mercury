@@ -79,7 +79,7 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
   should_not_create_an_additional_constructor as It = def():
     classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(1)
 
-public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
+public class when_attempting_to_add_dependencies_to_a_generated_route_action_class_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
   context as Establish = def():
     classDefinition = [|
       public class foo:
@@ -91,7 +91,7 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
     depsList.Add(ParameterDeclaration("bar", [| typeof(int) |].Type))
   
   of_ as Because = def():
-    classDefintion = MercuryRouteBuilder().PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, depsList)
+    classDefintion = builder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, depsList)
   
   should_create_an_additional_constructor as It = def():
     classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(2)
@@ -99,6 +99,23 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
   should_have_the_constructors_parameters_be_of_the_same_type_as_the_dependencies as It = def():
     for parameter in (classDefinition.Members.Where(memberIsAConstructor).ElementAt(1) as Constructor).Parameters:
       (parameter.Type.ToString() in ("string", "int")).ShouldBeTrue()
+  
+  should_add_two_fields_to_the_generated_class as It = def():
+    classDefinition.Members.Where(memberIsAField).Count().ShouldEqual(2)
+  
+  should_make_the_fields_of_the_same_types_as_the_dependencies as It = def():
+    for field as Field in classDefinition.Members.Where(memberIsAField):
+      (field.Type.ToString() in ("string", "int")).ShouldBeTrue()
+  
+  should_make_the_fields_of_the_same_name_as_the_dependencies as It = def():
+    for field as Field in classDefinition.Members.Where(memberIsAField):
+      (field.Name in ("foo", "bar")).ShouldBeTrue()
+
+public class when_adding_fields_to_a_route_action_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
+  
+  of_ as Because = def():
+    classDefintion = builder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, depsList)
+  
 
 public class MercuryRouteBuilderSpecs:
   context as Establish = def():
@@ -129,5 +146,7 @@ public class MercuryRouteBuilderSpecs:
   protected static decimalType as string = typeof(decimal).ToString()
   protected static deps as ParameterDeclaration*
   protected static classDefinition as ClassDefinition
-  protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
   protected static depsList as List of ParameterDeclaration
+  
+  protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
+  protected static memberIsAField = { member as TypeMember | member  isa Field }

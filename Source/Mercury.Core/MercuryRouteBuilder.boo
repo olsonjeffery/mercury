@@ -73,6 +73,11 @@ public class MercuryRouteBuilder:
     return ctor
   
   public def PopulateClassDefinitionWithFieldsFromDependencies(classDef as ClassDefinition, fields as ParameterDeclaration*):
+    for i in fields:
+      field = Field(i.Type, [| null |])
+      field.Name = i.Name
+      classDef.Members.Add(field)
+    
     return classDef
   
   public def PopulateConstructorWithFieldAssignmentsFromMethodParameters(ctor as Constructor):
