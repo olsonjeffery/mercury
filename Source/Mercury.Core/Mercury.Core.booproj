@@ -43,7 +43,6 @@
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
@@ -56,6 +55,7 @@
     <Compile Include="MercuryRouteBuilder.boo" />
     <Compile Include="MercuryRouteHandler.boo" />
     <Compile Include="MercuryStartupService.boo" />
+    <Compile Include="RouteActionFactory.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
