@@ -15,6 +15,12 @@
 			<property name="BooBinPath" value="..\..\Libraries\boo" />
 		</msbuild>
 	</target>
+
+	<target name="rebuild">
+		<msbuild project="Source\Mercury.sln" target="Rebuild">
+			<property name="BooBinPath" value="..\..\Libraries\boo" />
+		</msbuild>
+	</target>
 	
 	<target name="clean">
 		<msbuild project="Source\Mercury.sln" target="Clean">

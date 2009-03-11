@@ -28,6 +28,10 @@ task :build do
   system "nant default.build build"
 end
 
+task :rebuild do
+  system "nant default.build rebuild"
+end
+
 task :clean do
   system "nant default.build clean"
 end

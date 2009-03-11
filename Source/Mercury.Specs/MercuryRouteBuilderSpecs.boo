@@ -5,7 +5,7 @@ import System.Collections.Generic
 import Machine.Specifications
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
-//import Machine.Specifications.NUnitCollectionExtensionMethods from Machine.Specifications
+
 import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifications.NUnit
 
 import System.Linq.Enumerable from System.Core
