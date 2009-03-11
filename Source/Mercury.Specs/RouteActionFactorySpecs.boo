@@ -33,17 +33,38 @@ public class when_picking_a_constructor_to_instantiate_a_route_action_from_and_t
     (List of ParameterInfo(ctor.GetParameters())).Count.ShouldEqual(1)
 
 public class when_searching_for_dependencies_for_a_route_action_and_the_container_cannot_satisfy_them_all(RouteActionFactorySpecs):
-  should_raise_an_exception as It
-  should_indicate_the_route_with_the_unsatisfied_dependency_in_the_exception_message as It
+  
+  context as Establish = def():
+    ctor = (List of ConstructorInfo(multipleCtorRouteActionType.GetConstructors()))[1]
+  
+  of_ as Because = def():
+    exception = Catch.Exception({ factory.GetDependenciesForConstructor(ctor) })
+  
+  should_raise_an_exception as It = def():
+    exception.ShouldNotBeNull()
 
-public class when_searching_for_dependencies_for_a_route_action_with_two_dependencies_and_the_container_has_all_of_them(RouteActionFactorySpecs):
-  should_return_two_dependencies as It
-  should_return_dependencies_matching_the_types_in_the_route_action_types_chosen_constructor as It
+public class when_searching_for_dependencies_for_a_route_action_with_one_dependency_and_the_container_has_it(RouteActionFactorySpecs):
+
+  context as Establish = def():
+    ctor = (List of ConstructorInfo(multipleCtorRouteActionType.GetConstructors()))[1]
+    container.Add[of ITestService]()
+    container.Start()
+
+  of_ as Because = def():
+    dependencies = factory.GetDependenciesForConstructor(ctor)
+
+  should_return_one_dependency as It = def():
+    dependencies.Count().ShouldEqual(1)
+
+  should_return_a_dependency_of_the_same_type_as_in_the_constructor_parameter as It = def():
+    dependencies.First().GetType().ToString().ShouldEqual(typeof(ITestService).ToString())
 
 public class RouteActionFactorySpecs:
   
   context as Establish = def():
     container = MachineContainer()
+    container.Initialize()
+    container.PrepareForServices()
     serviceLocator = CommonServiceLocatorAdapter(container)
     factory = RouteActionFactory(serviceLocator)
     singleCtorRouteActionType = typeof(SingleCtorRouteAction)
@@ -55,6 +76,8 @@ public class RouteActionFactorySpecs:
   protected static singleCtorRouteActionType as Type
   protected static multipleCtorRouteActionType as Type
   protected static ctor as ConstructorInfo
+  protected static dependencies as object*
+  protected static exception as Exception
 
 public class MultipleCtorRouteAction(IMercuryRouteAction):
   public def constructor():

@@ -24,3 +24,10 @@ public class RouteActionFactory:
       ctor = i if ctor is null or ctorParamsCount < iParamsCount
     raise "no constructor found for type: "+type.ToString() if ctor is null
     return ctor
+  
+  public def GetDependenciesForConstructor(ctor as ConstructorInfo) as object*:
+    deps = []
+    for i in ctor.GetParameters():
+      dep = _container.GetInstance(i.ParameterType)
+      deps.Add(dep)
+    return deps
