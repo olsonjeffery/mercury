@@ -1,0 +1,109 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{C8992617-8D7D-46EF-9204-81DEC657E532}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mercury.ExampleSite</RootNamespace>
+    <AssemblyName>Mercury.ExampleSite</AssemblyName>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\jolson\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <NoStdLib>False</NoStdLib>
+    <Ducky>False</Ducky>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Boo.Lang">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.CodeDom">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Compiler">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Useful">
+      <HintPath>..\..\Libraries\boo\Boo.Lang.Useful.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Container">
+      <HintPath>..\..\Libraries\Machine\Container\Machine.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spark.Web.Mvc">
+      <HintPath>..\..\Libraries\Spark\Spark.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+	<Reference Include="System.Core" />
+    <Reference Include="System.Web">
+      <!--<HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath> for 32bit-->
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath>
+      <!-- for 64bit -->
+    </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="Controllers\AccountController.boo" />
+    <Compile Include="Controllers\HomeController.boo" />
+    <Compile Include="Default.aspx.boo" />
+    <Compile Include="Global.asax.boo" />
+    <Compile Include="RouteInfo.boo" />
+    <None Include="Content\Site.css" />
+    <None Include="Controllers\AccountController.cs" />
+    <None Include="Controllers\HomeController.cs" />
+    <None Include="Default.aspx" />
+    <None Include="Global.asax" />
+    <None Include="Scripts\jquery-1.2.6-vsdoc.js" />
+    <None Include="Scripts\jquery-1.2.6.js" />
+    <None Include="Scripts\jquery-1.2.6.min-vsdoc.js" />
+    <None Include="Scripts\jquery-1.2.6.min.js" />
+    <None Include="Scripts\MicrosoftAjax.debug.js" />
+    <None Include="Scripts\MicrosoftAjax.js" />
+    <None Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <None Include="Scripts\MicrosoftMvcAjax.js" />
+    <None Include="Views\Account\ChangePassword.aspx" />
+    <None Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <None Include="Views\Account\LogOn.aspx" />
+    <None Include="Views\Account\Register.aspx" />
+    <None Include="Views\Home\About.aspx" />
+    <None Include="Views\Home\Index.aspx" />
+    <None Include="Views\Shared\Error.aspx" />
+    <None Include="Views\Shared\LogOnUserControl.ascx" />
+    <None Include="Views\Shared\Site.Master" />
+    <None Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
+      <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
+      <Name>Mercury.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mercury.ExampleApplication\Mercury.ExampleApplication.booproj">
+      <Project>{A92463A6-83D7-4BB2-817C-0A58D8874370}</Project>
+      <Name>Mercury.ExampleApplication</Name>
+    </ProjectReference>
+    <Folder Include="Content" />
+    <Folder Include="Controllers" />
+    <Folder Include="Views" />
+    <Folder Include="Scripts" />
+    <Folder Include="Views\Account" />
+    <Folder Include="Views\Home" />
+    <Folder Include="Views\Shared" />
+  </ItemGroup>
+  <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
+</Project>
