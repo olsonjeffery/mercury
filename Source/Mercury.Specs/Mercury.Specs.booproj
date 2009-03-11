@@ -29,14 +29,25 @@
     <Reference Include="Boo.Lang.Useful">
       <HintPath>..\..\Libraries\boo\Boo.Lang.Useful.dll</HintPath>
     </Reference>
+    <Reference Include="Machine.Container">
+      <HintPath>..\..\Libraries\Machine\Container\Machine.Container.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\..\Libraries\Machine\Specifications\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.NUnit">
       <HintPath>..\..\Libraries\Machine\Specifications\Machine.Specifications.NUnit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+	<Reference Include="System.Web">
+      <!--<HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath> for 32bit-->
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath>
+      <!-- for 64bit -->
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
@@ -46,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="RouteActionFactorySpecs.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
