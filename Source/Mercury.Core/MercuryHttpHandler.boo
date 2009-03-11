@@ -6,11 +6,10 @@ import Microsoft.Practices.ServiceLocation
 
 public class MercuryHttpHandler(IHttpHandler):
   _container as IServiceLocator
-  _routeActionType as Type
+  _routeActionType as IMercuryRouteAction
   
-  public def constructor(container as IServiceLocator, routeActionType as Type):
-    _container = container
-    _routeActionType = routeActionType
+  public def constructor(routeAction as IMercuryRouteAction):
+    _routeAction = routeAction
     
   public IsReusable as bool:
     get:
