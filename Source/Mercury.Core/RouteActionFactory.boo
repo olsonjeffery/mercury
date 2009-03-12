@@ -31,3 +31,8 @@ public class RouteActionFactory:
       dep = _container.GetInstance(i.ParameterType)
       deps.Add(dep)
     return deps
+  
+  public def CreateInstanceOf(type as Type) as IMercuryRouteAction:
+    ctor = GetConstructorWithMostParametersFor(type)
+    deps = GetDependenciesForConstructor(ctor)
+    return (ctor.Invoke((List of object(deps)).ToArray()) as IMercuryRouteAction)

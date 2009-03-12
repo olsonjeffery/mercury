@@ -59,6 +59,24 @@ public class when_searching_for_dependencies_for_a_route_action_with_one_depende
   should_return_a_dependency_of_the_same_type_as_in_the_constructor_parameter as It = def():
     dependencies.First().GetType().ToString().ShouldEqual(typeof(ITestService).ToString())
 
+public class when_attempting_to_create_an_instance_of_a_route_action_and_the_required_dependencies_are_in_the_container(RouteActionFactorySpecs):
+  
+  context as Establish = def():
+    container.Add[of ITestService]()
+    container.Start()
+  
+  of_ as Because = def():
+    routeAction = factory.CreateInstanceOf(multipleCtorRouteActionType)
+  
+  should_create_an_instance_successfully as It = def():
+    routeAction.ShouldNotBeNull()
+  
+  should_populate_the_instance_correctly = def():
+    routeAction.RouteString.Equals(actual.RouteString)
+  
+  routeAction as IMercuryRouteAction
+  actual as IMercuryRouteAction = MultipleCtorRouteAction()
+
 public class RouteActionFactorySpecs:
   
   context as Establish = def():
