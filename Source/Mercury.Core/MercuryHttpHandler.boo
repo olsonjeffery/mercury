@@ -5,8 +5,7 @@ import System.Web
 import Microsoft.Practices.ServiceLocation
 
 public class MercuryHttpHandler(IHttpHandler):
-  _container as IServiceLocator
-  _routeActionType as IMercuryRouteAction
+  _routeAction as IMercuryRouteAction
   
   public def constructor(routeAction as IMercuryRouteAction):
     _routeAction = routeAction
@@ -16,4 +15,5 @@ public class MercuryHttpHandler(IHttpHandler):
       return false
 
   public def ProcessRequest(httpContext as HttpContext) as void:
-    raise "holy shit!"
+    _routeAction.HttpContext = httpContext
+    _routeAction.Execute()

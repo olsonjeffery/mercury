@@ -31,7 +31,7 @@ public class MercuryRouteBuilder:
             return $routeString
         
         [property(HttpContext)]
-        _httpContext as HttpContext
+        httpContext as HttpContext
     |]
     
     rawDependencies = GetDependenciesForClass(body, module)

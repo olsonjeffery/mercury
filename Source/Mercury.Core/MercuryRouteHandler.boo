@@ -9,10 +9,14 @@ import Microsoft.Practices.ServiceLocation
 public class MercuryRouteHandler(IRouteHandler):
   _container as IServiceLocator
   _routeType as Type
+  _factory as RouteActionFactory
   
   def constructor(container as IServiceLocator, routeType as Type, viewEngines as object):
     _container = container
-    _routeType = routeType
+    _factory = RouteActionFactory(_container)
+    _routeType = routeType    
   
   public def GetHttpHandler(requestContext as RequestContext) as IHttpHandler:
-    raise "method: '"+requestContext.HttpContext.Request.HttpMethod+"' url: "+requestContext.HttpContext.Request.Url + " type of action: "+_routeType.GetType().ToString()
+    routeAction = _factory.CreateInstanceOf(_routeType)
+    handler = MercuryHttpHandler(routeAction)
+    return handler

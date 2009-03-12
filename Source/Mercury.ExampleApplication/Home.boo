@@ -1,11 +1,12 @@
 namespace Mercury.ExampleApplication
 
 import System
+import System.IO
 import Mercury.Core
 import System.Web
 
 Get "":
-  print "hi-lo!"
+  httpContext.Response.Output.Write("hello  world!!!!")
 
 Get "Home":
   print "hello world!!!"
