@@ -15,12 +15,22 @@ public class MercuryRouteBuilder:
   public def BuildRouteClass(method as string, routeString as StringLiteralExpression, module as Module, body as Block) as ClassDefinition:
     rand = _randomNumber.Next()
       
-    classDef = [|
-      public class Mercury_route(IMercuryRouteAction):
+    classDef = GetClassDefTemplate(method, routeString, body)
+    
+    rawDependencies = GetDependenciesForClass(body, module)
+    
+    classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
+    classDef.Name = classDef.Name + "_" + method + "_" + rand
+    
+    return classDef
+  
+  public def GetClassDefTemplate(method as string, routeString as StringLiteralExpression, body as Block) as ClassDefinition:
+    return  [|
+      public class Mercury_route(MercuryControllerBase, IMercuryRouteAction):
         public def constructor():
           pass
         
-        public def Execute():
+        public override def ExecuteCore():
           $(body)
         
         public HttpMethod as string:
@@ -30,16 +40,10 @@ public class MercuryRouteBuilder:
           get:
             return $routeString
         
-        [property(HttpContext)]
-        httpContext as HttpContext
+        public HttpContext as HttpContextBase:
+          get:
+            return ControllerContext.HttpContext
     |]
-    
-    rawDependencies = GetDependenciesForClass(body, module)
-    
-    classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
-    classDef.Name = classDef.Name + "_" + method + "_" + rand
-    
-    return classDef
   
   public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
     inActionDependencies = PullDependenciesFromMacroBody(body)

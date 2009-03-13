@@ -4,9 +4,10 @@ import System
 import System.IO
 import Mercury.Core
 import System.Web
+import System.Web.Mvc
 
 Get "":
-  httpContext.Response.Output.Write("hello  world!!!!")
+  HttpContext.Response.Output.Write("hello  world!!!!")
 
 Get "Home":
   print "hello world!!!"

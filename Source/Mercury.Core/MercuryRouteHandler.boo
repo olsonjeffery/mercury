@@ -19,4 +19,5 @@ public class MercuryRouteHandler(IRouteHandler):
   public def GetHttpHandler(requestContext as RequestContext) as IHttpHandler:
     routeAction = _factory.CreateInstanceOf(_routeType)
     handler = MercuryHttpHandler(routeAction)
+    handler.RequestContext = requestContext
     return handler
