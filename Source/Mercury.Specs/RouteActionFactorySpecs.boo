@@ -4,6 +4,7 @@ import System
 import System.Collections.Generic
 import System.Reflection
 import System.Web
+import System.Web.Mvc
 import Machine.Specifications
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
@@ -119,6 +120,9 @@ public class MultipleCtorRouteAction(IMercuryRouteAction):
   
   [property(HttpContext)]
   public _httpContext as HttpContext
+  
+  [property(ViewEngines)]
+  public _viewEngines as ViewEngineCollection
 
 public class SingleCtorRouteAction(IMercuryRouteAction):
   public def constructor():
@@ -137,6 +141,9 @@ public class SingleCtorRouteAction(IMercuryRouteAction):
   
   [property(HttpContext)]
   public _httpContext as HttpContext
+  
+  [property(ViewEngines)]
+  public _viewEngines as ViewEngineCollection
 
 public class ITestService:
   def constructor():

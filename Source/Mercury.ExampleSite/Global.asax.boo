@@ -21,7 +21,7 @@ public class MercuryApplication(System.Web.HttpApplication):
 
 	
 	public static def ConfigureMercuryEngine(container as IServiceLocator) as IEnumerable[of Route]:
-		engine  = MercuryStartupService(container)
+		engine  = MercuryStartupService(container, ViewEngines.Engines)
 		return engine.BuildRoutes()
 		/*routes.MapRoute(
           "Default",                                              // Route name

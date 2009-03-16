@@ -1,6 +1,7 @@
 namespace Mercury.Core
 
 import System
+import System.Web.Mvc
 import System.Collections.Generic
 import System.Linq.Enumerable from System.Core
 import Boo.Lang.Compiler
@@ -43,6 +44,9 @@ public class MercuryRouteBuilder:
         public HttpContext as HttpContextBase:
           get:
             return ControllerContext.HttpContext
+        
+        [property(ViewEngines)]
+        _viewEngines as ViewEngineCollection
     |]
   
   public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:

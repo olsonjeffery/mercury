@@ -17,9 +17,12 @@ namespace Mercury.ExampleSite
   public class MercuryApplication : System.Web.HttpApplication
   {
     
-    public static IEnumerable<Route> ConfigureMercuryEngine(IServiceLocator container)
+    public static IEnumerable<Route> ConfigureMercuryEngine(IServiceLocator container, ViewEngineCollection viewEngines)
     {
-      var engine = new MercuryStartupService(container);
+      //var view = viewEngines[0].FindView(self.ControllerContext, "Home.spark", "\\Views\\Layouts\\Application.spark", false);
+      
+      
+      var engine = new MercuryStartupService(container, viewEngines);
       return engine.BuildRoutes();
       /*routes.MapRoute(
           "Default",                                              // Route name
@@ -30,19 +33,26 @@ namespace Mercury.ExampleSite
 
     protected void Application_Start()
     {
+      var viewEngines = ConfigureViewEngines();
       var container = ConfigureContainer();
-      var routes = ConfigureMercuryEngine(container);
+      var routes = ConfigureMercuryEngine(container, viewEngines);
       
       RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
       foreach(var route in routes) {
         RouteTable.Routes.Add(route.Url, route);
       }
-      ViewEngines.Engines.Add(new SparkViewFactory());
+      
     }
     
     protected static IServiceLocator ConfigureContainer() {
       var container = new MachineContainer();
       return new CommonServiceLocatorAdapter(container);
+    }
+    
+    protected static ViewEngineCollection ConfigureViewEngines() {
+      ViewEngines.Engines.Add(new SparkViewFactory());
+      
+      return ViewEngines.Engines;
     }
   }
 }

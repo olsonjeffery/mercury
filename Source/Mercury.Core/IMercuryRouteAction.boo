@@ -1,6 +1,7 @@
 namespace Mercury.Core
 
 import System.Web
+import System.Web.Mvc
 
 public interface IMercuryRouteAction:
   def ExecuteCore()
@@ -8,3 +9,6 @@ public interface IMercuryRouteAction:
     get
   HttpMethod as string:
     get  
+  ViewEngines as ViewEngineCollection:
+    get
+    set
