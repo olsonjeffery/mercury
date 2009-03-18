@@ -52,7 +52,7 @@
       <HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath>
       <!-- for 64bit -->
     </Reference>
-	<Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />

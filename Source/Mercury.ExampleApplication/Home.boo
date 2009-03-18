@@ -19,6 +19,7 @@ Get "":
   raise foo if viewEngineResult.View is null;
   viewData = ViewDataDictionary()
   tempData = TempDataDictionary()
+  viewData["todaysDate"] = DateTime.Now.Date;
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, viewData, tempData)
   viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
   
