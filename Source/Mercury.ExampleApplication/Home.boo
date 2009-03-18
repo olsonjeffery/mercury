@@ -8,25 +8,20 @@ import System.Web.Routing
 import System.Web.Mvc
 
 Get "":
-  dependency testService as ITestService
-  
-  ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", "Application", false);
-  
-  foo = ""
-  if viewEngineResult.SearchedLocations is not null:
-    for i in viewEngineResult.SearchedLocations:
-      foo += i.ToString()+"\n"
-  raise foo if viewEngineResult.View is null;
   viewData = ViewDataDictionary()
   tempData = TempDataDictionary()
+  viewData["masterName"] = "Application";
+  
+  dependency testService as ITestService
   viewData["todaysDate"] = DateTime.Now.Date;
-  viewData["testMessage"] = testService.GetSomeString()
+  viewData["testMessage"] = testService.GetSomeString()  
+
+  ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
+  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", viewData["masterName"], false);
+  
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, viewData, tempData)
   viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
-  
-  //ControllerContext.RequestContext.HttpContext.Response.Output.Write("hello  world again!!!!")
-  
+
 Get "Home":
   print "hello world!!!"
 
