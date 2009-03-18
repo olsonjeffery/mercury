@@ -8,7 +8,8 @@ import System.Web.Routing
 import System.Web.Mvc
 
 Get "":
-  //ControllerContext.RequestContext.HttpContext.Response.Output.Write("hello  world again!!!!")
+  dependency testService as ITestService
+  
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
   viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", "Application", false);
   
@@ -20,6 +21,7 @@ Get "":
   viewData = ViewDataDictionary()
   tempData = TempDataDictionary()
   viewData["todaysDate"] = DateTime.Now.Date;
+  viewData["testMessage"] = testService.GetSomeString()
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, viewData, tempData)
   viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
   

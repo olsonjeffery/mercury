@@ -1,4 +1,4 @@
-﻿<viewdata todaysDate="System.DateTime" />
+﻿<viewdata todaysDate="System.DateTime" testMessage="System.String"/>
 <div>
-  Hello world! Today's date is ${todaysDate.ToShortDateString()}
+  Hello world! Today's date is ${todaysDate.ToShortDateString()}. Also, ${testMessage}
 </div>

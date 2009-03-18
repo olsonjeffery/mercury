@@ -58,10 +58,14 @@ public class MercuryRouteBuilder:
   
   public def PullDependenciesFromMacroBody(body as Block) as ParameterDeclaration*:
     list = List of ParameterDeclaration()
+    newBody = StatementCollection()
     for i in body.Statements:
       if i["dependency"]  == true:
         for j as DeclarationStatement in (i as Block).Statements:
           list.Add(ParameterDeclaration(j.Declaration.Name, j.Declaration.Type))
+      else:
+        newBody.Add(i)
+    body.Statements = newBody
     raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
     return list
   

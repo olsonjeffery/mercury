@@ -8,6 +8,7 @@ using Spark.Web.Mvc;
 using Mercury.Core;
 using Machine.Container;
 using Microsoft.Practices.ServiceLocation;
+using Mercury.ExampleApplication;
 
 namespace Mercury.ExampleSite
 {
@@ -38,6 +39,10 @@ namespace Mercury.ExampleSite
     
     protected static IServiceLocator ConfigureContainer() {
       var container = new MachineContainer();
+      container.Initialize();
+      container.PrepareForServices();
+      container.Add<ITestService, TestService>();
+      container.Start();
       return new CommonServiceLocatorAdapter(container);
     }
     
