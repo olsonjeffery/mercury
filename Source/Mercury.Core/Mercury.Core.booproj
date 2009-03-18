@@ -46,21 +46,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
-    <Compile Include="DependencyMacro.boo" />
+    <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
+    <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
+    <Compile Include="CodeGeneration\MercuryRouteBuilder.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
-    <Compile Include="IMercuryRouteAction.boo" />
+    <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
-    <Compile Include="MercuryControllerBase.boo" />
-    <Compile Include="MercuryHttpHandler.boo" />
-    <Compile Include="MercuryRoute.boo" />
-    <Compile Include="MercuryRouteBuilder.boo" />
-    <Compile Include="MercuryRouteHandler.boo" />
     <Compile Include="MercuryStartupService.boo" />
-    <Compile Include="RouteActionFactory.boo" />
+    <Compile Include="Routing\MercuryHttpHandler.boo" />
+    <Compile Include="Routing\MercuryRoute.boo" />
+    <Compile Include="Routing\MercuryRouteHandler.boo" />
+    <Compile Include="Routing\RouteActionFactory.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
     <Folder Include="Exceptions" />
+    <Folder Include="CodeGeneration" />
+    <Folder Include="Routing" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
