@@ -9,9 +9,10 @@ import Boo.Lang.Compiler.Ast
 
 public class MercuryRouteAstBuilder:
   private static _randomNumber as Random = Random()
+  private _dependencyBuilder as DependencyAstBuilder
   
   def constructor():
-    pass
+    _dependencyBuilder = DependencyAstBuilder()
 
   public def BuildRouteClass(method as string, routeString as StringLiteralExpression, module as Module, body as Block) as ClassDefinition:
     rand = _randomNumber.Next()
@@ -24,6 +25,9 @@ public class MercuryRouteAstBuilder:
     classDef.Name = classDef.Name + "_" + method + "_" + rand
     
     return classDef
+  
+  public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
+    return _dependencyBuilder.GetDependenciesForClass(body, module)
   
   public def GetClassDefTemplate(method as string, routeString as StringLiteralExpression, body as Block) as ClassDefinition:
     return  [|
@@ -48,39 +52,6 @@ public class MercuryRouteAstBuilder:
         [property(ViewEngines)]
         _viewEngines as ViewEngineCollection
     |]
-  
-  public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
-    inActionDependencies = PullDependenciesFromMacroBody(body)
-    moduleLevelDependencies = PullDependenciesFromModule(module)
-    
-    return MergeDependencyLists(inActionDependencies, moduleLevelDependencies)
-    
-  
-  public def PullDependenciesFromMacroBody(body as Block) as ParameterDeclaration*:
-    list = List of ParameterDeclaration()
-    newBody = StatementCollection()
-    for i in body.Statements:
-      if i["dependency"]  == true:
-        for j as DeclarationStatement in (i as Block).Statements:
-          list.Add(ParameterDeclaration(j.Declaration.Name, j.Declaration.Type))
-      else:
-        newBody.Add(i)
-    body.Statements = newBody
-    raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
-    return list
-  
-  public def PullDependenciesFromModule(module as Module) as ParameterDeclaration*:
-    list = List of ParameterDeclaration()
-    return list
-    
-  public def MergeDependencyLists(inAction as ParameterDeclaration*, moduleLevel as ParameterDeclaration*) as ParameterDeclaration*:
-    list = List of ParameterDeclaration()
-    for i in inAction:
-      list.Add(i)
-    for i in moduleLevel:
-      list.Add(i)
-    raise DuplicateDependencyException() if not VerifyNoOverlappingDependencyNames(list)
-    return list
   
   public def PopulateConstructorWithParametersFromDependencies(ctor as Constructor, params as ParameterDeclaration*):
     for i in params:
@@ -114,10 +85,3 @@ public class MercuryRouteAstBuilder:
     
     classDef.Members.Add(ctor)
     return classDef
-  
-  public def VerifyNoOverlappingDependencyNames(deps as ParameterDeclaration*) as bool:
-    tempDict = Dictionary[of string, ParameterDeclaration]()
-    for i in deps:
-      return false if tempDict.ContainsKey(i.Name)
-      tempDict[i.Name] = i
-    return true

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="CodeGeneration\BehaviorAstBuilder.boo" />
+    <Compile Include="CodeGeneration\DependencyAstBuilder.boo" />
     <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />

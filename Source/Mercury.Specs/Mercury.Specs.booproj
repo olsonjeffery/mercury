@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="BehaviorSpecs.boo" />
+    <Compile Include="DependencyBuildingSpecs.boo" />
     <Compile Include="MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RouteActionFactorySpecs.boo" />
   </ItemGroup>
