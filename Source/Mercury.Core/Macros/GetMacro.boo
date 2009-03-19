@@ -6,10 +6,10 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 public class GetMacro(AbstractAstMacro):
-  _builder as MercuryRouteBuilder
+  _builder as MercuryRouteAstBuilder
 
   def constructor():
-    _builder = MercuryRouteBuilder()
+    _builder = MercuryRouteAstBuilder()
   
   public override def Expand(macro as MacroStatement) as Statement:
     arg = macro.Arguments[0]

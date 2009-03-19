@@ -74,7 +74,7 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
     deps = List of ParameterDeclaration()
   
   of_ as Because = def():
-    classDefintion = MercuryRouteBuilder().PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, deps)
+    classDefintion = builder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, deps)
   
   should_not_create_an_additional_constructor as It = def():
     classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(1)
@@ -116,7 +116,7 @@ public class when_attempting_to_add_dependencies_to_a_generated_route_action_cla
 
 public class MercuryRouteBuilderSpecs:
   context as Establish = def():
-    builder = MercuryRouteBuilder()
+    builder = MercuryRouteAstBuilder()
     typeOfString = [| typeof(string) |]
     stringTypeRef = typeOfString.Type
   
@@ -134,7 +134,7 @@ public class MercuryRouteBuilderSpecs:
     return ParameterDeclaration(name, [| typeof($type) |].Type)
   
   protected static random as Random = Random()
-  protected static builder as MercuryRouteBuilder
+  protected static builder as MercuryRouteAstBuilder
   protected static methodBody as Block
   protected static parameters as ParameterDeclaration*
   protected static stringTypeRef as TypeReference

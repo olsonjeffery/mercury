@@ -7,7 +7,7 @@ import System.Linq.Enumerable from System.Core
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
-public class MercuryRouteBuilder:
+public class MercuryRouteAstBuilder:
   private static _randomNumber as Random = Random()
   
   def constructor():
