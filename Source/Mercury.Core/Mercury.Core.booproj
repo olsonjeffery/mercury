@@ -50,6 +50,7 @@
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
+    <Compile Include="Exceptions\NoTargetException.boo" />
     <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
