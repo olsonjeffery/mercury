@@ -53,6 +53,7 @@
     <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
+    <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
