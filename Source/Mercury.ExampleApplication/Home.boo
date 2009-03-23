@@ -7,19 +7,23 @@ import System.Web
 import System.Web.Routing
 import System.Web.Mvc
 
+Behavior SetSparkMasterName:
+  target ".*"
+  action.TempData["masterName"] = "Application";
+
 Get "":
-  viewData = ViewDataDictionary()
-  tempData = TempDataDictionary()
-  viewData["masterName"] = "Application";
+  //TempData["masterName"] = "Application";
+  masterName as string = (TempData["masterName"] if TempData.ContainsKey("masterName") else null)
   
   dependency testService as ITestService
-  viewData["todaysDate"] = DateTime.Now.Date;
-  viewData["testMessage"] = testService.GetSomeString()  
+  ViewData["todaysDate"] = DateTime.Now.Date
+  ViewData["testMessage"] = testService.GetSomeString()  
+  ViewData["anotherMessage"] = "another message!";
 
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", viewData["masterName"], false);
+  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false);
   
-  viewContext = ViewContext(ControllerContext, viewEngineResult.View, viewData, tempData)
+  viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
   viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
 
 Get "Home":
