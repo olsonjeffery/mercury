@@ -15,10 +15,28 @@ public class when_specifying_a_behavior_that_has_something_besides_a_safe_refere
 public class when_specifying_a_behavior_that_does_not_have_a_target(BehaviorSpecs):
   should_result_in_an_exception as It
 
-public class when_specifying_a_behavior_target_that_is_not_an_inline_reguarlar_expression_or_a_string(BehaviorSpecs):
-  should_result_in_an_exception  as It
+public class when_specifying_a_behavior_target_whose_sole_argument_is_not_an_inline_reguarlar_expression_or_a_string(BehaviorSpecs):
+  
+  context as Establish = def():
+    macro = TargetMacroWithAReferenceExpressionArgument()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      targetMacro.Expand(macro)
+  
+  should_result_in_an_exception  as It = def():
+    (exception isa ArgumentException).ShouldBeTrue()
+  
+  should_raise_the_exception_as_a_result_of_there_being_an_improper_argument as It = def():
+    exception.Message.Contains("must be a regular expression or a string").ShouldBeTrue();
+  
+  static def TargetMacroWithAReferenceExpressionArgument():
+    retVal = MacroStatement()
+    retVal.Arguments.Add([| FooBar |]);
+    retVal.Name = "target"
+    return retVal
 
-public class when_a_behaviors_definition_contains_dependency_a_dependency_declaration(BehaviorSpecs):
+public class when_a_behaviors_definition_contains_a_dependency_declaration(BehaviorSpecs):
   should_add_the_dependency_as_constructor_arguments_to_the_generated_class_definition as It
   should_add_the_dependency_as_fields_to_the_generated_class_definition as It
 
@@ -60,5 +78,9 @@ public class when_there_are_three_specified_behaviors_targetting_the_same_route_
 public class BehaviorSpecs:
   context as Establish = def():
     behaviorMacro = BehaviorMacro()
+    targetMacro = TargetMacro()
   
   protected static behaviorMacro as BehaviorMacro
+  protected static exception as Exception
+  protected static targetMacro as TargetMacro
+  protected static macro as MacroStatement
