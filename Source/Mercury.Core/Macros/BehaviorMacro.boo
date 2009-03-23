@@ -10,5 +10,15 @@ public class BehaviorMacro(AbstractAstMacro):
   def constructor():
     pass
   
-  public override def Expand(macro as MacroStatement) as Block:
-    pass
+  public override def Expand(macro as MacroStatement) as Statement:
+    classDef = [|
+      public class Behavior:
+        
+        public def constructor():
+          pass
+    |]
+    parent as Node = macro
+    while not parent isa Module:
+      parent = parent.ParentNode
+    
+    (parent as Module).Members.Add(classDef)
