@@ -32,8 +32,6 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web">
       <!--<HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath> for 32bit-->
       <HintPath>C:\Windows\Microsoft.NET\Framework64\v2.0.50727\System.Web.dll</HintPath>
@@ -52,6 +50,7 @@
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
+    <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
