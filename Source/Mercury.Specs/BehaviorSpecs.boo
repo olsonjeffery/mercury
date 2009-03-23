@@ -10,10 +10,41 @@ import Mercury.Core
 
 // code generation (expansion time)
 public class when_specifying_a_behavior_that_has_something_besides_a_safe_reference_identifier_for_a_name(BehaviorSpecs):
-  should_result_in_an_exception as It
+  context as Establish = def():
+    macro = BehaviorMacroWithAStringForItsName()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorMacro.Expand(macro)
+  
+  should_result_in_an_exception as It = def():
+    (exception isa ArgumentException).ShouldBeTrue()
+  
+  static def BehaviorMacroWithAStringForItsName():
+    macro = MacroStatement()
+    macro.Arguments.Add([| "fosdfsdfsd" |])
+    return macro
 
 public class when_specifying_a_behavior_that_does_not_have_a_target(BehaviorSpecs):
-  should_result_in_an_exception as It
+  context as Establish = def():
+    macro = BehaviorMacroWithNoTarget()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorMacro.Expand(macro)
+  
+  should_result_in_an_exception as It = def():
+    (exception isa NoTargetException).ShouldBeTrue()
+  
+  static def BehaviorMacroWithNoTarget():
+    macro = MacroStatement()
+    macro.Arguments.Add([| BehaviorName |])
+    macro.Body = [|
+      before_action:
+        pass
+      foo = "bar"
+    |]
+    return macro
 
 public class when_specifying_a_behavior_target_whose_sole_argument_is_not_an_inline_reguarlar_expression_or_a_string(BehaviorSpecs):
   
