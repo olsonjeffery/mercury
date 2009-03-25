@@ -6,29 +6,22 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 public class BehaviorMacro(AbstractAstMacro):
-  [property(ClassDefintion)]
-  _classDef as ClassDefinition
+  _behaviorAstBuilder as BehaviorAstBuilder
   
   def constructor():
-    pass
+    _behaviorAstBuilder = BehaviorAstBuilder()
   
   public override def Expand(macro as MacroStatement) as Statement:
-    
+    raise ArgumentException("only one argument to a 'behavior' is allowed") if macro.Arguments.Count != 1
     raise ArgumentException("A 'safe reference identifier' name (eg something you'd use to name a class, method, local var, etc) is the only valid name for a behavior") if not macro.Arguments[0] isa ReferenceExpression
-    target = List of string()
-    for i in macro.Body.Statements:
-      target.Add(i["targetVal"] as string) if i["isTarget"]
-    raise NoTargetException() if target.Count == 0
+    behaviorName = macro.Arguments[0].ToCodeString()
     
-    classDef = [|
-      public class Behavior:
-        
-        public def constructor():
-          pass
-    |]
     parent as Node = macro
     while not parent isa Module:
       parent = parent.ParentNode
+      
+    classDef = _behaviorAstBuilder.BuildBehaviorClass(parent as Module, behaviorName, macro.Body)
+    
+    
     
     (parent as Module).Members.Add(classDef)
-    _classDef = classDef
