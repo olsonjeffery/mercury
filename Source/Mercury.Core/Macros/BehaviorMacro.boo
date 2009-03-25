@@ -6,7 +6,9 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
 public class BehaviorMacro(AbstractAstMacro):
-
+  [property(ClassDefintion)]
+  _classDef as ClassDefinition
+  
   def constructor():
     pass
   
@@ -29,3 +31,4 @@ public class BehaviorMacro(AbstractAstMacro):
       parent = parent.ParentNode
     
     (parent as Module).Members.Add(classDef)
+    _classDef = classDef
