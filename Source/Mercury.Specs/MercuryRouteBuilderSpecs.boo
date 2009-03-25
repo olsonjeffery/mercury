@@ -67,9 +67,7 @@ public class MercuryRouteBuilderSpecs:
     builder = MercuryRouteAstBuilder()
     typeOfString = [| typeof(string) |]
     stringTypeRef = typeOfString.Type
-  
-  
-  
+    
   protected static random as Random = Random()
   protected static builder as MercuryRouteAstBuilder
   protected static deps as ParameterDeclaration*
