@@ -64,26 +64,15 @@ public class when_parsing_a_given_group_of_three_dependencies_where_two_dependen
   
   static verificationSucceeded as bool
 
-public class DependencyBuildingSpecs:
+public class DependencyBuildingSpecs(CommonSpecBase):
   context as Establish = def():
     builder = DependencyAstBuilder()
     random = Random()
-    
-  protected static def GenerateUnparsedDependencyOn(type as Type) as Block:
-    return GenerateUnparsedDependencyOn(type, "specDep_"+random.Next().ToString())
-  
-  protected static def GenerateUnparsedDependencyOn(type as Type, name as string) as Block:
-    depMacro = DependencyMacro()
-    macro = MacroStatement()
-    typeRef = [| typeof($type) |]
-    macro.Arguments.Add(TryCastExpression(ReferenceExpression(name), typeRef.Type))
-    return depMacro.Expand(macro)
   
   protected static def GeneratedParsedDependencyOn(type as Type, name as string) as ParameterDeclaration:
     return ParameterDeclaration(name, [| typeof($type) |].Type)
   
   protected static depsList as List of ParameterDeclaration
-  protected static random as Random
   protected static builder as DependencyAstBuilder
   protected static methodBody as Block
   protected static parameters as ParameterDeclaration*

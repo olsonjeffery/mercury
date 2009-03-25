@@ -7,6 +7,7 @@ import Boo.Lang.Compiler.Ast
 import Machine.Specifications
 import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifications.NUnit
 import Mercury.Core
+import System.Linq.Enumerable from System.Core
 
 // code generation (expansion time)
 public class when_specifying_a_behavior_that_has_something_besides_a_safe_reference_identifier_for_a_name(BehaviorSpecs):
@@ -26,7 +27,7 @@ public class when_specifying_a_behavior_that_does_not_have_a_target(BehaviorSpec
   
   of_ as Because = def():
     exception = Catch.Exception:
-      behaviorMacro.Expand(macro)
+      behaviorBuilder.BuildBehaviorClass(null, macro.Arguments[0].ToString(), macro.Body)
   
   should_result_in_an_exception as It = def():
     (exception isa NoTargetException).ShouldBeTrue()
@@ -46,11 +47,18 @@ public class when_specifying_a_behavior_target_whose_sole_argument_is_not_an_inl
   should_raise_the_exception_as_a_result_of_there_being_an_improper_argument as It = def():
     exception.Message.Contains("must be a regular expression or a string").ShouldBeTrue();
 
-public class when_a_behaviors_definition_contains_a_dependency_declaration(BehaviorSpecs):
-  should_add_the_dependency_as_constructor_arguments_to_the_generated_class_definition as It = def():
-    pass
+public class when_a_behavior_definition_contains_a_single_dependency_declaration(BehaviorSpecs):
+  context as Establish = def():
+    macro = BehaviorMacroWithASingleDependency()
   
-  should_add_the_dependency_as_fields_to_the_generated_class_definition as It
+  of_ as Because = def():
+    classDef = behaviorBuilder.BuildBehaviorClass(null, macro.Arguments[0].ToCodeString(), macro.Body)
+  
+  should_add_the_dependency_as_constructor_arguments_to_the_generated_class_definition as It = def():
+    (classDef.Members.Where(memberIsAConstructor).Last() as Constructor).Parameters.Count.ShouldEqual(1)
+  
+  should_add_the_dependency_as_fields_to_the_generated_class_definition as It = def():
+    classDef.Members.Where(memberIsAField).Count().ShouldEqual(1)
 
 public class when_a_behavior_definition_does_not_contain_a_before_or_after_action_block(BehaviorSpecs):
   should_result_in_an_exception as It
@@ -94,15 +102,18 @@ public class when_there_are_three_specified_behaviors_targetting_the_same_route_
 
 // behavior re-instantiation concerns
 
-public class BehaviorSpecs:
+public class BehaviorSpecs(CommonSpecBase):
   context as Establish = def():
     behaviorMacro = BehaviorMacro()
+    behaviorBuilder = BehaviorAstBuilder()
     targetMacro = TargetMacro()
   
   protected static behaviorMacro as BehaviorMacro
+  protected static behaviorBuilder as BehaviorAstBuilder
   protected static exception as Exception
   protected static targetMacro as TargetMacro
   protected static macro as MacroStatement
+  protected static classDef as ClassDefinition
   
   protected static def BehaviorMacroWithAStringForItsName():
     macro = MacroStatement()
@@ -124,3 +135,27 @@ public class BehaviorSpecs:
     retVal.Arguments.Add([| FooBar |]);
     retVal.Name = "target"
     return retVal
+  
+  protected static def BehaviorMacroWithASingleDependency():
+    retVal = MacroStatement
+    macro.Arguments.Add([| BehaviorName |])
+    
+    target = ([| target "foo" |])
+    target.Annotate("isTarget", true);
+    target.Annotate("targetVal","foo")
+    
+    beforeAction = [|
+      block:
+        foo = "bar"
+    |]
+    beforeAction.Annotate("isBeforeAction", true)
+    
+    dep = GenerateUnparsedDependencyOn(typeof(string), "foo")
+    
+    macro.Body = [|
+      $target
+      $dep
+      $beforeAction
+    |]
+    
+    return macro

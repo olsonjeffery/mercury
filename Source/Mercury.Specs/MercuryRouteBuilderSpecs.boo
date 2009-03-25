@@ -62,7 +62,7 @@ public class when_attempting_to_add_dependencies_to_a_generated_route_action_cla
   should_make_two_assignments_to_store_the_constructor_parameters_in_fields as It = def():
     (classDefinition.Members.Where(memberIsAConstructor).Where(constructorHasMoreThanZeroParameters).Single() as Constructor).Body.Statements.Count.ShouldEqual(2)
 
-public class MercuryRouteBuilderSpecs:
+public class MercuryRouteBuilderSpecs(CommonSpecBase):
   context as Establish = def():
     builder = MercuryRouteAstBuilder()
     typeOfString = [| typeof(string) |]
@@ -73,7 +73,3 @@ public class MercuryRouteBuilderSpecs:
   protected static deps as ParameterDeclaration*
   protected static classDefinition as ClassDefinition
   protected static depsList as List of ParameterDeclaration
-  
-  protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
-  protected static memberIsAField = { member as TypeMember | member  isa Field }
-  protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
