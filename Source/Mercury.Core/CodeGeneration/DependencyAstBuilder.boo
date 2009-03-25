@@ -4,6 +4,7 @@ import System
 import System.Collections.Generic
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
+import System.Linq.Enumerable from System.Core
 
 public class DependencyAstBuilder:
 
