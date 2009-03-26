@@ -50,6 +50,7 @@
     <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
+    <Compile Include="Exceptions\BehaviorHasNoBeforeOrAfterAfterSegmentException.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
     <Compile Include="Exceptions\NoTargetException.boo" />
     <Compile Include="Macros\BehaviorMacro.boo" />
