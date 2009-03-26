@@ -22,6 +22,21 @@ public class BehaviorAstBuilder:
       target.Add(i["targetVal"] as string) if i["isTarget"]
     raise NoTargetException() if target.Count == 0
     
+    before as Block = null
+    hasBefore = false
+    after as Block = null
+    hasAfter = false
+    for i in body.Statements:
+      if i["isBeforeAction"]:
+        before = (i if i isa Block else (i as MacroStatement).Body)
+        raise "Only one before action is allowed" if hasBefore
+        hasBefore = true;
+      if i["isAfterAction"]:
+        after = (i if i isa Block else (i as MacroStatement).Body)
+        raise "Only one after action is allowed" if hasAfter
+        hasAfter = true;
+    raise BehaviorHasNoBeforeOrAfterAfterSegmentException() if not hasAfter and not hasBefore
+    
     classDef = [|
       public class Behavior:
         
@@ -31,5 +46,6 @@ public class BehaviorAstBuilder:
     
     deps = _dependencyBuilder.GetDependenciesForClass(body, module)
     classDef = _constructorAndFieldAstBuilder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, deps)
+    classDef.Name = name
     
     return classDef

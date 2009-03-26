@@ -61,7 +61,16 @@ public class when_a_behavior_definition_contains_a_single_dependency_declaration
     classDef.Members.Where(memberIsAField).Count().ShouldEqual(1)
 
 public class when_a_behavior_definition_does_not_contain_a_before_or_after_action_block(BehaviorSpecs):
-  should_result_in_an_exception as It
+  
+  context as Establish = def():
+    macro = BehaviorMacroWithNoBeforeOrAfterActionBlock()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorBuilder.BuildBehaviorClass(null, macro.Arguments[0].ToString(), macro.Body)
+  
+  should_result_in_an_exception as It = def():
+    (exception isa BehaviorHasNoBeforeOrAfterAfterSegmentException).ShouldBeTrue()
 
 public class when_a_behavior_definition_contains_more_than_one_before_action_block(BehaviorSpecs):
   should_result_in_an_exception as It
@@ -137,6 +146,17 @@ public class BehaviorSpecs(CommonSpecBase):
     return retVal
   
   protected static def BehaviorMacroWithASingleDependency():
+    macro = BehaviorMacroWithNoBeforeOrAfterActionBlock()
+    beforeAction = [|
+      block:
+        foo = "bar"
+    |]
+    beforeAction.Annotate("isBeforeAction", true)
+    
+    macro.Body.Statements.Add(beforeAction)
+    return macro
+  
+  protected static def BehaviorMacroWithNoBeforeOrAfterActionBlock():
     retVal = MacroStatement
     macro.Arguments.Add([| BehaviorName |])
     
@@ -144,18 +164,11 @@ public class BehaviorSpecs(CommonSpecBase):
     target.Annotate("isTarget", true);
     target.Annotate("targetVal","foo")
     
-    beforeAction = [|
-      block:
-        foo = "bar"
-    |]
-    beforeAction.Annotate("isBeforeAction", true)
-    
     dep = GenerateUnparsedDependencyOn(typeof(string), "foo")
     
     macro.Body = [|
       $target
       $dep
-      $beforeAction
     |]
     
     return macro
