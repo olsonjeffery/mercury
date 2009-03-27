@@ -73,10 +73,28 @@ public class when_a_behavior_definition_does_not_contain_a_before_or_after_actio
     (exception isa BehaviorHasNoBeforeOrAfterAfterSegmentException).ShouldBeTrue()
 
 public class when_a_behavior_definition_contains_more_than_one_before_action_block(BehaviorSpecs):
-  should_result_in_an_exception as It
+  
+  context as Establish = def():
+    macro = BehaviorMacroWithTwoBeforeActionSegments()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorBuilder.BuildBehaviorClass(null, macro.Arguments[0].ToString(), macro.Body)
+  
+  should_result_in_an_exception as It = def():
+    (exception isa BehaviorHasMoreThanOneBeforeActionSegmentException).ShouldBeTrue()
 
 public class when_a_behavior_definition_contains_more_than_one_after_action_block(BehaviorSpecs):
-  should_result_in_an_exception as It
+  
+  context as Establish = def():
+    macro = BehaviorMacroWithTwoAfterActionSegments()
+  
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorBuilder.BuildBehaviorClass(null, macro.Arguments[0].ToString(), macro.Body)
+  
+  should_result_in_an_exception as It = def():
+    (exception isa BehaviorHasMoreThanOneAfterActionSegmentException).ShouldBeTrue()
 
 public class when_examining_a_complete_class_definition_for_a_behavior(BehaviorSpecs):
   should_have_its_targets_saved as It
@@ -170,5 +188,37 @@ public class BehaviorSpecs(CommonSpecBase):
       $target
       $dep
     |]
+    
+    return macro
+  
+  protected static def BehaviorMacroWithTwoBeforeActionSegments():
+    macro = BehaviorMacroWithNoBeforeOrAfterActionBlock()
+    beforeAction1 = [|
+      before_action:
+        foo = "bar"
+    |]
+    beforeAction2 = [|
+      before_action:
+        foo = "bar"
+    |]
+    beforeMacro = Before_actionMacro()
+    macro.Body.Statements.Add(beforeMacro.Expand(beforeAction1))
+    macro.Body.Statements.Add(beforeMacro.Expand(beforeAction2))
+    
+    return macro
+    
+  protected static def BehaviorMacroWithTwoAfterActionSegments():
+    macro = BehaviorMacroWithNoBeforeOrAfterActionBlock()
+    afterAction1 = [|
+      after_action:
+        foo = "bar"
+    |]
+    afterAction2 = [|
+      after_action:
+        foo = "bar"
+    |]
+    afterMacro = After_actionMacro()
+    macro.Body.Statements.Add(afterMacro.Expand(afterAction1))
+    macro.Body.Statements.Add(afterMacro.Expand(afterAction2))
     
     return macro
