@@ -47,12 +47,17 @@
     <Compile Include="CodeGeneration\BehaviorAstBuilder.boo" />
     <Compile Include="CodeGeneration\ConstructorAndFieldAstBuilder.boo" />
     <Compile Include="CodeGeneration\DependencyAstBuilder.boo" />
+    <Compile Include="CodeGeneration\IBehavior.boo" />
     <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
+    <Compile Include="Exceptions\BehaviorHasMoreThanOneAfterActionSegment.boo" />
+    <Compile Include="Exceptions\BehaviorHasMoreThanOneBeforeActionSegmentException.boo" />
     <Compile Include="Exceptions\BehaviorHasNoBeforeOrAfterAfterSegmentException.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
     <Compile Include="Exceptions\NoTargetException.boo" />
+    <Compile Include="Macros\After_actionMacro.boo" />
+    <Compile Include="Macros\Before_actionMacro.boo" />
     <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
