@@ -9,7 +9,8 @@ import System.Web.Mvc
 
 Behavior SetSparkMasterName:
   target ".*"
-  action.TempData["masterName"] = "Application";
+  before_action:
+    action.TempData["masterName"] = "Application"
 
 Get "":
   //TempData["masterName"] = "Application";
