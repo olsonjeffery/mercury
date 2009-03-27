@@ -52,9 +52,37 @@ public class BehaviorAstBuilder:
         
         public def constructor():
           pass
+        
+        _targets as string*
     |]
   
   public def AddTargets(classDef as ClassDefinition, targets as string*) as ClassDefinition:
+    targetsProperty = Property("Targets")
+    targetsProperty.Type = [| typeof(System.Collections.Generic.IEnumerable[of string]) |].Type
+    targetsProperty.Getter = [|
+      def get_Targets() as string*:
+        return _targets
+    |]
+    classDef.Members.Add(targetsProperty)
+    
+    addTargetsMethod = [|
+      private def AddTargets():
+        pass
+    |]
+    addTargetsMethod.Body = Block() 
+    addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of string() |]))
+    
+    for target in targets:
+      addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList.Add($(target)) |]))
+    
+    addTargetsMethod.Body.Statements.Add(ExpressionStatement([| _targets = tempList |]))
+    
+    classDef.Members.Add(addTargetsMethod)
+
+    isAConstructor = { x as TypeMember | x isa Constructor }
+    for ctor as Constructor in classDef.Members.Where(isAConstructor):
+      ctor.Body.Statements.Add(ExpressionStatement([| self.AddTargets() |]))
+    
     return classDef
   
   public def AddPrecedenceRules(classDef as ClassDefinition, rules as string*) as ClassDefinition:

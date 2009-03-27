@@ -57,8 +57,8 @@ public class when_a_behavior_definition_contains_a_single_dependency_declaration
   should_add_the_dependency_as_constructor_arguments_to_the_generated_class_definition as It = def():
     (classDef.Members.Where(memberIsAConstructor).Last() as Constructor).Parameters.Count.ShouldEqual(1)
   
-  should_add_the_dependency_as_fields_to_the_generated_class_definition as It = def():
-    classDef.Members.Where(memberIsAField).Count().ShouldEqual(1)
+  should_add_the_dependency_as_fields_to_the_generated_class_definition_in_addition_to_the_targets_field as It = def():
+    classDef.Members.Where(memberIsAField).Count().ShouldEqual(2)
 
 public class when_a_behavior_definition_does_not_contain_a_before_or_after_action_block(BehaviorSpecs):
   
@@ -116,17 +116,22 @@ behavior FooBehavior:
   
   of_ as Because = def():
     behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+    behaviorInstance = behaviorType()
   
   should_be_named_Test_FooBehavior as It = def():
     behaviorType.FullName.ShouldEqual("Test.FooBehavior")
-  
-  should_have_two_target as It
+    
+  should_have_two_targets as It = def():
+    behaviorInstance.Targets.Count.ShouldEqual(2)
+    
   should_only_contain_targets_containing_the_text_foo_and_bar as It
   should_have_a_before_action_member_that_is_not_null as It
   should_have_an_after_action_member_that_is_not_null as It
   should_have_a_dependency_field_named_someString as It
   should_have_a_single_precedence_rule as It
   should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
+  
+  static behaviorInstance as duck
   
 // order-of-precedence issues at expansion-time
 public class when_a_behavior_specifies_a_runs_first_precedence_and_then_specifies_any_other_precedence_rule(BehaviorSpecs):
