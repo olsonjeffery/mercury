@@ -2,7 +2,9 @@ namespace Mercury.Specs
 
 import System
 import Boo.Lang.Compiler
+import Boo.Lang.Compiler.IO
 import Boo.Lang.Compiler.Ast
+import Boo.Lang.Compiler.Pipelines
 import Mercury.Core
 
 public class CommonSpecBase:
@@ -20,3 +22,12 @@ public class CommonSpecBase:
     typeRef = [| typeof($type) |]
     macro.Arguments.Add(TryCastExpression(ReferenceExpression(name), typeRef.Type))
     return depMacro.Expand(macro)
+  
+  protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
+    booC = BooCompiler()
+    booC.Parameters.Input.Add(StringInput("name",code))
+    booC.Parameters.Pipeline = CompileToMemory()
+    booC.Parameters.Ducky = false
+    context = booC.Run()
+    raise join(e for e in context.Errors, "\n") if context.GeneratedAssembly is null
+    return context.GeneratedAssembly.GetType(typeName, true, true)
