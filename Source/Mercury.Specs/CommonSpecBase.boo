@@ -12,7 +12,10 @@ public class CommonSpecBase:
   protected static memberIsAField = { member as TypeMember | member  isa Field }
   protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
   protected static random as Random = Random()
-
+  
+  protected static def FieldIsOfType(type as string):
+    return { x as Field | x.Type.Equals([| typeof($type) |].Type) }
+  
   protected static def GenerateUnparsedDependencyOn(type as Type) as Block:
     return GenerateUnparsedDependencyOn(type, "specDep_"+random.Next().ToString())
   
@@ -26,6 +29,8 @@ public class CommonSpecBase:
   protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
     booC = BooCompiler()
     booC.Parameters.Input.Add(StringInput("name",code))
+    for i in AppDomain.CurrentDomain.GetAssemblies():
+      booC.Parameters.AddAssembly(i)
     booC.Parameters.Pipeline = CompileToMemory()
     booC.Parameters.Ducky = false
     context = booC.Run()
