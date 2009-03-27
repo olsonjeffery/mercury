@@ -96,13 +96,38 @@ public class when_a_behavior_definition_contains_more_than_one_after_action_bloc
   should_result_in_an_exception as It = def():
     (exception isa BehaviorHasMoreThanOneAfterActionSegmentException).ShouldBeTrue()
 
-public class when_examining_a_complete_class_definition_for_a_behavior(BehaviorSpecs):
-  should_have_its_targets_saved as It
-  should_have_a_before_action_member as It
-  should_have_an_after_action_member as It
-  should_have_its_dependencies as It
-  should_have_its_precedence_rules as It
+public class when_examining_a_compiled_type_for_a_behavior(BehaviorSpecs):
+  context as Establish = def():
+    behaviorCode = """
+namespace Test
+import System
+import Mercury.Core
 
+behavior FooBehavior:
+  target "bar"
+  target "foo"
+  dependency someString as string
+  runs_before AnotherBehavior
+  before_action:
+    foo = "bar"
+  after_action:
+    foo = "bar"
+"""
+  
+  of_ as Because = def():
+    behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+  
+  should_be_named_Test_FooBehavior as It = def():
+    behaviorType.FullName.ShouldEqual("Test.FooBehavior")
+  
+  should_have_two_target as It
+  should_only_contain_targets_containing_the_text_foo_and_bar as It
+  should_have_a_before_action_member_that_is_not_null as It
+  should_have_an_after_action_member_that_is_not_null as It
+  should_have_a_dependency_field_named_someString as It
+  should_have_a_single_precedence_rule as It
+  should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
+  
 // order-of-precedence issues at expansion-time
 public class when_a_behavior_specifies_a_runs_first_precedence_and_then_specifies_any_other_precedence_rule(BehaviorSpecs):
   should_result_in_an_exception as It
@@ -140,7 +165,9 @@ public class BehaviorSpecs(CommonSpecBase):
   protected static exception as Exception
   protected static targetMacro as TargetMacro
   protected static macro as MacroStatement
-  protected static classDef as ClassDefinition
+  protected static classDef as ClassDefinition  
+  protected static behaviorType as Type
+  protected static behaviorCode as string
   
   protected static def BehaviorMacroWithAStringForItsName():
     macro = MacroStatement()
