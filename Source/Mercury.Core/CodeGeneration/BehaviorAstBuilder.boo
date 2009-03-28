@@ -16,9 +16,9 @@ public class BehaviorAstBuilder:
   
   public def BuildBehaviorClass(module as Module, name as string, body as Block) as ClassDefinition:
     
-    targets = List of string()
+    targets = List of StringLiteralExpression()
     for i in body.Statements:   
-      targets.Add(i["targetVal"] as string) if i["isTarget"]
+      targets.Add(i["targetVal"] as StringLiteralExpression) if i["isTarget"]
     raise NoTargetException() if targets.Count == 0
     
     before as Block = null
@@ -56,7 +56,7 @@ public class BehaviorAstBuilder:
         _targets as string*
     |]
   
-  public def AddTargets(classDef as ClassDefinition, targets as string*) as ClassDefinition:
+  public def AddTargets(classDef as ClassDefinition, targets as StringLiteralExpression*) as ClassDefinition:
     targetsProperty = Property("Targets")
     targetsProperty.Type = [| typeof(System.Collections.Generic.IEnumerable[of string]) |].Type
     targetsProperty.Getter = [|
@@ -73,7 +73,7 @@ public class BehaviorAstBuilder:
     addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of string() |]))
     
     for target in targets:
-      addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList.Add($(target)) |]))
+      addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList.Add($target) |]))
     
     addTargetsMethod.Body.Statements.Add(ExpressionStatement([| _targets = tempList |]))
     

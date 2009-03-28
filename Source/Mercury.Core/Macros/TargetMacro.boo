@@ -17,5 +17,5 @@ public class TargetMacro(AbstractAstMacro):
     retStatement = macro.Body
     //retStatement = Statement()
     retStatement.Annotate("isTarget", true)
-    retStatement.Annotate("targetVal", macro.Arguments[0].ToString())
+    retStatement.Annotate("targetVal", (macro.Arguments[0] if macro.Arguments[0] isa StringLiteralExpression else StringLiteralExpression((macro.Arguments[0] as RELiteralExpression).ToCodeString())))
     return retStatement
