@@ -105,7 +105,7 @@ import Mercury.Core
 
 behavior FooBehavior:
   target "bar"
-  target "foo"
+  target /foo/
   dependency someString as string
   runs_before AnotherBehavior
   before_action:
@@ -124,13 +124,18 @@ behavior FooBehavior:
   should_have_two_targets as It = def():
     behaviorInstance.Targets.Count.ShouldEqual(2)
     
-  should_only_contain_targets_containing_the_text_foo_and_bar as It
-  should_have_a_before_action_member_that_is_not_null as It
+  should_only_contain_targets_containing_the_text_foo_and_bar as It = def():
+    (behaviorInstance.Targets as IEnumerable[of string]).Where(valuesAreEitherFooOrBar).Count().ShouldEqual(2)
+  
+  should_have_a_before_action_member_that_is_not_null as It = def():
+    behaviorInstance.BeforeAction.ShouldNotBeNull()
+    
   should_have_an_after_action_member_that_is_not_null as It
   should_have_a_dependency_field_named_someString as It
   should_have_a_single_precedence_rule as It
   should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
   
+  static valuesAreEitherFooOrBar = { x as string | x in ("/foo/", "bar") }
   static behaviorInstance as duck
   
 // order-of-precedence issues at expansion-time
@@ -210,14 +215,14 @@ public class BehaviorSpecs(CommonSpecBase):
     retVal = MacroStatement
     macro.Arguments.Add([| BehaviorName |])
     
-    target = ([| target "foo" |])
-    target.Annotate("isTarget", true);
-    target.Annotate("targetVal","foo")
+    target = MacroStatement()
+    target.Arguments.Add([| "foo" |])
+    targetResult = TargetMacro().Expand(target)
     
     dep = GenerateUnparsedDependencyOn(typeof(string), "foo")
     
     macro.Body = [|
-      $target
+      $targetResult
       $dep
     |]
     
