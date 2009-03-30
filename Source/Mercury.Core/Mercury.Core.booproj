@@ -51,6 +51,7 @@
     <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
     <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
+    <Compile Include="CodeGeneration\PropertyAstBuilder.boo" />
     <Compile Include="Exceptions\BehaviorHasMoreThanOneAfterActionSegment.boo" />
     <Compile Include="Exceptions\BehaviorHasMoreThanOneBeforeActionSegmentException.boo" />
     <Compile Include="Exceptions\BehaviorHasNoBeforeOrAfterAfterSegmentException.boo" />

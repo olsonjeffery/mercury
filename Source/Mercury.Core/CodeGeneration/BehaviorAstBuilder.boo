@@ -9,10 +9,12 @@ import System.Linq.Enumerable from System.Core
 public class BehaviorAstBuilder:
   _dependencyBuilder as DependencyAstBuilder
   _constructorAndFieldAstBuilder as ConstructorAndFieldAstBuilder
+  _propertyAstBuilder as PropertyAstBuilder
   
   public def constructor():
     _dependencyBuilder = DependencyAstBuilder()
     _constructorAndFieldAstBuilder = ConstructorAndFieldAstBuilder()
+    _propertyAstBuilder = PropertyAstBuilder()
   
   public def BuildBehaviorClass(module as Module, name as string, body as Block) as ClassDefinition:
     
@@ -57,12 +59,7 @@ public class BehaviorAstBuilder:
     |]
   
   public def AddTargets(classDef as ClassDefinition, targets as StringLiteralExpression*) as ClassDefinition:
-    targetsProperty = Property("Targets")
-    targetsProperty.Type = [| typeof(System.Collections.Generic.IEnumerable[of string]) |].Type
-    targetsProperty.Getter = [|
-      def get_Targets() as string*:
-        return _targets
-    |]
+    targetsProperty = _propertyAstBuilder.SimpleGetterProperty("Targets", "_targets", [| typeof(string*) |].Type)
     classDef.Members.Add(targetsProperty)
     
     addTargetsMethod = [|
