@@ -11,7 +11,7 @@ Behavior SetSparkMasterName:
   target ".*"
   dependency testService as ITestService
   before_action:
-    action.TempData["masterName"] = "Application"
+    request.Controller.TempData["masterName"] = "Application"
 
 Get "":
   //TempData["masterName"] = "Application";
