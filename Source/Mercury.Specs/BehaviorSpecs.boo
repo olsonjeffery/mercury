@@ -106,6 +106,7 @@ behavior FooBehavior:
   target /foo/
   dependency someString as string
   runs_before AnotherBehavior
+  runs_before Foo.Bar.AnotherThing
   before_action:
     foo = "bar"
   after_action:
@@ -139,6 +140,24 @@ behavior FooBehavior:
   
 // order-of-precedence issues at expansion-time
 public class when_a_behavior_specifies_a_runs_first_precedence_and_then_specifies_any_other_precedence_rule(BehaviorSpecs):
+  context as Establish = def():
+    behaviorCode = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior FooBehavior:
+  target "bar"
+  runs_before AnotherBehavior
+  before_action:
+    foo = "bar"
+"""
+  of_ as Because = def():
+    behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+    behaviorInstance = behaviorType()
+  
+
   should_result_in_an_exception as It
 
 public class when_a_behavior_specifies_a_runs_last_precendence_and_then_specifies_any_other_precedence_rule(BehaviorSpecs):
