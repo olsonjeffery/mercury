@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="AssemblyInfo.boo">
+    </Compile>
     <Compile Include="Home.boo" />
     <Compile Include="ITestService.boo" />
   </ItemGroup>
