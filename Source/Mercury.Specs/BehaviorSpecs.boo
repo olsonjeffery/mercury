@@ -56,9 +56,6 @@ public class when_a_behavior_definition_contains_a_single_dependency_declaration
   
   should_add_the_dependency_as_constructor_arguments_to_the_generated_class_definition as It = def():
     (classDef.Members.Where(memberIsAConstructor).Last() as Constructor).Parameters.Count.ShouldEqual(1)
-  
-  should_add_the_dependency_as_fields_to_the_generated_class_definition_in_addition_to_the_targets_field as It = def():
-    classDef.Members.Where(memberIsAField).Count().ShouldEqual(2)
 
 public class when_a_behavior_definition_does_not_contain_a_before_or_after_action_block(BehaviorSpecs):
   
@@ -101,6 +98,7 @@ public class when_examining_a_compiled_type_for_a_behavior(BehaviorSpecs):
     behaviorCode = """
 namespace Test
 import System
+import System.Web.Mvc
 import Mercury.Core
 
 behavior FooBehavior:
@@ -132,9 +130,6 @@ behavior FooBehavior:
   
   should_have_an_after_action_member_that_is_not_null as It = def():
     behaviorInstance.AfterAction.ShouldNotBeNull()
-  
-  should_have_a_dependency_field_named_someString as It = def():
-    behaviorInstance.someString.ShouldNotBeNull()
     
   should_have_a_single_precedence_rule as It
   should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
