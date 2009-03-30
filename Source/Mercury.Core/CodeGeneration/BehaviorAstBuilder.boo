@@ -10,6 +10,7 @@ public class BehaviorAstBuilder:
   _dependencyBuilder as DependencyAstBuilder
   _constructorAndFieldAstBuilder as ConstructorAndFieldAstBuilder
   _propertyAstBuilder as PropertyAstBuilder
+  _isAConstructor = { x as TypeMember | x isa Constructor }  
   
   public def constructor():
     _dependencyBuilder = DependencyAstBuilder()
@@ -43,6 +44,8 @@ public class BehaviorAstBuilder:
     deps = _dependencyBuilder.GetDependenciesForClass(body, module)
     classDef = _constructorAndFieldAstBuilder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, deps)
     
+    classDef = AddBeforeAction(classDef, before)
+    classDef = AddAfterAction(classDef, after)
     classDef = AddTargets(classDef, targets)
     classDef = AddPrecedenceRules(classDef, List of string())
     
@@ -56,7 +59,35 @@ public class BehaviorAstBuilder:
           pass
         
         _targets as string*
+        _beforeAction as BeforeAction
+        _afterAction as AfterAction
     |]
+  
+  public def AddBeforeAction(classDef as ClassDefinition, before as Block) as ClassDefinition:
+    beforeProperty = _propertyAstBuilder.SimpleGetterProperty("BeforeAction", "_beforeAction", [| typeof(BeforeAction) |].Type)
+    classDef.Members.Add(beforeProperty)
+    for ctor as Constructor in classDef.Members.Where(_isAConstructor):
+      if before is null:
+        ctor.Body.Statements.Add(ExpressionStatement([| self._beforeAction = null |]))
+      else:
+        addBeforeExp = BlockExpression(before)
+        paramTypeDef = [| typeof(ControllerContext) |].Type
+        addBeforeExp.Parameters.Add( ParameterDeclaration("request", paramTypeDef))
+        ctor.Body.Statements.Add(ExpressionStatement([| self._beforeAction = $addBeforeExp |]))
+    return classDef
+  
+  public def AddAfterAction(classDef as ClassDefinition, after as Block) as ClassDefinition:
+    afterProperty = _propertyAstBuilder.SimpleGetterProperty("AfterAction", "_afterAction", [| typeof(AfterAction) |].Type)
+    classDef.Members.Add(afterProperty)
+    for ctor as Constructor in classDef.Members.Where(_isAConstructor):
+      if after is null:
+        ctor.Body.Statements.Add(ExpressionStatement([| self._afterAction = null |]))
+      else:
+        addAfterExp = BlockExpression(after)
+        paramTypeDef = [| typeof(ControllerContext) |].Type
+        addAfterExp.Parameters.Add( ParameterDeclaration("request", paramTypeDef))
+        ctor.Body.Statements.Add(ExpressionStatement([| self._afterAction = $addAfterExp |]))
+    return classDef
   
   public def AddTargets(classDef as ClassDefinition, targets as StringLiteralExpression*) as ClassDefinition:
     targetsProperty = _propertyAstBuilder.SimpleGetterProperty("Targets", "_targets", [| typeof(string*) |].Type)
@@ -76,8 +107,7 @@ public class BehaviorAstBuilder:
     
     classDef.Members.Add(addTargetsMethod)
 
-    isAConstructor = { x as TypeMember | x isa Constructor }
-    for ctor as Constructor in classDef.Members.Where(isAConstructor):
+    for ctor as Constructor in classDef.Members.Where(_isAConstructor):
       ctor.Body.Statements.Add(ExpressionStatement([| self.AddTargets() |]))
     
     return classDef
