@@ -9,6 +9,7 @@ import System.Web.Mvc
 
 Behavior SetSparkMasterName:
   target ".*"
+  dependency testService as ITestService
   before_action:
     action.TempData["masterName"] = "Application"
 
