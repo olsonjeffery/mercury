@@ -129,9 +129,13 @@ behavior FooBehavior:
   
   should_have_a_before_action_member_that_is_not_null as It = def():
     behaviorInstance.BeforeAction.ShouldNotBeNull()
+  
+  should_have_an_after_action_member_that_is_not_null as It = def():
+    behaviorInstance.AfterAction.ShouldNotBeNull()
+  
+  should_have_a_dependency_field_named_someString as It = def():
+    behaviorInstance.someString.ShouldNotBeNull()
     
-  should_have_an_after_action_member_that_is_not_null as It
-  should_have_a_dependency_field_named_someString as It
   should_have_a_single_precedence_rule as It
   should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
   
