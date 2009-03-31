@@ -46,6 +46,7 @@
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="Behavior\Precedence.boo" />
     <Compile Include="Behavior\PrecedenceMacros.boo" />
+    <Compile Include="Behavior\PrecedenceRule.boo" />
     <Compile Include="CodeGeneration\BehaviorAstBuilder.boo" />
     <Compile Include="CodeGeneration\ConstructorAndFieldAstBuilder.boo" />
     <Compile Include="CodeGeneration\DependencyAstBuilder.boo" />

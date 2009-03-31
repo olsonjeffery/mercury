@@ -4,7 +4,7 @@ import System
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
-class PrecedenceMacros:
+public class PrecedenceMacros:
 
   def constructor():
     pass

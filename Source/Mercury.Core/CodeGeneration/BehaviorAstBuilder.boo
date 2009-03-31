@@ -28,15 +28,18 @@ public class BehaviorAstBuilder:
     hasBeforeAlready = false
     after as Block = null
     hasAfterAlready = false
-    for i in body.Statements:
+    rules = List of PrecedenceRule()
+    for i as Statement in body.Statements:
       if i["isBeforeAction"]:
         before = (i if i isa Block else (i as MacroStatement).Body)
         raise BehaviorHasMoreThanOneBeforeActionSegmentException() if hasBeforeAlready
         hasBeforeAlready = true;
-      if i["isAfterAction"]:
+      elif i["isAfterAction"]:
         after = (i if i isa Block else (i as MacroStatement).Body)
         raise BehaviorHasMoreThanOneAfterActionSegmentException() if hasAfterAlready
         hasAfterAlready = true;
+      elif i["isPrecedence"]:
+        rules.Add(ProcessPrecedenceRule(i))
     raise BehaviorHasNoBeforeOrAfterAfterSegmentException() if not hasAfterAlready and not hasBeforeAlready
     
     classDef = GetClassDefintionTemplate(name)
@@ -50,6 +53,9 @@ public class BehaviorAstBuilder:
     classDef = AddPrecedenceRules(classDef, List of string())
     
     return classDef
+  
+  public def ProcessPrecedenceRule(rawRule as Statement) as PrecedenceRule:
+    pass
   
   public def GetClassDefintionTemplate(name as string):
     return [|
