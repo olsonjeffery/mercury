@@ -28,7 +28,7 @@ public class BehaviorAstBuilder:
     hasBeforeAlready = false
     after as Block = null
     hasAfterAlready = false
-    rules = List of PrecedenceRule()
+    rules = List of Statement()
     for i as Statement in body.Statements:
       if i["isBeforeAction"]:
         before = (i if i isa Block else (i as MacroStatement).Body)
@@ -50,12 +50,16 @@ public class BehaviorAstBuilder:
     classDef = AddBeforeAction(classDef, before)
     classDef = AddAfterAction(classDef, after)
     classDef = AddTargets(classDef, targets)
-    classDef = AddPrecedenceRules(classDef, List of string())
+    classDef = AddPrecedenceRules(classDef, rules)
     
     return classDef
   
-  public def ProcessPrecedenceRule(rawRule as Statement) as PrecedenceRule:
-    pass
+  public def ProcessPrecedenceRule(i as Statement) as Statement:
+    precType = i["precedenceType"]
+
+    return ExpressionStatement([| tempList.Add(PrecedenceRule($(i["precedenceValue"] as string), Precedence.$(precType.ToString()) )) |]) if (i["precedenceType"]) in (Precedence.RunsBefore, Precedence.RunsAfter)
+    return ExpressionStatement([| tempList.Add(PrecedenceRule(string.Empty, Precedence.$(precType.ToString()) )) |]) if (i["precedenceType"]) in (Precedence.RunFirst, Precedence.RunLast)
+    raise "malformed precedence rules!"
   
   public def GetClassDefintionTemplate(name as string):
     return [|
@@ -67,6 +71,7 @@ public class BehaviorAstBuilder:
         _targets as string*
         _beforeAction as BeforeAction
         _afterAction as AfterAction
+        _precedenceRules as PrecedenceRule*
     |]
   
   public def AddBeforeAction(classDef as ClassDefinition, before as Block) as ClassDefinition:
@@ -118,5 +123,25 @@ public class BehaviorAstBuilder:
     
     return classDef
   
-  public def AddPrecedenceRules(classDef as ClassDefinition, rules as string*) as ClassDefinition:
+  public def AddPrecedenceRules(classDef as ClassDefinition, rules as Statement*) as ClassDefinition:
+    precedenceProperty = _propertyAstBuilder.SimpleGetterProperty("PrecedenceRules", "_precedenceRules", [| typeof(PrecedenceRule*) |].Type)
+    classDef.Members.Add(precedenceProperty)
+    
+    addPrecedenceMethod = [|
+      private def AddPrecedenceRules():
+        pass
+    |]
+    addPrecedenceMethod.Body = Block()
+    addPrecedenceMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of PrecedenceRule() |]))
+    
+    for rule in rules:
+      addPrecedenceMethod.Body.Statements.Add(rule)
+    
+    addPrecedenceMethod.Body.Statements.Add(ExpressionStatement([| _precedenceRules = tempList |]))
+    
+    classDef.Members.Add(addPrecedenceMethod)
+    
+    for ctor as Constructor in classDef.Members.Where(_isAConstructor):
+      ctor.Body.Statements.Add(ExpressionStatement([| self.AddPrecedenceRules() |]))
+    
     return classDef

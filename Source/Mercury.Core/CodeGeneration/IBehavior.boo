@@ -14,5 +14,5 @@ public interface IBehavior:
     get
   Targets as string*:
     get
-  PrecedenceRules as string*:
+  PrecedenceRules as PrecedenceRule*:
     get

@@ -105,8 +105,7 @@ behavior FooBehavior:
   target "bar"
   target /foo/
   dependency someString as string
-  runs_before AnotherBehavior
-  runs_before Foo.Bar.AnotherThing
+  run_before AnotherBehavior
   before_action:
     foo = "bar"
   after_action:
@@ -132,8 +131,14 @@ behavior FooBehavior:
   should_have_an_after_action_member_that_is_not_null as It = def():
     behaviorInstance.AfterAction.ShouldNotBeNull()
     
-  should_have_a_single_precedence_rule as It
-  should_have_a_precedence_rule_indicating_that_the_action_runs_before_AnotherBehavior as It
+  should_have_a_single_precedence_rule as It = def():
+    behaviorInstance.PrecedenceRules.Count.ShouldEqual(1)
+    
+  should_have_a_precedence_rule_indicating_that_it_is_a_runs_before_rule as It = def():
+    behaviorInstance.PrecedenceRules[0].Precedence.ShouldEqual(Precedence.RunsBefore);
+  
+  should_have_a_precedence_rule_indicating_that_it_targets_AnotherBehavior as It = def():
+    behaviorInstance.PrecedenceRules[0].TargetName.ShouldEqual("AnotherBehavior");
   
   static valuesAreEitherFooOrBar = { x as string | x in ("/foo/", "bar") }
   static behaviorInstance as duck

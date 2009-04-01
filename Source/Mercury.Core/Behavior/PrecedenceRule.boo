@@ -11,9 +11,9 @@ public class PrecedenceRule:
     _targetName = targetName
     _precedence = precedence
   
-  Precedence as Precedence:
+  public Precedence as Precedence:
     get:
       return _precedence
-  TargetName as string:
+  public TargetName as string:
     get:
       return _targetName
