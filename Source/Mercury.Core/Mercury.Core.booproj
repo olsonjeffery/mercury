@@ -66,8 +66,8 @@
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="Macros\Run_firstMacro.boo" />
-    <Compile Include="Macros\Runs_afterMacro.boo" />
-    <Compile Include="Macros\Runs_beforeMacro.boo" />
+    <Compile Include="Macros\Run_afterMacro.boo" />
+    <Compile Include="Macros\Run_beforeMacro.boo" />
     <Compile Include="Macros\Run_lastMacro.boo" />
     <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />

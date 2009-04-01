@@ -4,7 +4,7 @@ import System
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 
-public class Runs_beforeMacro(AbstractAstMacro):
+public class Run_beforeMacro(AbstractAstMacro):
   
   _precedence as PrecedenceMacros
   def constructor():
