@@ -7,9 +7,16 @@ import System.Web
 import System.Web.Routing
 import System.Web.Mvc
 
+Behavior SimpleBehavior:
+  target ".*"
+  before_action:
+    request.Controller.TempData["hello"] = "Hello from SimpleBehavior!"
+
 Behavior SetSparkMasterName:
   target ".*"
   dependency testService as ITestService
+  run_last
+  run_after SimpleBehavior
   before_action:
     request.Controller.TempData["masterName"] = "Application"
 
