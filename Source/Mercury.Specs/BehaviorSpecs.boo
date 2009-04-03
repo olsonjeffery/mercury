@@ -212,7 +212,37 @@ behavior FooBehavior:
 
 // determining order-of-precedence for behaviors at startup
 public class when_there_are_two_specified_behaviors_targetting_the_same_route_and_behavior_a_specifies_that_it_runs_after_behavior_b(BehaviorSpecs):
-  should_place_behavior_a_after_behavior_b_in_the_run_order as It
+  context as Establish = def():
+    assembly = CompileCodeAndGetContext(code).GeneratedAssembly
+    behaviors = List of IBehavior()
+    behaviorA = GetTypeFromAssemblyNamed(assembly, "Test.BehaviorA")()
+    behaviors.Add(behaviorA)
+    behaviorB = GetTypeFromAssemblyNamed(assembly, "Test.BehaviorB")()
+    behaviors.Add(behaviorB)
+  
+  of_ as Because = def():
+    sortedBehaviors = behaviorProcessor.OrderBehaviors(behaviors)
+  
+  should_place_behavior_a_after_behavior_b_in_the_run_order as It = def():
+    sortedBehaviors.First().ShouldEqual(behaviorB)
+  
+  protected static code as string = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior BehaviorA:
+  target "foo"
+  run_after BehaviorB
+  before_action:
+    foo = "bar"
+
+behavior BehaviorB:
+  target "bar"
+  before_action:
+    foo = "bar"
+"""
 
 public class when_there_are_two_specified_behaviors_targetting_the_same_route_and_behavior_a_specifies_that_it_runs_before_behavior_b(BehaviorSpecs):
   should_place_behavior_a_before_behavior_b_in_the_run_order as It
@@ -231,7 +261,9 @@ public class BehaviorSpecs(CommonSpecBase):
     behaviorMacro = BehaviorMacro()
     behaviorBuilder = BehaviorAstBuilder()
     targetMacro = TargetMacro()
+    behaviorProcessor = BehaviorProcessor()
   
+  protected static behaviorProcessor as BehaviorProcessor
   protected static behaviorMacro as BehaviorMacro
   protected static behaviorBuilder as BehaviorAstBuilder
   protected static exception as Exception
@@ -240,6 +272,10 @@ public class BehaviorSpecs(CommonSpecBase):
   protected static classDef as ClassDefinition  
   protected static behaviorType as Type
   protected static behaviorCode as string
+  protected static behaviorA as IBehavior
+  protected static behaviorB as IBehavior
+  protected static behaviors as List of IBehavior
+  protected static sortedBehaviors as IBehavior*
   
   protected static def BehaviorMacroWithAStringForItsName():
     macro = MacroStatement()
