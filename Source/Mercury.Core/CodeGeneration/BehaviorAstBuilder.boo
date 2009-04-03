@@ -78,6 +78,9 @@ public class BehaviorAstBuilder:
         _beforeAction as BeforeAction
         _afterAction as AfterAction
         _precedenceRules as PrecedenceRule*
+        
+        public override def ToString() as string:
+          return self.GetType().FullName + ".. targetting: '"+join(i for i in _targets, ", ")+"'"
     |]
   
   public def AddBeforeAction(classDef as ClassDefinition, before as Block) as ClassDefinition:
