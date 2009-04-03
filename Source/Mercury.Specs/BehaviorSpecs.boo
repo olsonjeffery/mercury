@@ -154,22 +154,61 @@ import Mercury.Core
 
 behavior FooBehavior:
   target "bar"
-  runs_before AnotherBehavior
+  run_first
+  run_before FooBarBehavior
   before_action:
     foo = "bar"
 """
   of_ as Because = def():
-    behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
-    behaviorInstance = behaviorType()
-  
+    exception = Catch.Exception:
+      behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
 
-  should_result_in_an_exception as It
+  should_not_compile as It = def():
+    (exception is not null).ShouldBeTrue()
 
 public class when_a_behavior_specifies_a_runs_last_precendence_and_then_specifies_any_other_precedence_rule(BehaviorSpecs):
-  should_result_in_an_exception as It
+  context as Establish = def():
+    behaviorCode = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior FooBehavior:
+  target "bar"
+  run_last
+  run_after FooBarBehavior
+  before_action:
+    foo = "bar"
+"""
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+
+  should_not_compile as It = def():
+    (exception is not null).ShouldBeTrue()
 
 public class when_a_behavior_specifies_a_runs_before_and_runs_after_precedence_for_the_same_behavior(BehaviorSpecs):
-  should_result_in_an_exception as It
+  context as Establish = def():
+    behaviorCode = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior FooBehavior:
+  target "bar"
+  run_before FooBarBehavior
+  run_after FooBarBehavior
+  before_action:
+    foo = "bar"
+"""
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+
+  should_not_compile as It = def():
+    (exception is not null).ShouldBeTrue()
 
 // determining order-of-precedence for behaviors at startup
 public class when_there_are_two_specified_behaviors_targetting_the_same_route_and_behavior_a_specifies_that_it_runs_after_behavior_b(BehaviorSpecs):

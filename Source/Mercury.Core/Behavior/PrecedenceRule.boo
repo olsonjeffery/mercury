@@ -17,3 +17,6 @@ public class PrecedenceRule:
   public TargetName as string:
     get:
       return _targetName
+  
+  public def ConflictsWith(rule as PrecedenceRule) as bool:
+    return true if self._targetName.Equals(rule.TargetName)

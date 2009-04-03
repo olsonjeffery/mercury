@@ -28,7 +28,7 @@ public class BehaviorAstBuilder:
     hasBeforeAlready = false
     after as Block = null
     hasAfterAlready = false
-    rules = List of Statement()
+    rules = List of PrecedenceRule()
     for i as Statement in body.Statements:
       if i["isBeforeAction"]:
         before = (i if i isa Block else (i as MacroStatement).Body)
@@ -39,7 +39,7 @@ public class BehaviorAstBuilder:
         raise BehaviorHasMoreThanOneAfterActionSegmentException() if hasAfterAlready
         hasAfterAlready = true;
       elif i["isPrecedence"]:
-        rules.Add(ProcessPrecedenceRule(i))
+        rules.Add(CreatePrecedenceRule(i))
     raise BehaviorHasNoBeforeOrAfterAfterSegmentException() if not hasAfterAlready and not hasBeforeAlready
     
     classDef = GetClassDefintionTemplate(name)
@@ -54,11 +54,17 @@ public class BehaviorAstBuilder:
     
     return classDef
   
-  public def ProcessPrecedenceRule(i as Statement) as Statement:
-    precType = i["precedenceType"]
+  public def CreatePrecedenceRule(i as Statement) as PrecedenceRule:
+    return PrecedenceRule(string.Empty, i["precedenceType"]) if i["precedenceType"] in (Precedence.RunFirst, Precedence.RunLast)
+    return PrecedenceRule(i["precedenceValue"], i["precedenceType"]) if i["precedenceType"] in (Precedence.RunsBefore, Precedence.RunsAfter)
+    raise "malformed precedence rule from macro!"
+  
+  public def ProcessPrecedenceRule(precedenceRule as PrecedenceRule) as Statement:
+    precName = precedenceRule.TargetName
+    precType = precedenceRule.Precedence
 
-    return ExpressionStatement([| tempList.Add(PrecedenceRule($(i["precedenceValue"] as string), Precedence.$(precType.ToString()) )) |]) if (i["precedenceType"]) in (Precedence.RunsBefore, Precedence.RunsAfter)
-    return ExpressionStatement([| tempList.Add(PrecedenceRule(string.Empty, Precedence.$(precType.ToString()) )) |]) if (i["precedenceType"]) in (Precedence.RunFirst, Precedence.RunLast)
+    return ExpressionStatement([| tempList.Add(PrecedenceRule($(precName), Precedence.$(precType.ToString()) )) |]) if (precType in (Precedence.RunsBefore, Precedence.RunsAfter))
+    return ExpressionStatement([| tempList.Add(PrecedenceRule(string.Empty, Precedence.$(precType.ToString()) )) |]) if (precType in (Precedence.RunFirst, Precedence.RunLast))
     raise "malformed precedence rules!"
   
   public def GetClassDefintionTemplate(name as string):
@@ -123,7 +129,14 @@ public class BehaviorAstBuilder:
     
     return classDef
   
-  public def AddPrecedenceRules(classDef as ClassDefinition, rules as Statement*) as ClassDefinition:
+  public def AddPrecedenceRules(classDef as ClassDefinition, rules as PrecedenceRule*) as ClassDefinition:
+    runsFirstOrLast = { x as PrecedenceRule | x.Precedence in (Precedence.RunFirst, Precedence.RunLast) }
+    raise ExpansionTimePrecedenceRuleException() if rules.Where(runsFirstOrLast).Count() > 0 and rules.Count() > 1
+    
+    for rule in rules:
+      areInConflict = { x as PrecedenceRule | x.ConflictsWith(rule) and not x is rule }
+      raise ExpansionTimePrecedenceRuleException() if rules.Where(areInConflict).Count() > 0
+    
     precedenceProperty = _propertyAstBuilder.SimpleGetterProperty("PrecedenceRules", "_precedenceRules", [| typeof(PrecedenceRule*) |].Type)
     classDef.Members.Add(precedenceProperty)
     
@@ -135,7 +148,8 @@ public class BehaviorAstBuilder:
     addPrecedenceMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of PrecedenceRule() |]))
     
     for rule in rules:
-      addPrecedenceMethod.Body.Statements.Add(rule)
+      statement = ProcessPrecedenceRule(rule)
+      addPrecedenceMethod.Body.Statements.Add(statement)
     
     addPrecedenceMethod.Body.Statements.Add(ExpressionStatement([| _precedenceRules = tempList |]))
     
