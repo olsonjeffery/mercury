@@ -1,6 +1,7 @@
 namespace Mercury.Specs
 
 import System
+import System.Reflection
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.IO
 import Boo.Lang.Compiler.Ast
@@ -26,7 +27,7 @@ public class CommonSpecBase:
     macro.Arguments.Add(TryCastExpression(ReferenceExpression(name), typeRef.Type))
     return depMacro.Expand(macro)
   
-  protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
+  protected static def CompileCodeAndGetContext(code as string) as CompilerContext:
     booC = BooCompiler()
     booC.Parameters.Input.Add(StringInput("name",code))
     for i in AppDomain.CurrentDomain.GetAssemblies():
@@ -35,4 +36,11 @@ public class CommonSpecBase:
     booC.Parameters.Ducky = false
     context = booC.Run()
     raise join(e for e in context.Errors, "\n") if context.GeneratedAssembly is null
-    return context.GeneratedAssembly.GetType(typeName, true, true)
+    return context
+    
+  protected static def GetTypeFromAssemblyNamed(assembly as Assembly, typeName as string) as Type:
+    return assembly.GetType(typeName, true, true)
+    
+  protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
+    context = CompileCodeAndGetContext(code)
+    return GetTypeFromAssemblyNamed(context.GeneratedAssembly, typeName)
