@@ -224,7 +224,7 @@ public class when_there_are_two_specified_behaviors_targetting_the_same_route_an
     sortedBehaviors = behaviorProcessor.OrderBehaviors(behaviors)
   
   should_place_behavior_a_after_behavior_b_in_the_run_order as It = def():
-    sortedBehaviors.First().ShouldEqual(behaviorB)
+    sortedBehaviors.First().ToString().ShouldEqual(behaviorB.ToString())
   
   protected static code as string = """
 namespace Test
@@ -240,6 +240,7 @@ behavior BehaviorA:
 
 behavior BehaviorB:
   target "bar"
+  target /baz/
   before_action:
     foo = "bar"
 """
