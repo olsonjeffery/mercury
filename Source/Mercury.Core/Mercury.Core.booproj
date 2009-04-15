@@ -61,6 +61,7 @@
     <Compile Include="Exceptions\BehaviorHasNoBeforeOrAfterAfterSegmentException.boo" />
     <Compile Include="Exceptions\DuplicateDependencyException.boo" />
     <Compile Include="Exceptions\ExpansionTimePrecedenceRuleException.boo" />
+    <Compile Include="Exceptions\MultipleRunFirstBehaviorsException.boo" />
     <Compile Include="Exceptions\NoTargetException.boo" />
     <Compile Include="Macros\After_actionMacro.boo" />
     <Compile Include="Macros\Before_actionMacro.boo" />
