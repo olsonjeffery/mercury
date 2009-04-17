@@ -39,5 +39,6 @@ public class PrecedenceRule:
       behavior = ordered[i]
       behaviorName = (behavior.GetType().FullName if _targetName.Contains('.') else behavior.GetType().Name)
       return (i-1) if behaviorName == _targetName and _precedence == Precedence.RunBefore
+    return -1 if not behaviors.Select(_selectNames).Contains(_targetName) and _precedence == Precedence.RunBefore
     
     raise "unable to find location for precedence rule!"

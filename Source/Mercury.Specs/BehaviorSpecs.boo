@@ -249,7 +249,21 @@ behavior BehaviorB:
 """
 
 public class when_a_precedence_rule_specifies_that_it_must_run_before_another_behavior_that_has_not_yet_been_added_to_the_list_of_ordered_behaviors(BehaviorSpecs):
-  should_indicate_that_the_behavior_can_be_added_to_the_end_of_the_list_of_ordered_behaviors as It
+  
+  context as Establish = def():
+    rule = PrecedenceRule("SomeBehavior", Precedence.RunBefore)
+    behaviors = List of IBehavior()
+    behaviors.Add(AnotherBehavior())
+  
+  of_ as Because = def():
+    behaviorLocation = rule.LocationToBeAddedToIn(behaviors)
+  
+  should_indicate_that_the_behavior_can_be_added_to_the_end_of_the_list_of_ordered_behaviors as It = def():
+    behaviorLocation.ShouldEqual(endOfTheList)
+  
+  static rule as PrecedenceRule
+  static behaviorLocation as int
+  static endOfTheList = -1
 
 public class when_a_precedence_rule_specifies_that_it_must_run_before_another_behavior_that_has_been_added_to_the_list_of_ordered_behaviors(BehaviorSpecs):
   should_indicate_that_the_behavior_can_be_added_to_the_list_directly_before_the_dependant_behavior as It
@@ -370,3 +384,25 @@ public class BehaviorSpecs(CommonSpecBase):
     macro.Body.Statements.Add(afterMacro.Expand(afterAction2))
     
     return macro
+  
+public class AnotherBehavior(IBehavior):
+  public def constructor():
+    pass
+  
+  BeforeAction as BeforeAction:
+    get:
+      raise ""
+  AfterAction as AfterAction:
+    get:
+      raise ""
+  Targets as string*:
+    get:
+      raise ""
+  PrecedenceRules as PrecedenceRule*:
+    get:
+      raise ""
+  public def HasItsPrecedenceDependenciesMetBy(behaviors as IBehavior*) as bool:
+    raise ""
+    
+  public def LocationToBeAddedToIn(behaviors as IBehavior*) as int:
+    raise ""
