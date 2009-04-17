@@ -16,3 +16,5 @@ public interface IBehavior:
     get
   PrecedenceRules as PrecedenceRule*:
     get
+  def HasItsPrecedenceDependenciesMetBy(behaviors as IBehavior*) as bool
+  def LocationToBeAddedToIn(behaviors as IBehavior*) as int
