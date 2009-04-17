@@ -15,7 +15,7 @@ public class PrecedenceMacros:
     
     body as Block = macro.Body
     body.Annotate("isPrecedence", true)
-    body.Annotate("precedenceType", Precedence.RunsBefore)
+    body.Annotate("precedenceType", Precedence.RunBefore)
     body.Annotate("precedenceValue", macro.Arguments[0].ToString())
     return body
   
@@ -25,7 +25,7 @@ public class PrecedenceMacros:
     
     body as Block = macro.Body
     body.Annotate("isPrecedence", true)
-    body.Annotate("precedenceType", Precedence.RunsAfter)
+    body.Annotate("precedenceType", Precedence.RunAfter)
     body.Annotate("precedenceValue", macro.Arguments[0].ToString())
     return body
   

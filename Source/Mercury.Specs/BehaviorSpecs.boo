@@ -135,7 +135,7 @@ behavior FooBehavior:
     behaviorInstance.PrecedenceRules.Count.ShouldEqual(1)
     
   should_have_a_precedence_rule_indicating_that_it_is_a_runs_before_rule as It = def():
-    behaviorInstance.PrecedenceRules[0].Precedence.ShouldEqual(Precedence.RunsBefore);
+    behaviorInstance.PrecedenceRules[0].Precedence.ShouldEqual(Precedence.RunBefore);
   
   should_have_a_precedence_rule_indicating_that_it_targets_AnotherBehavior as It = def():
     behaviorInstance.PrecedenceRules[0].TargetName.ShouldEqual("AnotherBehavior");

@@ -56,14 +56,14 @@ public class BehaviorAstBuilder:
   
   public def CreatePrecedenceRule(i as Statement) as PrecedenceRule:
     return PrecedenceRule(string.Empty, i["precedenceType"]) if i["precedenceType"] in (Precedence.RunFirst, Precedence.RunLast)
-    return PrecedenceRule(i["precedenceValue"], i["precedenceType"]) if i["precedenceType"] in (Precedence.RunsBefore, Precedence.RunsAfter)
+    return PrecedenceRule(i["precedenceValue"], i["precedenceType"]) if i["precedenceType"] in (Precedence.RunBefore, Precedence.RunAfter)
     raise "malformed precedence rule from macro!"
   
   public def ProcessPrecedenceRule(precedenceRule as PrecedenceRule) as Statement:
     precName = precedenceRule.TargetName
     precType = precedenceRule.Precedence
 
-    return ExpressionStatement([| tempList.Add(PrecedenceRule($(precName), Precedence.$(precType.ToString()) )) |]) if (precType in (Precedence.RunsBefore, Precedence.RunsAfter))
+    return ExpressionStatement([| tempList.Add(PrecedenceRule($(precName), Precedence.$(precType.ToString()) )) |]) if (precType in (Precedence.RunBefore, Precedence.RunAfter))
     return ExpressionStatement([| tempList.Add(PrecedenceRule(string.Empty, Precedence.$(precType.ToString()) )) |]) if (precType in (Precedence.RunFirst, Precedence.RunLast))
     raise "malformed precedence rules!"
   

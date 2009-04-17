@@ -3,7 +3,7 @@ namespace Mercury.Core
 import System
 
 public enum Precedence:
-  RunsBefore
-  RunsAfter
+  RunBefore
+  RunAfter
   RunFirst
   RunLast

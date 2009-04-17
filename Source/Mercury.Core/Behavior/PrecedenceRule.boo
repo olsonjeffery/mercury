@@ -25,19 +25,19 @@ public class PrecedenceRule:
     return true if self._targetName.Equals(rule.TargetName)
   
   public virtual def IsSatisfiedBy(behaviors as IBehavior*) as bool:
-    return true if behaviors.Select(_selectNames).Contains(_targetName) and _precedence == Precedence.RunsAfter
-    return true if not behaviors.Select(_selectNames).Contains(_targetName) and _precedence == Precedence.RunsBefore
+    return true if behaviors.Select(_selectNames).Contains(_targetName) and _precedence == Precedence.RunAfter
+    return true if not behaviors.Select(_selectNames).Contains(_targetName) and _precedence == Precedence.RunBefore
     
     return false
   
   public virtual def LocationToBeAddedToIn(behaviors as IBehavior*) as int:
     raise "Cannot find location in behaviors that this precedence rule is NOT satisfied by" if not IsSatisfiedBy(behaviors)
-    return -1 if _precedence == Precedence.RunsAfter
+    return -1 if _precedence == Precedence.RunAfter
     
     ordered = List of IBehavior(behaviors)
     for i in range(0, behaviors.Count() -1):
       behavior = ordered[i]
       behaviorName = (behavior.GetType().FullName if _targetName.Contains('.') else behavior.GetType().Name)
-      return (i-1) if behaviorName == _targetName and _precedence == Precedence.RunsBefore
+      return (i-1) if behaviorName == _targetName and _precedence == Precedence.RunBefore
     
     raise "unable to find location for precedence rule!"
