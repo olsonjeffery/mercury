@@ -223,8 +223,11 @@ public class when_there_are_two_specified_behaviors_targetting_the_same_route_an
   of_ as Because = def():
     sortedBehaviors = behaviorProcessor.OrderBehaviors(behaviors)
   
+  should_have_two_behaviors_in_the_sorted_list as It = def():
+    sortedBehaviors.Count().ShouldEqual(2)
+  
   should_place_behavior_a_after_behavior_b_in_the_run_order as It = def():
-    sortedBehaviors.First().ToString().ShouldEqual(behaviorB.ToString())
+    sortedBehaviors.Last().ToString().ShouldEqual(behaviorA.ToString())
   
   protected static code as string = """
 namespace Test
@@ -244,6 +247,15 @@ behavior BehaviorB:
   before_action:
     foo = "bar"
 """
+
+public class when_a_precedence_rule_specifies_that_it_must_run_before_another_behavior_that_has_not_yet_been_added_to_the_list_of_ordered_behaviors(BehaviorSpecs):
+  should_indicate_that_the_behavior_can_be_added_to_the_end_of_the_list_of_ordered_behaviors as It
+
+public class when_a_precedence_rule_specifies_that_it_must_run_before_another_behavior_that_has_been_added_to_the_list_of_ordered_behaviors(BehaviorSpecs):
+  should_indicate_that_the_behavior_can_be_added_to_the_list_directly_before_the_dependant_behavior as It
+
+public class when_a_behavior_has_two_run_before_precedence_rules_for_two_behaviors_already_added_to_the_list_of_ordered_behaviors(BehaviorSpecs):
+  should_indicate_that_the_behavior_can_be_added_to_the_list_before_the_dependant_behavior_that_is_closets_to_the_beginning_of_the_list as It
 
 public class when_there_are_two_specified_behaviors_targetting_the_same_route_and_behavior_a_specifies_that_it_runs_before_behavior_b(BehaviorSpecs):
   should_place_behavior_a_before_behavior_b_in_the_run_order as It
