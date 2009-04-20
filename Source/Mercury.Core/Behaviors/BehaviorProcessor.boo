@@ -12,9 +12,23 @@ public class BehaviorProcessor:
   
   public def OrderBehaviors(unordered as IBehavior*) as IBehavior*:
     ordered = List of IBehavior()
-    
     ordered = FindRunFirstBehaviorIfAny(unordered, ordered)
+    ordered = FindRunBeforeAndAfterBehaviors(unordered, ordered)
+    ordered = FindRunLastBehaviorIfAny(unordered, ordered)
+    raise "No duplicate behaviors allowed" if OrderedListContainsDuplicates(ordered)
+    RaiseOnUnsatisifedBehaviors(unordered, ordered) if unordered.Count() != ordered.Count
     
+    return ordered
+  
+  public def OrderedListContainsDuplicates(ordered as List of IBehavior) as bool:
+    list = List of string()
+    for i in ordered:
+      typeFullName = i.GetType().FullName
+      return true if list.Contains(typeFullName)
+      list.Add(typeFullName)
+    
+  
+  public def FindRunBeforeAndAfterBehaviors(unordered as IBehavior*, ordered as List of IBehavior) as IBehavior*:
     behaviorAddedInLastPass = true
     while behaviorAddedInLastPass:
       newlyAdded = List of IBehavior()
@@ -32,10 +46,6 @@ public class BehaviorProcessor:
         ordered.Insert(location, behavior) if addThisBehavior and not location == -1
         newlyAdded.Add(behavior) if addThisBehavior
       behaviorAddedInLastPass = false if newlyAdded.Count == 0
-    
-    ordered = FindRunLastBehaviorIfAny(unordered, ordered)
-    RaiseOnUnsatisifedBehaviors(unordered, ordered) if unordered.Count() != ordered.Count
-    
     return ordered
   
   public def RaiseOnUnsatisifedBehaviors(unordered as IBehavior*, ordered as List of IBehavior):
