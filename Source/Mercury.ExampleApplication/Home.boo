@@ -16,7 +16,6 @@ Behavior SetSparkMasterName:
   target ".*"
   dependency testService as ITestService
   run_last
-  run_after SimpleBehavior
   before_action:
     request.Controller.TempData["masterName"] = "Application"
 
