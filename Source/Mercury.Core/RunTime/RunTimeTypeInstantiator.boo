@@ -5,7 +5,7 @@ import System.Reflection
 import System.Web
 import Microsoft.Practices.ServiceLocation
 
-public class RouteActionFactory:
+public class RunTimeTypeInstantiator:
   
   _container as IServiceLocator
   

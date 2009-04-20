@@ -9,12 +9,12 @@ import Microsoft.Practices.ServiceLocation
 public class MercuryRouteHandler(IRouteHandler):
   _container as IServiceLocator
   _routeType as Type
-  _factory as RouteActionFactory
+  _factory as RunTimeTypeInstantiator
   _viewEngines as ViewEngineCollection
   
   def constructor(container as IServiceLocator, routeType as Type, viewEngines as ViewEngineCollection):
     _container = container
-    _factory = RouteActionFactory(_container)
+    _factory = RunTimeTypeInstantiator(_container)
     _routeType = routeType    
     _viewEngines = viewEngines
   

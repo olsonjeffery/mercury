@@ -79,13 +79,14 @@
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
     <Compile Include="Routing\MercuryRouteHandler.boo" />
-    <Compile Include="Routing\RouteActionFactory.boo" />
+    <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
     <Folder Include="Exceptions" />
     <Folder Include="CodeGeneration" />
     <Folder Include="Behaviors" />
+    <Folder Include="RunTime" />
     <Folder Include="Routing" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
