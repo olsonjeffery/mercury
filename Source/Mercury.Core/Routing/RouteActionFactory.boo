@@ -11,9 +11,6 @@ public class RouteActionFactory:
   
   public def constructor(container as IServiceLocator):
     _container = container
-  
-  public def CreateMercuryRouteActionFromType(type as Type) as IMercuryRouteAction:
-    raise "not impl"
 
   public def GetConstructorWithMostParametersFor(type as Type) as ConstructorInfo:
     ctor as ConstructorInfo = null
@@ -33,6 +30,12 @@ public class RouteActionFactory:
     return deps
   
   public def CreateInstanceOf(type as Type) as IMercuryRouteAction:
+    //ctor = GetConstructorWithMostParametersFor(type)
+    //deps = GetDependenciesForConstructor(ctor)
+    //return (ctor.Invoke((List of object(deps)).ToArray()) as IMercuryRouteAction)
+    return CreateInstanceOf[of IMercuryRouteAction](type)
+  
+  public def CreateInstanceOf[of TType](type as Type) as TType:
     ctor = GetConstructorWithMostParametersFor(type)
     deps = GetDependenciesForConstructor(ctor)
-    return (ctor.Invoke((List of object(deps)).ToArray()) as IMercuryRouteAction)
+    return (ctor.Invoke((List of object(deps)).ToArray()) as TType)
