@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="Behaviors\BehaviorRouteBinding.boo" />
     <Compile Include="Behaviors\BehaviorSpecs.boo" />
     <Compile Include="Behaviors\ExpansionCodeGen.boo" />
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />

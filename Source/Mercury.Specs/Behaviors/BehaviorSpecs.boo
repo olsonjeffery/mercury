@@ -10,11 +10,7 @@ import Mercury.Core
 import System.Linq.Enumerable from System.Core
 import Mercury.Specs
 
-// associating behaviors w/ routes
-
-// behavior re-instantiation concerns
-
-public class BehaviorSpecs(CommonSpecBase):
+public class BehaviorSpecs(Mercury.Specs.CommonSpecBase):
   context as Establish = def():
     behaviorMacro = BehaviorMacro()
     behaviorBuilder = BehaviorAstBuilder()
