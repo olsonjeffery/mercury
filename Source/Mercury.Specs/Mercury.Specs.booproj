@@ -62,7 +62,7 @@
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
-    <Compile Include="Routing\RouteActionFactorySpecs.boo" />
+    <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">

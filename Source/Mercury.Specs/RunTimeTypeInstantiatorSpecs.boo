@@ -85,11 +85,11 @@ public class RouteActionFactorySpecs:
     container.Initialize()
     container.PrepareForServices()
     serviceLocator = CommonServiceLocatorAdapter(container)
-    factory = RouteActionFactory(serviceLocator)
+    factory = RunTimeTypeInstantiator(serviceLocator)
     singleCtorRouteActionType = typeof(SingleCtorRouteAction)
     multipleCtorRouteActionType = typeof(MultipleCtorRouteAction)
   
-  protected static factory as RouteActionFactory
+  protected static factory as RunTimeTypeInstantiator
   protected static container as MachineContainer
   protected static serviceLocator as IServiceLocator
   protected static singleCtorRouteActionType as Type
