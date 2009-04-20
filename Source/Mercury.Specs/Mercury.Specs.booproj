@@ -56,17 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
-    <Compile Include="BehaviorSpecs.boo" />
+    <Compile Include="Behaviors\BehaviorSpecs.boo" />
+    <Compile Include="Behaviors\ExpansionCodeGen.boo" />
+    <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
-    <Compile Include="MercuryRouteBuilderSpecs.boo" />
-    <Compile Include="RouteActionFactorySpecs.boo" />
+    <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="Routing\RouteActionFactorySpecs.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
+    <Folder Include="Behaviors" />
+    <Folder Include="Routing" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
