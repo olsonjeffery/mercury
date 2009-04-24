@@ -41,6 +41,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\Libraries\Machine\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>

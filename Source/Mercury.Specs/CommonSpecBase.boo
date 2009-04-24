@@ -7,12 +7,15 @@ import Boo.Lang.Compiler.IO
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Pipelines
 import Mercury.Core
+import Microsoft.Practices.ServiceLocation
+import Machine.Specifications
+import Rhino.Mocks
+import System.Web.Mvc
 
 public class CommonSpecBase:
-  protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
-  protected static memberIsAField = { member as TypeMember | member  isa Field }
-  protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
-  protected static random as Random = Random()
+  context as Establish = def():
+    container = MockRepository.GenerateMock[of IServiceLocator]()
+    viewEngines = MockRepository.GenerateMock[of ViewEngineCollection]()
   
   protected static def FieldIsOfType(type as string):
     return { x as Field | x.Type.Equals([| typeof($type) |].Type) }
@@ -34,13 +37,20 @@ public class CommonSpecBase:
       booC.Parameters.AddAssembly(i)
     booC.Parameters.Pipeline = CompileToMemory()
     booC.Parameters.Ducky = false
-    context = booC.Run()
-    raise join(e for e in context.Errors, "\n") if context.GeneratedAssembly is null
-    return context
+    compileContext = booC.Run()
+    raise join(e for e in compileContext.Errors, "\n") if compileContext.GeneratedAssembly is null
+    return compileContext
     
   protected static def GetTypeFromAssemblyNamed(assembly as Assembly, typeName as string) as Type:
     return assembly.GetType(typeName, true, true)
     
   protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
-    context = CompileCodeAndGetContext(code)
-    return GetTypeFromAssemblyNamed(context.GeneratedAssembly, typeName)
+    compileContext = CompileCodeAndGetContext(code)
+    return GetTypeFromAssemblyNamed(compileContext.GeneratedAssembly, typeName)
+  
+  protected static viewEngines as ViewEngineCollection
+  protected static container as IServiceLocator
+  protected static memberIsAConstructor = {member as TypeMember | member isa Constructor}
+  protected static memberIsAField = { member as TypeMember | member  isa Field }
+  protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
+  protected static random as Random = Random()
