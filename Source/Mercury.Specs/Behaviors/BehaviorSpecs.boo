@@ -9,6 +9,8 @@ import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifica
 import Mercury.Core
 import System.Linq.Enumerable from System.Core
 import Mercury.Specs
+import Rhino.Mocks
+import Microsoft.Practices.ServiceLocation
 
 public class BehaviorSpecs(Mercury.Specs.CommonSpecBase):
   context as Establish = def():
@@ -16,6 +18,7 @@ public class BehaviorSpecs(Mercury.Specs.CommonSpecBase):
     behaviorBuilder = BehaviorAstBuilder()
     targetMacro = TargetMacro()
     behaviorProcessor = BehaviorProcessor()
+    startup = MercuryStartupService(container, viewEngines)
   
   protected static behaviorProcessor as BehaviorProcessor
   protected static behaviorMacro as BehaviorMacro
@@ -33,6 +36,7 @@ public class BehaviorSpecs(Mercury.Specs.CommonSpecBase):
   protected static sortedBehaviors as IBehavior*
   protected static rule as PrecedenceRule
   protected static behaviorLocation as int
+  protected static startup as MercuryStartupService
   
   protected static def BehaviorMacroWithAStringForItsName():
     macro = MacroStatement()
