@@ -17,18 +17,13 @@ public class BehaviorAstBuilder:
     _constructorAndFieldAstBuilder = ConstructorAndFieldAstBuilder()
     _propertyAstBuilder = PropertyAstBuilder()
   
-  public def BuildBehaviorClass(module as Module, name as string, body as Block) as ClassDefinition:
-    
-    targets = List of StringLiteralExpression()
-    for i in body.Statements:   
-      targets.Add(i["targetVal"] as StringLiteralExpression) if i["isTarget"]
-    raise NoTargetException() if targets.Count == 0
-    
+  public def BuildBehaviorClass(module as Module, name as string, body as Block) as ClassDefinition:      
     before as Block = null
     hasBeforeAlready = false
     after as Block = null
     hasAfterAlready = false
     rules = List of PrecedenceRule()
+    targets = List of StringLiteralExpression()
     for i as Statement in body.Statements:
       if i["isBeforeAction"]:
         before = (i if i isa Block else (i as MacroStatement).Body)
@@ -40,6 +35,13 @@ public class BehaviorAstBuilder:
         hasAfterAlready = true;
       elif i["isPrecedence"]:
         rules.Add(CreatePrecedenceRule(i))
+      elif i["isTarget"]:
+        targets.Add(i["targetVal"] as StringLiteralExpression)
+      elif i["dependency"]:
+        continue
+      else:
+        raise UnknownRuleInBehaviorException(i, name)
+    raise NoTargetException() if targets.Count == 0
     raise BehaviorHasNoBeforeOrAfterAfterSegmentException() if not hasAfterAlready and not hasBeforeAlready
     
     classDef = GetClassDefintionTemplate(name)

@@ -45,12 +45,13 @@ public class BehaviorSpecs(Mercury.Specs.CommonSpecBase):
   
   protected static def BehaviorMacroWithNoTarget():
     macro = MacroStatement()
-    macro.Arguments.Add([| BehaviorName |])
-    macro.Body = [|
-      before_action:
-        pass
-      foo = "bar"
+    macro.Arguments.Add([| Foo |])
+    beforeAction = [|
+      block:
+        foo = "bar"
     |]
+    beforeAction.Annotate("isBeforeAction", true)
+    macro.Body.Statements.Add(beforeAction)
     return macro
   
   protected static def TargetMacroWithAReferenceExpressionArgument():

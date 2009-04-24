@@ -209,3 +209,26 @@ behavior FooBehavior:
 
   should_not_compile as It = def():
     (exception is not null).ShouldBeTrue()
+
+public class when_a_behavior_contains_something_that_is_not_a_target_prececedence_rule_or_before_and_after_action_blocks(BehaviorSpecs):
+  context as Establish = def():
+    behaviorCode = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior FooBehavior:
+  target "bar"
+  run_before FooBarBehavior
+  run_after FooBarBehavior
+  malformed_rule "Right Here!"
+  before_action:
+    foo = "bar"
+"""
+  of_ as Because = def():
+    exception = Catch.Exception:
+      behaviorType = CompileCodeAndGetTypeNamed(behaviorCode, "Test.FooBehavior")
+
+  should_not_compile as It = def():
+    (exception is not null).ShouldBeTrue()
