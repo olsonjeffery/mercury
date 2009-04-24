@@ -64,6 +64,7 @@
     <Compile Include="Exceptions\MultipleRunFirstBehaviorsException.boo" />
     <Compile Include="Exceptions\MultipleRunLastBehaviorsException.boo" />
     <Compile Include="Exceptions\NoTargetException.boo" />
+    <Compile Include="Exceptions\UnknownRuleInBehaviorException.boo" />
     <Compile Include="Exceptions\UnsatisfiedBehaviorsException.boo" />
     <Compile Include="Macros\After_actionMacro.boo" />
     <Compile Include="Macros\Before_actionMacro.boo" />
