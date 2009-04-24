@@ -10,7 +10,7 @@ import System.Web.Mvc
 Behavior SimpleBehavior:
   target ".*"
   before_action:
-    request.Controller.TempData["hello"] = "Hello from SimpleBehavior!"
+    request.Controller.TempData["hello"] = "They most certainly do ... Hello from SimpleBehavior!"
 
 Behavior SetSparkMasterName:
   target ".*"
@@ -20,14 +20,14 @@ Behavior SetSparkMasterName:
     request.Controller.TempData["masterName"] = "Application"
 
 Get "":
-  //TempData["masterName"] = "Application";
-  masterName as string = (TempData["masterName"] if TempData.ContainsKey("masterName") else null)
+  masterName as string = (TempData["masterName"] if TempData.ContainsKey("masterName") else "Nope.")
   
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
   ViewData["anotherMessage"] = "another message!";
-
+  ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
+  
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
   viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false);
   

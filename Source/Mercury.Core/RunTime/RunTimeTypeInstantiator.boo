@@ -39,3 +39,10 @@ public class RunTimeTypeInstantiator:
     ctor = GetConstructorWithMostParametersFor(type)
     deps = GetDependenciesForConstructor(ctor)
     return (ctor.Invoke((List of object(deps)).ToArray()) as TType)
+  
+  public def CreateInstancesOfBehaviorsFrom(behaviorTypes as Type*) as IBehavior*:
+    list = List of IBehavior()
+    for i in behaviorTypes:
+      behavior = CreateInstanceOf[of IBehavior](i)
+      list.Add(behavior)
+    return list

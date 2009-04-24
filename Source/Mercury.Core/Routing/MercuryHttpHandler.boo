@@ -1,6 +1,7 @@
 namespace Mercury.Core
 
 import System
+import System.Collections.Generic
 import System.Web
 import System.Web.Mvc
 import System.Web.Routing
@@ -8,20 +9,24 @@ import Microsoft.Practices.ServiceLocation
 
 public class MercuryHttpHandler(IHttpHandler):
   _routeAction as IMercuryRouteAction
+  _behaviors as IBehavior*
   
   [property(RequestContext)]
   _requestContext as RequestContext
   
-  public def constructor(routeAction as IMercuryRouteAction):
+  public def constructor(routeAction as IMercuryRouteAction, behaviors as IBehavior*):
     _routeAction = routeAction
+    _behaviors = behaviors
     
   public IsReusable as bool:
     get:
       return false
   
   public def ProcessRequest(httpContext as HttpContext) as void:
-    (_routeAction as MercuryControllerBase).Execute(_requestContext)
- 
+    controllerBase = _routeAction as MercuryControllerBase
+    controllerBase.Behaviors = _behaviors
+    controllerBase.Execute(_requestContext)
+  
  public class MercuryHttpContext(HttpContextBase):
     _httpContext as HttpContext
     
