@@ -17,20 +17,31 @@ Behavior SetSparkMasterName:
   dependency testService as ITestService
   run_last
   before_action:
-    request.Controller.TempData["masterName"] = "Application"
+    request.Controller.ViewData["masterName"] = "Application"
 
 Get "":
-  masterName as string = (TempData["masterName"] if TempData.ContainsKey("masterName") else "Nope.")
-  
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
   ViewData["anotherMessage"] = "another message!";
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   
+  masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false);
+  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
+  viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
+  viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
+
+Get "User/{username}/{password}":
+  dependency testService as ITestService
+  ViewData["todaysDate"] = DateTime.Now.Date
+  ViewData["testMessage"] = testService.GetSomeString()  
+  ViewData["anotherMessage"] = 'User: ' + ControllerContext.RouteData.Values["username"] + " Password: "+ControllerContext.RouteData.Values['password']
+  ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   
+  masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)
+  ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
+  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
   viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
 
