@@ -62,6 +62,29 @@ public class when_attempting_to_add_dependencies_to_a_generated_route_action_cla
   should_make_two_assignments_to_store_the_constructor_parameters_in_fields as It = def():
     (classDefinition.Members.Where(memberIsAConstructor).Where(constructorHasMoreThanZeroParameters).Single() as Constructor).Body.Statements.Count.ShouldEqual(2)
 
+public class when_there_is_a_route_which_consists_solely_of_a_single_forward_slash_to_indicate_that_its_the_route_for_the_root_page(MercuryRouteBuilderSpecs):
+  context as Establish = def():
+    assembly = CompileCodeAndGetContext(code).GeneratedAssembly
+    route = GetTypeFromAssemblyThatImplements(assembly, typeof(IMercuryRouteAction))() as IMercuryRouteAction
+    routeString = route.RouteString
+  
+  should_change_the_route_to_an_empty_string as It = def():
+    routeString.ShouldEqual(string.Empty)
+    
+  routeString as string
+  macro as MacroStatement
+  
+  code = """
+namespace Test
+import System
+import System.Web
+import System.Web.Mvc
+import Mercury.Core
+
+Get "/":
+  pass
+"""
+
 public class MercuryRouteBuilderSpecs(CommonSpecBase):
   context as Establish = def():
     builder = MercuryRouteAstBuilder()

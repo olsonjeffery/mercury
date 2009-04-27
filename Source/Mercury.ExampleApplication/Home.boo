@@ -19,7 +19,7 @@ Behavior SetSparkMasterName:
   before_action:
     request.Controller.ViewData["masterName"] = "Application"
 
-Get "":
+Get "/":
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  

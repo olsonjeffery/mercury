@@ -35,7 +35,7 @@ public class MercuryRouteAstBuilder:
     return _constructorAndFieldAstBuilder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDeps)
   
   public def GetClassDefTemplate(method as string, routeString as StringLiteralExpression, body as Block) as ClassDefinition:
-    return  [|
+    classDef =  [|
       public class Mercury_route(MercuryControllerBase, IMercuryRouteAction):
         public def constructor():
           pass
@@ -47,14 +47,21 @@ public class MercuryRouteAstBuilder:
         public HttpMethod as string:
           get:
             return $method
+        
         public RouteString as string:
           get:
-            return $routeString
+            return ("" if $routeString == "/" else $routeString)
         
         public HttpContext as HttpContextBase:
           get:
             return ControllerContext.HttpContext
         
-        [property(ViewEngines)]
         _viewEngines as ViewEngineCollection
+        public ViewEngines as ViewEngineCollection:
+          get:
+            return _viewEngines
+          set:
+            _viewEngines = value
     |]
+    
+    return classDef
