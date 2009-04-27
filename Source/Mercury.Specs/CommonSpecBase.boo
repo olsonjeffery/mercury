@@ -43,6 +43,14 @@ public class CommonSpecBase:
     
   protected static def GetTypeFromAssemblyNamed(assembly as Assembly, typeName as string) as Type:
     return assembly.GetType(typeName, true, true)
+  
+  protected static def GetTypeFromAssemblyThatImplements(assembly as Assembly, targetType as Type) as Type:
+    type as Type = null
+    for i in assembly.GetTypes():
+      isMatch = (true if targetType.IsAssignableFrom(i) else false)
+      raise "Multiply types that implement "+targetType.ToString()+" have been found!" if type is not null and isMatch
+      type = i if isMatch
+    return type
     
   protected static def CompileCodeAndGetTypeNamed(code as string, typeName as string) as Type:
     compileContext = CompileCodeAndGetContext(code)
