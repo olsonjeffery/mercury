@@ -78,15 +78,9 @@
     <None Include="Scripts\MicrosoftAjax.js" />
     <None Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <None Include="Scripts\MicrosoftMvcAjax.js" />
-    <None Include="Views\Account\ChangePassword.aspx" />
-    <None Include="Views\Account\ChangePasswordSuccess.aspx" />
-    <None Include="Views\Account\LogOn.aspx" />
-    <None Include="Views\Account\Register.aspx" />
-    <None Include="Views\Home\About.aspx" />
-    <None Include="Views\Home\Index.aspx" />
-    <None Include="Views\Shared\Error.aspx" />
-    <None Include="Views\Shared\LogOnUserControl.ascx" />
-    <None Include="Views\Shared\Site.Master" />
+    <None Include="Views\Home\Index.spark" />
+    <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Web.config" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +96,8 @@
     <Folder Include="Controllers" />
     <Folder Include="Views" />
     <Folder Include="Scripts" />
-    <Folder Include="Views\Account" />
     <Folder Include="Views\Home" />
-    <Folder Include="Views\Shared" />
+    <Folder Include="Views\Layouts" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
