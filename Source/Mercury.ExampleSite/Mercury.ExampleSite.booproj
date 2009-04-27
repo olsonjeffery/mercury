@@ -64,7 +64,6 @@
     <Compile Include="Controllers\HomeController.boo" />
     <Compile Include="Default.aspx.boo" />
     <Compile Include="Global.asax.boo" />
-    <Compile Include="RouteInfo.boo" />
     <None Include="Content\Site.css" />
     <None Include="Controllers\AccountController.cs" />
     <None Include="Controllers\HomeController.cs" />
