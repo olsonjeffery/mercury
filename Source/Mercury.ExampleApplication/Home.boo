@@ -36,7 +36,7 @@ Get "User/{username}/{password}":
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
-  ViewData["anotherMessage"] = 'User: ' + ControllerContext.RouteData.Values["username"] + " Password: "+ControllerContext.RouteData.Values['password']
+  ViewData["anotherMessage"] = 'User: ' + params.username + " Password: " + params.password
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   
   masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)

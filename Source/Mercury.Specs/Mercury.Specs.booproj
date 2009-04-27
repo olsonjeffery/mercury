@@ -65,6 +65,7 @@
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
+    <Compile Include="RouteParamsSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
   </ItemGroup>

@@ -41,6 +41,7 @@ public class MercuryRouteAstBuilder:
           pass
         
         public override def ExecuteCore():
+          params = RouteParameters(ControllerContext.RouteData.Values)
           $(body)
         
         public HttpMethod as string:

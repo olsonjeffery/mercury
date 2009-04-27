@@ -80,6 +80,7 @@
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
     <Compile Include="Routing\MercuryRouteHandler.boo" />
+    <Compile Include="Routing\RouteParameters.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
   </ItemGroup>
   <ItemGroup>
