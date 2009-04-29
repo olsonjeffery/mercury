@@ -45,15 +45,13 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="Behaviors\BehaviorProcessor.boo" />
+    <Compile Include="Behaviors\IBehavior.boo" />
     <Compile Include="Behaviors\Precedence.boo" />
     <Compile Include="Behaviors\PrecedenceMacros.boo" />
     <Compile Include="Behaviors\PrecedenceRule.boo" />
     <Compile Include="CodeGeneration\BehaviorAstBuilder.boo" />
     <Compile Include="CodeGeneration\ConstructorAndFieldAstBuilder.boo" />
     <Compile Include="CodeGeneration\DependencyAstBuilder.boo" />
-    <Compile Include="CodeGeneration\IBehavior.boo" />
-    <Compile Include="CodeGeneration\IMercuryRouteAction.boo" />
-    <Compile Include="CodeGeneration\MercuryControllerBase.boo" />
     <Compile Include="CodeGeneration\MercuryRouteAstBuilder.boo" />
     <Compile Include="CodeGeneration\PropertyAstBuilder.boo" />
     <Compile Include="Exceptions\BehaviorHasMoreThanOneAfterActionSegment.boo" />
@@ -77,6 +75,8 @@
     <Compile Include="Macros\Run_lastMacro.boo" />
     <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
+    <Compile Include="Routing\IMercuryRouteAction.boo" />
+    <Compile Include="Routing\MercuryControllerBase.boo" />
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
     <Compile Include="Routing\MercuryRouteHandler.boo" />

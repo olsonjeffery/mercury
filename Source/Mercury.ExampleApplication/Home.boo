@@ -1,7 +1,6 @@
 namespace Mercury.ExampleApplication
 
 import System
-import System.IO
 import Mercury.Core
 import System.Web
 import System.Web.Routing
