@@ -27,7 +27,8 @@ Get "/":
   
   masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
+  //viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
+  viewEngineResult = ViewEngines.FindView(self.ControllerContext, "Index", masterName)
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
   
   return RenderViewResult(viewContext, viewEngineResult, ControllerContext.HttpContext.Response.Output)
