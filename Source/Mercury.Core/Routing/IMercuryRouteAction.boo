@@ -4,7 +4,7 @@ import System.Web
 import System.Web.Mvc
 
 public interface IMercuryRouteAction:
-  def ExecuteCore()
+  def RouteBody() as object
   RouteString as string:
     get
   HttpMethod as string:

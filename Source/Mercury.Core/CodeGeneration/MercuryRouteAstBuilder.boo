@@ -40,7 +40,7 @@ public class MercuryRouteAstBuilder:
         public def constructor():
           pass
         
-        public override def ExecuteCore():
+        public override def RouteBody() as object:
           params = RouteParameters(ControllerContext.RouteData.Values)
           $(body)
         

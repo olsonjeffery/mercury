@@ -76,11 +76,14 @@
     <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
     <Compile Include="Routing\IMercuryRouteAction.boo" />
+    <Compile Include="Routing\IRouteResult.boo" />
     <Compile Include="Routing\MercuryControllerBase.boo" />
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
     <Compile Include="Routing\MercuryRouteHandler.boo" />
+    <Compile Include="Routing\RenderViewResult.boo" />
     <Compile Include="Routing\RouteParameters.boo" />
+    <Compile Include="Routing\RouteResultProcessor.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
   </ItemGroup>
   <ItemGroup>

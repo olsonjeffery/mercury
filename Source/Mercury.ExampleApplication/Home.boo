@@ -29,7 +29,9 @@ Get "/":
   ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
   viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
   viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
-  viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
+  
+  return RenderViewResult(viewContext, viewEngineResult, ControllerContext.HttpContext.Response.Output)
+  
 
 Get "User/{username}/{password}":
   dependency testService as ITestService

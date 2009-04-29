@@ -25,7 +25,7 @@ public class MercuryHttpHandler(IHttpHandler):
   public def ProcessRequest(httpContext as HttpContext) as void:
     controllerBase = _routeAction as MercuryControllerBase
     controllerBase.Behaviors = _behaviors
-    controllerBase.Execute(_requestContext)
+    controllerBase.ExecuteRouteAndBehaviors(_requestContext)
   
  public class MercuryHttpContext(HttpContextBase):
     _httpContext as HttpContext
