@@ -125,8 +125,12 @@ public class BehaviorAstBuilder:
         ctor.Body.Statements.Add(ExpressionStatement([| self._afterAction = null |]))
       else:
         addAfterExp = BlockExpression(after)
+        
         paramTypeDef = [| typeof(ControllerContext) |].Type
         addAfterExp.Parameters.Add( ParameterDeclaration("request", paramTypeDef))
+        paramTypeDef = [| typeof(object) |].Type 
+        addAfterExp.Parameters.Add( ParameterDeclaration("result", paramTypeDef))
+        
         ctor.Body.Statements.Add(ExpressionStatement([| self._afterAction = $addAfterExp |]))
     return classDef
   

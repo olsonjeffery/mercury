@@ -5,7 +5,7 @@ import System.Web
 import System.Web.Mvc
 
 public callable BeforeAction(request as ControllerContext)
-public callable AfterAction(request as ControllerContext)
+public callable AfterAction(request as ControllerContext, actionResult as object)
 
 public interface IBehavior:
   BeforeAction as BeforeAction:
