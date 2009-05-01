@@ -73,6 +73,7 @@
     <Compile Include="Macros\Run_afterMacro.boo" />
     <Compile Include="Macros\Run_beforeMacro.boo" />
     <Compile Include="Macros\Run_lastMacro.boo" />
+    <Compile Include="Macros\SparkMacro.boo" />
     <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
     <Compile Include="Routing\IMercuryRouteAction.boo" />
@@ -85,12 +86,15 @@
     <Compile Include="Routing\RouteParameters.boo" />
     <Compile Include="Routing\RouteResultProcessor.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
+    <Compile Include="ViewRendering\AspNetMvcPathSplitKludge.boo" />
+    <Compile Include="ViewRendering\SparkViewBuilder.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
     <Folder Include="Exceptions" />
     <Folder Include="CodeGeneration" />
     <Folder Include="Behaviors" />
+    <Folder Include="ViewRendering" />
     <Folder Include="RunTime" />
     <Folder Include="Routing" />
   </ItemGroup>
