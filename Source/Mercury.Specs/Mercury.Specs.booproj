@@ -68,6 +68,7 @@
     <Compile Include="RouteParamsSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
+    <Compile Include="ViewRendering\AspNetMvcPathSplitKludgeSpecs.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
@@ -75,6 +76,7 @@
       <Name>Mercury.Core</Name>
     </ProjectReference>
     <Folder Include="Behaviors" />
+    <Folder Include="ViewRendering" />
     <Folder Include="Routing" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
