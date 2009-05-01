@@ -24,14 +24,7 @@ Get "/":
   ViewData["testMessage"] = testService.GetSomeString()  
   ViewData["anotherMessage"] = "another message!";
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
-  
-  masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)
-  ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  //viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
-  viewEngineResult = ViewEngines.FindView(self.ControllerContext, "Index", masterName)
-  viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
-  
-  return RenderViewResult(viewContext, viewEngineResult, ControllerContext.HttpContext.Response.Output)
+  spark "Home/Index.spark"
   
 
 Get "User/{username}/{password}":
@@ -40,12 +33,7 @@ Get "User/{username}/{password}":
   ViewData["testMessage"] = testService.GetSomeString()  
   ViewData["anotherMessage"] = 'User: ' + params.username + " Password: " + params.password
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
-  
-  masterName as string = (ViewData["masterName"] if ViewData.ContainsKey("masterName") else null)
-  ControllerContext.RequestContext.RouteData.Values.Add("controller", "Home")
-  viewEngineResult = ViewEngines[1].FindView(self.ControllerContext, "Index", masterName, false)
-  viewContext = ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData)
-  viewEngineResult.View.Render(viewContext, ControllerContext.RequestContext.HttpContext.Response.Output)
+  spark "Home/Nested/UserInfo.spark"
 
 Get "Home":
   print "hello world!!!"
