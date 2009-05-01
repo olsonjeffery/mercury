@@ -1,0 +1,5 @@
+﻿<viewdata todaysDate="System.DateTime" testMessage="System.String" anotherMessage="System.String" hello="System.String"/>
+<div>
+  Hello world! Today's date is ${todaysDate.ToShortDateString()}. Also, ${testMessage}<br />
+  ${anotherMessage} .. Do behaviors work? ${hello}
+</div>
