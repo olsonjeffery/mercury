@@ -54,6 +54,8 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -65,6 +67,13 @@
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
+    <Compile Include="Framework\FixtureService.boo" />
+    <Compile Include="Framework\HttpContextCreator.boo" />
+    <Compile Include="Framework\NewService.boo" />
+    <Compile Include="Framework\RequestContextCreator.boo" />
+    <Compile Include="Framework\TestHttpContext.boo" />
+    <Compile Include="Framework\TestHttpRequest.boo" />
+    <Compile Include="Framework\TestHttpResponse.boo" />
     <Compile Include="RouteParamsSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
@@ -76,6 +85,7 @@
       <Name>Mercury.Core</Name>
     </ProjectReference>
     <Folder Include="Behaviors" />
+    <Folder Include="Framework" />
     <Folder Include="ViewRendering" />
     <Folder Include="Routing" />
   </ItemGroup>
