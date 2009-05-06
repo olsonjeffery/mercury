@@ -15,6 +15,10 @@ public class TestHttpRequest(HttpRequestBase):
     get:
       return _method
   
+  public def constructor():
+    _uri = Uri("http://foo.com")
+    _method = "GET"
+  
   public def constructor(url as string, httpMethod as string):
     _uri = Uri(url)
     _method = httpMethod

@@ -1,4 +1,4 @@
-namespace Mercury.Specs.Framework
+namespace Mercury.Specs
 
 import System
 import System.IO

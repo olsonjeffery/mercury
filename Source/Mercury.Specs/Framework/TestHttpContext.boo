@@ -6,7 +6,12 @@ import System.Web
 public class TestHttpContext(HttpContextBase):
 """Description of TestHttpContext"""
   public def constructor():
-    pass
+    _request = TestHttpRequest("http://foo.com", "GET")
+    _response = TestHttpResponse()
+  
+  public def constructor(request as HttpRequestBase, response as HttpResponseBase):
+    _request = request
+    _response = response
   
   _response as HttpResponseBase
   public override Response as HttpResponseBase:
