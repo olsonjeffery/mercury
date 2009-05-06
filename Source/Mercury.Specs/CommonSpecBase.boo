@@ -16,6 +16,7 @@ public class CommonSpecBase:
   context as Establish = def():
     container = MockRepository.GenerateMock[of IServiceLocator]()
     viewEngines = MockRepository.GenerateMock[of ViewEngineCollection]()
+    New = NewService()
   
   protected static def FieldIsOfType(type as string):
     return { x as Field | x.Type.Equals([| typeof($type) |].Type) }
@@ -62,3 +63,5 @@ public class CommonSpecBase:
   protected static memberIsAField = { member as TypeMember | member  isa Field }
   protected static constructorHasMoreThanZeroParameters = { ctor as Constructor | ctor.Parameters.Count > 0}
   protected static random as Random = Random()
+  
+  public static New as NewService
