@@ -67,16 +67,20 @@
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
-    <Compile Include="Framework\FixtureService.boo" />
-    <Compile Include="Framework\HttpContextCreator.boo" />
-    <Compile Include="Framework\NewService.boo" />
-    <Compile Include="Framework\RequestContextCreator.boo" />
+    <Compile Include="Framework\Creators\FixtureService.boo" />
+    <Compile Include="Framework\Creators\HttpContextCreator.boo" />
+    <Compile Include="Framework\Creators\NewService.boo" />
+    <Compile Include="Framework\Creators\RequestContextCreator.boo" />
+    <Compile Include="Framework\Creators\RouteActionCreator.boo" />
+    <Compile Include="Framework\Creators\RouteDataCreator.boo" />
     <Compile Include="Framework\TestHttpContext.boo" />
     <Compile Include="Framework\TestHttpRequest.boo" />
     <Compile Include="Framework\TestHttpResponse.boo" />
+    <Compile Include="Framework\TestRouteData.boo" />
     <Compile Include="RouteParamsSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
+    <Compile Include="Runtime\RouteResulProcessingSpecs.boo" />
     <Compile Include="ViewRendering\AspNetMvcPathSplitKludgeSpecs.boo" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +90,8 @@
     </ProjectReference>
     <Folder Include="Behaviors" />
     <Folder Include="Framework" />
+    <Folder Include="Framework\Creators" />
+    <Folder Include="Runtime" />
     <Folder Include="ViewRendering" />
     <Folder Include="Routing" />
   </ItemGroup>
