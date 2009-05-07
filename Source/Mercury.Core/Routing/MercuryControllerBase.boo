@@ -41,7 +41,7 @@ public class MercuryControllerBase(ControllerBase):
     if result is null:
       _routeResultProcessor.ProcessNullResult()
     elif result isa IRouteResult:
-      (result as IRouteResult).ProcessResult()
+      _routeResultProcessor.ProcessIRouteResult(result)
     elif result isa string:
       controllerContext.HttpContext.Response.Output.Write(result as string)
     else: // is JSON

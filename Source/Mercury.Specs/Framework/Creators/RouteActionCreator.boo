@@ -18,6 +18,12 @@ public class RouteActionCreator(FixtureService[of IMercuryRouteAction]):
     (Creation as MaleableRouteAction).RouteBodyImpl = def():
       return null
     return self
+  
+  public def ThatReturnsAnIRouteResultInItsRouteActionBody() as RouteActionCreator:
+    routeResult = RouteResultStub.Instance()
+    (Creation as MaleableRouteAction).RouteBodyImpl = def():
+      return routeResult
+    return self
 
 public callable RouteBodyImpl() as object
 
@@ -47,3 +53,9 @@ public class MaleableRouteAction(MercuryControllerBase, IMercuryRouteAction):
   
   public override def RouteBody() as object:
     return RouteBodyImpl()  
+
+public class RouteResultStub(IRouteResult):
+  public static _instance as IRouteResult
+  public static def Instance() as IRouteResult:
+    _instance = RouteResultStub() if _instance is null
+    return _instance

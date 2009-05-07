@@ -9,3 +9,6 @@ public class RouteResultProcessor:
   
   public virtual def ProcessNullResult() as void:
     pass
+  
+  public virtual def ProcessIRouteResult(result as IRouteResult):
+    result.ProcessResult()

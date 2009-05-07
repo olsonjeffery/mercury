@@ -80,7 +80,7 @@
     <Compile Include="RouteParamsSpecs.boo" />
     <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
     <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
-    <Compile Include="Runtime\RouteResulProcessingSpecs.boo" />
+    <Compile Include="Runtime\RouteResultProcessingSpecs.boo" />
     <Compile Include="ViewRendering\AspNetMvcPathSplitKludgeSpecs.boo" />
   </ItemGroup>
   <ItemGroup>
