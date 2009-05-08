@@ -84,7 +84,8 @@
     <Compile Include="Routing\MercuryRouteHandler.boo" />
     <Compile Include="Routing\RenderViewResult.boo" />
     <Compile Include="Routing\RouteParameters.boo" />
-    <Compile Include="Routing\RouteResultProcessor.boo" />
+    <Compile Include="RunTime\BehaviorResultProcessor.boo" />
+    <Compile Include="RunTime\RouteResultProcessor.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
     <Compile Include="ViewRendering\AspNetMvcPathSplitKludge.boo" />
     <Compile Include="ViewRendering\SparkViewBuilder.boo" />
