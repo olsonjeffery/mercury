@@ -14,6 +14,9 @@ public class RouteActionCreator(FixtureService[of IMercuryRouteAction]):
     RouteResultProcessor()
     Creation = MaleableRouteAction(resultProcessor)
   
+  public def constructor(resultProcessor as RouteResultProcessor, behaviorResultProcessor as BehaviorResultProcessor):
+    Creation = MaleableRouteAction(resultProcessor, behaviorResultProcessor)
+  
   public def ThatReturnsANullResultInItsRouteActionBody() as RouteActionCreator:
     (Creation as MaleableRouteAction).RouteBodyImpl = def():
       return null
@@ -24,6 +27,15 @@ public class RouteActionCreator(FixtureService[of IMercuryRouteAction]):
     (Creation as MaleableRouteAction).RouteBodyImpl = def():
       return routeResult
     return self
+  
+  public def ThatReturnsAStringRouteActionBody(val as string) as RouteActionCreator:
+    (Creation as MaleableRouteAction).RouteBodyImpl = def():
+      return val
+    return self
+  
+  public def WithBehaviors(behaviors as IBehavior*):
+    (Creation as MercuryControllerBase).Behaviors = behaviors
+    return self
 
 public callable RouteBodyImpl() as object
 
@@ -31,12 +43,6 @@ public class MaleableRouteAction(MercuryControllerBase, IMercuryRouteAction):
   
   public def constructor():
     pass
-  
-  public override Behaviors as IBehavior*:
-    get:
-      return List of IBehavior()
-    set:
-      pass
   
   _viewEngines as ViewEngineCollection
   public ViewEngines as ViewEngineCollection:
@@ -47,6 +53,9 @@ public class MaleableRouteAction(MercuryControllerBase, IMercuryRouteAction):
   
   public def constructor(resultProcessor as RouteResultProcessor):
     super(resultProcessor)
+  
+  public def constructor(resultProcessor as RouteResultProcessor, behaviorResultProcessor as BehaviorResultProcessor):
+    super(resultProcessor, behaviorResultProcessor)
   
   [property(RouteBodyImpl)]
   _routeBodyImpl as RouteBodyImpl
