@@ -67,6 +67,7 @@
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="DependencyBuildingSpecs.boo" />
+    <Compile Include="Framework\Creators\BehaviorCreator.boo" />
     <Compile Include="Framework\Creators\FixtureService.boo" />
     <Compile Include="Framework\Creators\HttpContextCreator.boo" />
     <Compile Include="Framework\Creators\NewService.boo" />
