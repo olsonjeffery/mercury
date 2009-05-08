@@ -25,6 +25,8 @@ public class NewService:
   public def RouteAction(resultProcessor as RouteResultProcessor):
     return RouteActionCreator(resultProcessor)
   
-  public static New:
-    get:
-      return NewService()
+  public def RouteAction(resultProcessor as RouteResultProcessor, behaviorProcessor as BehaviorResultProcessor):
+    return RouteActionCreator(resultProcessor, behaviorProcessor)
+  
+  public def Behavior() as BehaviorCreator:
+    return BehaviorCreator()
