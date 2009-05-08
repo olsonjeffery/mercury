@@ -12,3 +12,6 @@ public class TestHttpResponse(HttpResponseBase):
   public override Output:
     get:
       return _output
+  
+  public def SetOutput(output as TextWriter):
+    _output = output
