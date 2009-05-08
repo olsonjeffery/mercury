@@ -10,17 +10,25 @@ public class MercuryControllerBase(ControllerBase):
   _behaviors as IBehavior*
   public virtual Behaviors as IBehavior*:
     get:
-      return _behaviors
+      return _behaviors if _behaviors is not null
+      return List of IBehavior()
     set:
       _behaviors = value
   
   _routeResultProcessor as RouteResultProcessor
+  _behaviorResultProcessor as BehaviorResultProcessor
   
   public def constructor():
     _routeResultProcessor = RouteResultProcessor()
+    _behaviorResultProcessor = BehaviorResultProcessor()
   
   public def constructor(resultProcessor as RouteResultProcessor):
     _routeResultProcessor = resultProcessor
+    _behaviorResultProcessor = BehaviorResultProcessor()
+  
+  public def constructor (resultProcessor as RouteResultProcessor, behaviorProcessor as BehaviorResultProcessor):
+    _routeResultProcessor = resultProcessor
+    _behaviorResultProcessor = behaviorProcessor
   
   public def ExecuteRouteAndBehaviors(requestContext as RequestContext):
     if requestContext is null:
@@ -43,7 +51,7 @@ public class MercuryControllerBase(ControllerBase):
     elif result isa IRouteResult:
       _routeResultProcessor.ProcessIRouteResult(result)
     elif result isa string:
-      controllerContext.HttpContext.Response.Output.Write(result as string)
+      _routeResultProcessor.ProcessStringResult(result as string, controllerContext.HttpContext.Response.Output)
     else: // is JSON
       pass  // do implicit json conversion here
   
