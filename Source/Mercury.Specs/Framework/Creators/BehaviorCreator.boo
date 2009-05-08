@@ -11,6 +11,10 @@ public class BehaviorCreator(FixtureService[of IBehavior]):
   public def WithBeforeAction(before as BeforeAction):
     (Creation as StubBehavior).SetBeforeAction(before)
     return self
+  
+  public def WithAfterAction(after as AfterAction):
+    (Creation as StubBehavior).SetAfterAction(after)
+    return self
 
 public class StubBehavior(IBehavior):
   
