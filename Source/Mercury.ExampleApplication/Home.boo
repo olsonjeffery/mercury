@@ -35,6 +35,33 @@ Get "User/{username}/{password}":
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   spark "Home/Nested/UserInfo.spark"
 
+Behavior FailingBefore:
+  target "Behavior/Fails/Before"
+  before_action:
+    return "failing before action!"
+
+Get "Behavior/Fails/Before":
+  dependency testService as ITestService
+  ViewData["todaysDate"] = DateTime.Now.Date
+  ViewData["testMessage"] = testService.GetSomeString()  
+  ViewData["anotherMessage"] = "another message!";
+  ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
+  spark "Home/Index.spark"
+
+Behavior FailingAfter:
+  target "Behavior/Fails/After"
+  after_action:
+    return "failing after action!"
+
+Get "Behavior/Fails/After":
+  dependency testService as ITestService
+  ViewData["todaysDate"] = DateTime.Now.Date
+  ViewData["testMessage"] = testService.GetSomeString()  
+  ViewData["anotherMessage"] = "another message!";
+  ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
+  spark "Home/Index.spark"
+
+
 Get "Home":
   print "hello world!!!"
 
