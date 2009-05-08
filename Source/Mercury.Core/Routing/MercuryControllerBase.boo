@@ -46,8 +46,8 @@ public class MercuryControllerBase(ControllerBase):
     
     beforeBehaviorHasResult = false
     for behavior in Behaviors:
-      result = behavior.BeforeAction(self.ControllerContext) if behavior.BeforeAction is not null
-      beforeBehaviorHasResult = ProcessBehaviorResult(result, ControllerContext)
+      behaviorResult = behavior.BeforeAction(self.ControllerContext) if behavior.BeforeAction is not null
+      beforeBehaviorHasResult = ProcessBehaviorResult(behaviorResult, ControllerContext)
       break if beforeBehaviorHasResult
     return if beforeBehaviorHasResult
     
@@ -55,8 +55,8 @@ public class MercuryControllerBase(ControllerBase):
     
     afterBehaviorHasResult = false
     for behavior in Behaviors:
-      result = behavior.AfterAction(self.ControllerContext, result) if behavior.AfterAction is not null
-      afterBehaviorHasResult = ProcessBehaviorResult(result, ControllerContext)
+      behaviorResult = behavior.AfterAction(self.ControllerContext, result) if behavior.AfterAction is not null
+      afterBehaviorHasResult = ProcessBehaviorResult(behaviorResult, ControllerContext)
       break if afterBehaviorHasResult
     return if afterBehaviorHasResult
     
