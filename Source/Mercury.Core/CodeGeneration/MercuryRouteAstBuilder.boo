@@ -21,12 +21,29 @@ public class MercuryRouteAstBuilder:
       
     classDef = GetClassDefTemplate(method, routeString, body)
     
+    routeBody = classDef.Members.Where({ x as TypeMember | x.Name == "RouteBody" }).Single() as Method
+    classDef.Members.Remove(routeBody)
+    newRouteBody = DoTransformationsOnRouteBody(routeBody)
+    classDef.Members.Add(newRouteBody)
+    
     rawDependencies = GetDependenciesForClass(body, module)
     
     classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
     classDef.Name = classDef.Name + "_" + method + "_" + rand
     
     return classDef
+  
+  public def DoTransformationsOnRouteBody(routeBody as Method) as Method:
+    paramsCollection = ExpressionStatement([| params = RouteParameters(ControllerContext.RouteData.Values) |])
+    oldBody = routeBody.Body
+    
+    newBody = Block()
+    newBody.Statements.Insert(0, paramsCollection)
+    for i in oldBody.Statements:
+      newBody.Statements.Add(i)
+    
+    routeBody.Body = newBody
+    return routeBody
   
   public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
     return _dependencyBuilder.GetDependenciesForClass(body, module)  
@@ -41,7 +58,6 @@ public class MercuryRouteAstBuilder:
           pass
         
         public override def RouteBody() as object:
-          params = RouteParameters(ControllerContext.RouteData.Values)
           $(body)
         
         public HttpMethod as string:
