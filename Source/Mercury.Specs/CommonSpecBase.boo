@@ -11,6 +11,7 @@ import Microsoft.Practices.ServiceLocation
 import Machine.Specifications
 import Rhino.Mocks
 import System.Web.Mvc
+import Boo.Lang.Builtins
 
 public class CommonSpecBase:
   context as Establish = def():
