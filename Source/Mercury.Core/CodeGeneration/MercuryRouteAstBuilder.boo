@@ -63,7 +63,11 @@ public class MercuryRouteAstBuilder:
     declaredParams = (DeclarationStatement(Declaration(i, [| typeof(string) |].Type), [| params.QuackGet($(StringLiteralExpression(i)), null) |]) for i in params).ToList()
     
     paramsCollection = ExpressionStatement([| params = RouteParameters(ControllerContext.RouteData.Values) |])
+    viewCollection = ExpressionStatement([| view = ViewAndTempWrapper(ViewData) |])
+    tempCollection = ExpressionStatement([| temp = ViewAndTempWrapper(TempData) |])
     bodyWithParams.Statements.Add(paramsCollection)
+    bodyWithParams.Statements.Add(viewCollection)
+    bodyWithParams.Statements.Add(tempCollection)
     for i in declaredParams:
       bodyWithParams.Add(i)
     for i in everythingElse:

@@ -19,7 +19,7 @@ when "when defining a route with a parameter named foo", MercuryRouteBuilderSpec
     resultMethod = builder.DoTransformationsOnRouteBody(inputMethod, route, excludeList)
   
   it "should add a local variable named foo to the RouteBody at expansion time":
-    resultMethod.Body.Statements[1].ToCodeString().Trim().ShouldEqual("foo as string = params.QuackGet('foo', null)")
+    resultMethod.Body.Statements[3].ToCodeString().Trim().ShouldEqual("foo as string = params.QuackGet('foo', null)")
   
   inputMethod as Method
   resultMethod as Method

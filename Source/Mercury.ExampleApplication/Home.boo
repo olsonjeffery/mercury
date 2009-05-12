@@ -29,10 +29,10 @@ Get "/":
 
 Get "User/{username}/{password}":
   dependency testService as ITestService
-  ViewData["todaysDate"] = DateTime.Now.Date
-  ViewData["testMessage"] = testService.GetSomeString()  
-  ViewData["anotherMessage"] = 'User: ' + username + " Password: " + password
-  ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
+  view.todaysDate = DateTime.Now.Date
+  view.testMessage = testService.GetSomeString()  
+  view.anotherMessage = 'User: ' + username + " Password: " + password
+  view.hello = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   spark "Home/Nested/UserInfo.spark"
 
 Behavior FailingBefore:
