@@ -10,6 +10,22 @@ import Boo.Lang.Builtins
 import System.Linq.Enumerable from System.Core
 import Mercury.Core
 
+when "when defining a route with a parameter named foo", MercuryRouteBuilderSpecs:
+  establish:
+    inputMethod = Method()
+    route = "test/{foo}"
+    
+  because_of:
+    resultMethod = builder.DoTransformationsOnRouteBody(inputMethod, route, excludeList)
+  
+  it "should add a local variable named foo to the RouteBody at expansion time":
+    resultMethod.Body.Statements[1].ToCodeString().Trim().ShouldEqual("foo as string = params.QuackGet('foo', null)")
+  
+  inputMethod as Method
+  resultMethod as Method
+  route as string
+  excludeList as List of ParameterDeclaration = List of ParameterDeclaration()
+
 when attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_no_dependencies, MercuryRouteBuilderSpecs:
   establish:
     classDefinition = [|

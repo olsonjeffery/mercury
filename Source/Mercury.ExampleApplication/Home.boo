@@ -31,7 +31,7 @@ Get "User/{username}/{password}":
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
-  ViewData["anotherMessage"] = 'User: ' + params.username + " Password: " + params.password
+  ViewData["anotherMessage"] = 'User: ' + username + " Password: " + password
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   spark "Home/Nested/UserInfo.spark"
 

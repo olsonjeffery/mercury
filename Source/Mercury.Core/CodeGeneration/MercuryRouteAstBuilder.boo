@@ -21,29 +21,54 @@ public class MercuryRouteAstBuilder:
       
     classDef = GetClassDefTemplate(method, routeString, body)
     
+    rawDependencies = GetDependenciesForClass(body, module)
+    
     routeBody = classDef.Members.Where({ x as TypeMember | x.Name == "RouteBody" }).Single() as Method
     classDef.Members.Remove(routeBody)
-    newRouteBody = DoTransformationsOnRouteBody(routeBody)
+    newRouteBody = DoTransformationsOnRouteBody(routeBody, routeString.ToString(), rawDependencies)
     classDef.Members.Add(newRouteBody)
-    
-    rawDependencies = GetDependenciesForClass(body, module)
     
     classDef = PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDef, rawDependencies)
     classDef.Name = classDef.Name + "_" + method + "_" + rand
     
     return classDef
   
-  public def DoTransformationsOnRouteBody(routeBody as Method) as Method:
-    paramsCollection = ExpressionStatement([| params = RouteParameters(ControllerContext.RouteData.Values) |])
+  public def DoTransformationsOnRouteBody(routeBody as Method, routeString as string, rawDependencies as ParameterDeclaration*) as Method:
+    
+    excludeList = (i.Name for i in rawDependencies).ToList()
+    
     oldBody = routeBody.Body
     
     newBody = Block()
-    newBody.Statements.Insert(0, paramsCollection)
     for i in oldBody.Statements:
       newBody.Statements.Add(i)
     
-    routeBody.Body = newBody
+    postParamsBody = ApplyParameterDeclarationsTo(newBody, routeString, excludeList)
+    
+    routeBody.Body = postParamsBody
     return routeBody
+  
+  public def ApplyParameterDeclarationsTo(body as Block, route as string, excludeList as string*) as Block:
+    extractor = RouteParameterNameExtractor()
+    params = extractor.GetParametersFrom(route)
+    bodyWithParams = Block()
+    
+    typedLocals = List of DeclarationStatement()
+    everythingElse = List of Statement()
+    for statement as Statement in body.Statements:
+      if statement isa DeclarationStatement and (statement as DeclarationStatement).Declaration.Name in excludeList:
+        continue
+      else:
+        everythingElse.Add(statement)
+    declaredParams = (DeclarationStatement(Declaration(i, [| typeof(string) |].Type), [| params.QuackGet($(StringLiteralExpression(i)), null) |]) for i in params).ToList()
+    
+    paramsCollection = ExpressionStatement([| params = RouteParameters(ControllerContext.RouteData.Values) |])
+    bodyWithParams.Statements.Add(paramsCollection)
+    for i in declaredParams:
+      bodyWithParams.Add(i)
+    for i in everythingElse:
+      bodyWithParams.Add(i)
+    return bodyWithParams
   
   public def GetDependenciesForClass(body as Block, module as Module) as ParameterDeclaration*:
     return _dependencyBuilder.GetDependenciesForClass(body, module)  
