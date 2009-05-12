@@ -41,6 +41,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Msb">
+      <HintPath>..\..\Libraries\Msb\Msb.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\Libraries\Machine\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -66,7 +69,6 @@
     <Compile Include="Behaviors\ExpansionCodeGen.boo" />
     <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
     <Compile Include="CommonSpecBase.boo" />
-    <Compile Include="DependencyBuildingSpecs.boo" />
     <Compile Include="Framework\Creators\BehaviorCreator.boo" />
     <Compile Include="Framework\Creators\FixtureService.boo" />
     <Compile Include="Framework\Creators\HttpContextCreator.boo" />
@@ -78,10 +80,12 @@
     <Compile Include="Framework\TestHttpRequest.boo" />
     <Compile Include="Framework\TestHttpResponse.boo" />
     <Compile Include="Framework\TestRouteData.boo" />
-    <Compile Include="RouteParamsSpecs.boo" />
-    <Compile Include="Routing\MercuryRouteBuilderSpecs.boo" />
-    <Compile Include="RunTimeTypeInstantiatorSpecs.boo" />
+    <Compile Include="RouteBuilding\RouteParameterNameExtractorSpecs.boo" />
+    <Compile Include="RouteBuilding\MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="Runtime\RouteParamsSpecs.boo" />
     <Compile Include="Runtime\RouteResultProcessingSpecs.boo" />
+    <Compile Include="Runtime\RunTimeTypeInstantiatorSpecs.boo" />
+    <Compile Include="Startup\DependencyBuildingSpecs.boo" />
     <Compile Include="ViewRendering\AspNetMvcPathSplitKludgeSpecs.boo" />
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +96,10 @@
     <Folder Include="Behaviors" />
     <Folder Include="Framework" />
     <Folder Include="Framework\Creators" />
+    <Folder Include="Startup" />
     <Folder Include="Runtime" />
     <Folder Include="ViewRendering" />
-    <Folder Include="Routing" />
+    <Folder Include="RouteBuilding" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
