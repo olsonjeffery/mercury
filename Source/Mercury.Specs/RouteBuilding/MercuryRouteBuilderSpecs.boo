@@ -2,18 +2,16 @@ namespace Mercury.Specs
 
 import System
 import System.Collections.Generic
-import Machine.Specifications
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
-
-import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifications.NUnit
-
+import Msb
+import Machine.Specifications
+import Boo.Lang.Builtins
 import System.Linq.Enumerable from System.Core
-
 import Mercury.Core
 
-public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_no_dependencies(MercuryRouteBuilderSpecs):
-  context as Establish = def():
+when attempting_to_add_dependencies_to_a_route_actions_constructor_and_there_are_no_dependencies, MercuryRouteBuilderSpecs:
+  establish:
     classDefinition = [|
       public class foo:
         public def constructor():
@@ -21,10 +19,10 @@ public class when_attempting_to_add_dependencies_to_a_route_actions_constructor_
     |]
     deps = List of ParameterDeclaration()
   
-  of_ as Because = def():
+  because_of:
     classDefintion = builder.PopulateClassDefinitionWithFieldsAndConstructorParamsFromDependencies(classDefinition, deps)
   
-  should_not_create_an_additional_constructor as It = def():
+  it "should not create an additional constructor":
     classDefinition.Members.Where(memberIsAConstructor).Count().ShouldEqual(1)
 
 public class when_attempting_to_add_dependencies_to_a_generated_route_action_class_and_there_are_two_dependencies(MercuryRouteBuilderSpecs):
