@@ -84,6 +84,7 @@
     <Compile Include="Macros\Run_lastMacro.boo" />
     <Compile Include="Macros\SparkMacro.boo" />
     <Compile Include="Macros\TargetMacro.boo" />
+    <Compile Include="Macros\Target_notMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
     <Compile Include="Routing\IMercuryRouteAction.boo" />
     <Compile Include="Routing\IRouteResult.boo" />

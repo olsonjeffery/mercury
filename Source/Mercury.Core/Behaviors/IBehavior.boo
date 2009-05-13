@@ -14,6 +14,8 @@ public interface IBehavior:
     get
   Targets as string*:
     get
+  TargetNots as string*:
+    get
   PrecedenceRules as PrecedenceRule*:
     get
   def HasItsPrecedenceDependenciesMetBy(behaviors as IBehavior*) as bool

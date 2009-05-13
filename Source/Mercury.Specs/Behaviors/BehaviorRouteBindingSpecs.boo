@@ -9,15 +9,51 @@ import Machine.Specifications
 import Machine.Specifications.NUnitShouldExtensionMethods from Machine.Specifications.NUnit
 import Mercury.Core
 import System.Linq.Enumerable from System.Core
+import Msb
 
 // associating behaviors w/ routes
 
 // behavior re-instantiation concerns
+when when_there_are_two_routes_and_one_behavior_targets_them_both_but_also_excludes_one_of_the_routes, BehaviorSpecs:
+  establish:
+    assembly = CompileCodeAndGetContext(code).GeneratedAssembly
+    allBehaviors = List of Type()
+    allBehaviors.Add(GetTypeFromAssemblyNamed(assembly, "Test.BehaviorA"))
+    routeA = "route/a"
+    routeB = "route/b"
+  
+  because_of:
+    behaviorsForRouteA = startup.GetBehaviorsForRoute(routeA, allBehaviors)
+    behaviorsForRouteB = startup.GetBehaviorsForRoute(routeB, allBehaviors)
+  
+  it "should associate the behavior with the route that was not excluded":
+    behaviorsForRouteA.Count().ShouldEqual(1)
+  
+  it "should not associate the behavior with the route that was excluded":
+    behaviorsForRouteB.Count().ShouldEqual(0)
+  
+  allBehaviors as List of Type
+  routeA as string
+  routeB as string
+  behaviorsForRouteA as Type*
+  behaviorsForRouteB as Type*
+  code as string = """
+namespace Test
+import System
+import System.Web.Mvc
+import Mercury.Core
+
+behavior BehaviorA:
+  target "route"
+  target_not "route/b"
+  run_first
+  before_action:
+    foo = "bar"
+"""
 
 public class when_there_is_one_route_and_two_behaviors_and_one_of_those_behaviors_target_the_route(BehaviorSpecs):  
   context as Establish = def():
     assembly = CompileCodeAndGetContext(code).GeneratedAssembly
-    behaviors = List of IBehavior()
     behaviorA = GetTypeFromAssemblyNamed(assembly, "Test.BehaviorA")()
     behaviorB = GetTypeFromAssemblyNamed(assembly, "Test.BehaviorB")()
   

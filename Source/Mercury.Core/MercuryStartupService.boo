@@ -57,7 +57,17 @@ public class MercuryStartupService(RouteBase):
         isTargetted = true if Regex(target).IsMatch(route)
         break if isTargetted
       behaviorsForThisRoute.Add(behaviorType) if isTargetted
-    return behaviorsForThisRoute
+    
+    behaviorsForThisRouteWithoutTargetNots = List of Type()
+    for behaviorType in behaviorsForThisRoute:
+      instance = Instantiate(behaviorType)
+      isTargetted = true
+      for targetNot in instance.TargetNots:
+        isTargetted = false if Regex(targetNot).IsMatch(route)
+        break if not isTargetted
+      behaviorsForThisRouteWithoutTargetNots.Add(behaviorType) if isTargetted
+    
+    return behaviorsForThisRouteWithoutTargetNots
   
   public def Instantiate(behaviorType as Type) as IBehavior:
     return behaviorType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IBehavior

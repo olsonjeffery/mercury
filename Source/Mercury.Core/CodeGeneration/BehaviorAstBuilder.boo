@@ -24,6 +24,7 @@ public class BehaviorAstBuilder:
     hasAfterAlready = false
     rules = List of PrecedenceRule()
     targets = List of StringLiteralExpression()
+    targetNots = List of StringLiteralExpression()
     for i as Statement in body.Statements:
       if i["isBeforeAction"]:
         before = (i if i isa Block else (i as MacroStatement).Body)
@@ -37,6 +38,8 @@ public class BehaviorAstBuilder:
         rules.Add(CreatePrecedenceRule(i))
       elif i["isTarget"]:
         targets.Add(i["targetVal"] as StringLiteralExpression)
+      elif i["isTargetNot"]:
+        targetNots.Add(i["targetNotVal"] as StringLiteralExpression)
       elif i["dependency"]:
         continue
       else:
@@ -51,7 +54,7 @@ public class BehaviorAstBuilder:
     
     classDef = AddBeforeAction(classDef, before)
     classDef = AddAfterAction(classDef, after)
-    classDef = AddTargets(classDef, targets)
+    classDef = AddTargets(classDef, targets, targetNots)
     classDef = AddPrecedenceRules(classDef, rules)
     
     return classDef
@@ -77,6 +80,7 @@ public class BehaviorAstBuilder:
           pass
         
         _targets as string*
+        _targetNots as string*
         _beforeAction as BeforeAction
         _afterAction as AfterAction
         _precedenceRules as PrecedenceRule*
@@ -134,26 +138,39 @@ public class BehaviorAstBuilder:
         ctor.Body.Statements.Add(ExpressionStatement([| self._afterAction = $addAfterExp |]))
     return classDef
   
-  public def AddTargets(classDef as ClassDefinition, targets as StringLiteralExpression*) as ClassDefinition:
+  public def AddTargets(classDef as ClassDefinition, targets as StringLiteralExpression*, targetNots as StringLiteralExpression*) as ClassDefinition:
     targetsProperty = _propertyAstBuilder.SimpleGetterProperty("Targets", "_targets", [| typeof(string*) |].Type)
     classDef.Members.Add(targetsProperty)
+    targetNotsProperty = _propertyAstBuilder.SimpleGetterProperty("TargetNots", "_targetNots", [| typeof(string*) |].Type)
+    classDef.Members.Add(targetNotsProperty)
     
     addTargetsMethod = [|
       private def AddTargets():
         pass
     |]
+    addTargetNotsMethod = [|
+      private def AddTargetNots():
+        pass
+    |]
     addTargetsMethod.Body = Block() 
     addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of string() |]))
+    addTargetNotsMethod.Body = Block() 
+    addTargetNotsMethod.Body.Statements.Add(ExpressionStatement([| tempList = System.Collections.Generic.List of string() |]))
     
     for target in targets:
       addTargetsMethod.Body.Statements.Add(ExpressionStatement([| tempList.Add($target) |]))
+    for targetNot in targetNots:
+      addTargetNotsMethod.Body.Statements.Add(ExpressionStatement([| tempList.Add($targetNot)|]))
     
     addTargetsMethod.Body.Statements.Add(ExpressionStatement([| _targets = tempList |]))
+    addTargetNotsMethod.Body.Statements.Add(ExpressionStatement([| _targetNots = tempList |]))
     
     classDef.Members.Add(addTargetsMethod)
-
+    classDef.Members.Add(addTargetNotsMethod)
+    
     for ctor as Constructor in classDef.Members.Where(_isAConstructor):
       ctor.Body.Statements.Add(ExpressionStatement([| self.AddTargets() |]))
+      ctor.Body.Statements.Add(ExpressionStatement([| self.AddTargetNots() |]))
     
     return classDef
   
