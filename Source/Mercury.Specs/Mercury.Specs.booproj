@@ -64,10 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
-    <Compile Include="Behaviors\BehaviorRouteBinding.boo" />
+    <Compile Include="Behaviors\BehaviorRouteBindingSpecs.boo" />
     <Compile Include="Behaviors\BehaviorSpecs.boo" />
-    <Compile Include="Behaviors\ExpansionCodeGen.boo" />
-    <Compile Include="Behaviors\RunTimeOrderOfPrecedence.boo" />
+    <Compile Include="Behaviors\ExpansionCodeGenSpecs.boo" />
+    <Compile Include="Behaviors\RunTimeOrderOfPrecedenceSpecs.boo" />
     <Compile Include="CommonSpecBase.boo" />
     <Compile Include="Framework\Creators\BehaviorCreator.boo" />
     <Compile Include="Framework\Creators\FixtureService.boo" />
