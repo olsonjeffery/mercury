@@ -70,10 +70,13 @@
     <Compile Include="Macros\After_actionMacro.boo" />
     <Compile Include="Macros\Before_actionMacro.boo" />
     <Compile Include="Macros\BehaviorMacro.boo" />
+    <Compile Include="Macros\DeleteMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
     <Compile Include="Macros\HaltMacro.boo" />
     <Compile Include="Macros\JsonMacro.boo" />
+    <Compile Include="Macros\PostMacro.boo" />
+    <Compile Include="Macros\PutMacro.boo" />
     <Compile Include="Macros\RedirectMacro.boo" />
     <Compile Include="Macros\Run_firstMacro.boo" />
     <Compile Include="Macros\Run_afterMacro.boo" />
