@@ -27,7 +27,7 @@ Get "/":
   spark "Home/Index.spark"
   
 
-Get "User/{username}/{password}":
+Get "user/{username}/{password}":
   dependency testService as ITestService
   view.todaysDate = DateTime.Now.Date
   view.testMessage = testService.GetSomeString()  
@@ -36,11 +36,11 @@ Get "User/{username}/{password}":
   spark "Home/Nested/UserInfo.spark"
 
 Behavior FailingBefore:
-  target "Behavior/Fails/Before"
+  target "behavior/fails/before"
   before_action:
     return "failing before action!"
 
-Get "Behavior/Fails/Before":
+Get "behavior/fails/before":
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
@@ -49,33 +49,17 @@ Get "Behavior/Fails/Before":
   spark "Home/Index.spark"
 
 Behavior FailingAfter:
-  target "Behavior/Fails/After"
+  target "behavior/fails/after"
   after_action:
     return "failing after action!"
 
-Get "Behavior/Fails/After":
+Get "behavior/fails/after":
   dependency testService as ITestService
   ViewData["todaysDate"] = DateTime.Now.Date
   ViewData["testMessage"] = testService.GetSomeString()  
   ViewData["anotherMessage"] = "another message!";
   ViewData["hello"] = (TempData["hello"] if TempData.ContainsKey("hello") else string.Empty)
   spark "Home/Index.spark"
-
-
-Get "Home":
-  print "hello world!!!"
-
-Get "Home/List":
-  print "arggg!"
-  dependency:
-    testService as ITestService
-    anotherService as ITestService
-  print "blah"
-  
-
-Get "Test":
-  print "fail!"
-  dependency testService as ITestService
 
 Get "Return/Json":
   foo = (1, 2, 3)
@@ -89,3 +73,6 @@ Get "error/500":
 
 Get "error/500sub":
   halt 500.1
+
+Get "redirect/user":
+  redirect "/user/baz/42"
