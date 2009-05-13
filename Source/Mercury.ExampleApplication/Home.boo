@@ -80,3 +80,12 @@ Get "Test":
 Get "Return/Json":
   foo = (1, 2, 3)
   json foo
+
+Get "error/403":
+  halt 403
+
+Get "error/500":
+  halt 500, "the db has gone to lunch"
+
+Get "error/500sub":
+  halt 500.1

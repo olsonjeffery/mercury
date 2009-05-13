@@ -72,6 +72,7 @@
     <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
+    <Compile Include="Macros\HaltMacro.boo" />
     <Compile Include="Macros\JsonMacro.boo" />
     <Compile Include="Macros\Run_firstMacro.boo" />
     <Compile Include="Macros\Run_afterMacro.boo" />
