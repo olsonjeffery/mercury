@@ -77,6 +77,7 @@
     <None Include="Scripts\MicrosoftAjax.js" />
     <None Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <None Include="Scripts\MicrosoftMvcAjax.js" />
+    <None Include="Views\Error\NotFound.spark" />
     <None Include="Views\Home\Index.spark" />
     <None Include="Views\Home\Nested\UserInfo.spark" />
     <None Include="Views\Layouts\Application.spark" />
@@ -99,6 +100,7 @@
     <Folder Include="Views\Home" />
     <Folder Include="Views\Home\Nested" />
     <Folder Include="Views\Layouts" />
+    <Folder Include="Views\Error" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>

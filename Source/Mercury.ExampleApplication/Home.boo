@@ -76,3 +76,7 @@ Get "error/500sub":
 
 Get "redirect/user":
   redirect "/user/baz/42"
+
+not_found:
+  view.url = url
+  spark "Error/NotFound.spark"

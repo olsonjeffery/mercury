@@ -27,11 +27,17 @@ public class MercuryStartupService(RouteBase):
     _uninstantiatedRoutes = ParseAssembliesForUninstantiatedRoutes(assemblies)
     _behaviors = ParseAssembliesForBehaviors(assemblies)
     routes = List of Route()
+    notFoundRoute as MercuryRoute
     for routeType in _uninstantiatedRoutes:
       routeAction = routeType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IMercuryRouteAction
       behaviorsForThisRoute = GetBehaviorsForRoute(routeAction.RouteString, _behaviors)
-      routes.Add(MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod))
+      if routeAction.RouteString == "{*url}":
+        raise "cannot have multiple not_found routes!" if not notFoundRoute is null
+        notFoundRoute = MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod)
+      else:
+        routes.Add(MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod))
     
+    routes.Add(notFoundRoute) if not notFoundRoute is null
     return routes
   
   public def GetBehaviorsForRoute(route as string, allBehaviors as Type*) as Type*:

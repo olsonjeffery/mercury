@@ -16,5 +16,5 @@ public class MercuryRoute(Route):
     
   public override def GetRouteData(httpContext as HttpContextBase) as RouteData:
     routeData = super.GetRouteData(httpContext)
-    return null if httpContext.Request.HttpMethod != _httpMethod
+    return null if httpContext.Request.HttpMethod != _httpMethod and not _httpMethod == 'ANY'
     return routeData
