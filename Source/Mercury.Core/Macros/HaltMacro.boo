@@ -34,7 +34,7 @@ public class HaltMacro(AbstractAstMacro):
     if output is null:
       body.Statements.Add([| return null |])
     else:
-      body.Statements.Add([| ControllerContext.HttpContext.Response.StatusDescription = $output |])
+      body.Statements.Add(ExpressionStatement([| ControllerContext.HttpContext.Response.StatusDescription = $output |]))
       body.Statements.Add([| return $output |])
     
     return body
