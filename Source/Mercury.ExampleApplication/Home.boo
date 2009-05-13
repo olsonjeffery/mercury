@@ -76,3 +76,7 @@ Get "Home/List":
 Get "Test":
   print "fail!"
   dependency testService as ITestService
+
+Get "Return/Json":
+  foo = (1, 2, 3)
+  json foo

@@ -38,6 +38,9 @@
       <!-- for 64bit -->
     </Reference>
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -69,6 +72,7 @@
     <Compile Include="Macros\BehaviorMacro.boo" />
     <Compile Include="Macros\DependencyMacro.boo" />
     <Compile Include="Macros\GetMacro.boo" />
+    <Compile Include="Macros\JsonMacro.boo" />
     <Compile Include="Macros\Run_firstMacro.boo" />
     <Compile Include="Macros\Run_afterMacro.boo" />
     <Compile Include="Macros\Run_beforeMacro.boo" />
@@ -78,6 +82,7 @@
     <Compile Include="MercuryStartupService.boo" />
     <Compile Include="Routing\IMercuryRouteAction.boo" />
     <Compile Include="Routing\IRouteResult.boo" />
+    <Compile Include="Routing\JsonResult.boo" />
     <Compile Include="Routing\MercuryControllerBase.boo" />
     <Compile Include="Routing\MercuryHttpHandler.boo" />
     <Compile Include="Routing\MercuryRoute.boo" />
@@ -91,6 +96,7 @@
     <Compile Include="RunTime\RouteResultProcessor.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
     <Compile Include="ViewRendering\AspNetMvcPathSplitKludge.boo" />
+    <Compile Include="ViewRendering\JsonResultBuilder.boo" />
     <Compile Include="ViewRendering\SparkViewBuilder.boo" />
   </ItemGroup>
   <ItemGroup>

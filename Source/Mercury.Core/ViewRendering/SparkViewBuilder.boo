@@ -3,8 +3,7 @@ namespace Mercury.Core
 import System
 import System.Web.Mvc
 
-class SparkViewBuilder:
-"""Description of SparkViewBuilder"""
+public class SparkViewBuilder:
   public def constructor():
     pass
   
