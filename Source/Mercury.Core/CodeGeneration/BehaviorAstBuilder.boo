@@ -89,12 +89,10 @@ public class BehaviorAstBuilder:
           return self.GetType().FullName + ".. targetting: '"+join(i for i in _targets, ", ")+"'"
         
         public virtual def HasItsPrecedenceDependenciesMetBy(behaviors as IBehavior*) as bool:
-          unsatisfiedRules = { x | x == false }
           results = System.Collections.Generic.List of bool()
           
           for rule in _precedenceRules:
             results.Add(rule.IsSatisfiedBy(behaviors))
-          //dependenciesAreMet = List of bool(System.Linq.Enumerable.Where(results, unsatisfiedRules)).Count == 0
           dependenciesAreMet = List of bool (i for i in results if not i).Count == 0
           return dependenciesAreMet
         
