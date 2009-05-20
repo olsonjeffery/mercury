@@ -29,7 +29,7 @@
     <Reference Include="Boo.Lang.Useful">
       <HintPath>..\..\Libraries\boo\Boo.Lang.Useful.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web"/>
+    <Reference Include="System.Web" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Abstractions" />
