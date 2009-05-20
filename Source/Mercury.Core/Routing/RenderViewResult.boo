@@ -6,13 +6,13 @@ import System.Web.Mvc
 
 public class RenderViewResult(IRouteResult):
   _viewContext as ViewContext
-  _viewEngineResult as ViewEngineResult
+  _view as IView
   _responseOutput as TextWriter
   
-  public def constructor(viewContext as ViewContext, viewEngineResult as ViewEngineResult, responseOutput as TextWriter):
+  public def constructor(viewContext as ViewContext, view as IView, responseOutput as TextWriter):
     _viewContext = viewContext
-    _viewEngineResult = viewEngineResult
+    _view = view
     _responseOutput = responseOutput
   
   public def ProcessResult():
-    _viewEngineResult.View.Render(_viewContext, _responseOutput)
+    _view.Render(_viewContext, _responseOutput)

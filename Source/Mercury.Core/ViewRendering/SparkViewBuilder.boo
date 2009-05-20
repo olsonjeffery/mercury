@@ -20,5 +20,5 @@ public class SparkViewBuilder:
     viewEngineResult = sparkViewEngine[0].FindView(controllerContext, view, masterName, false)
     raise "ViewEngineResult is null for path: '"+controller+"/"+view+"' .. chances are this is because of a malformed path" if viewEngineResult is null
     viewContext = ViewContext(controllerContext, viewEngineResult.View, viewData, tempData)
-    return RenderViewResult(viewContext, viewEngineResult, controllerContext.HttpContext.Response.Output)
+    return RenderViewResult(viewContext, viewEngineResult.View, controllerContext.HttpContext.Response.Output)
 
