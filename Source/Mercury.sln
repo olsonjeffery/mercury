@@ -4,8 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # SharpDevelop 3.1.0.4030
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Core", "Mercury.Core\Mercury.Core.booproj", "{71D3D7E3-7648-4068-A657-5521E5E25BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercury.ExampleSite.Mvc.Cs", "Mercury.ExampleSite.Mvc.Cs\Mercury.ExampleSite.Mvc.Cs.csproj", "{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}"
-EndProject
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.ExampleApplication", "Mercury.ExampleApplication\Mercury.ExampleApplication.booproj", "{A92463A6-83D7-4BB2-817C-0A58D8874370}"
 EndProject
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Specs", "Mercury.Specs\Mercury.Specs.booproj", "{C5242C22-21AB-43E5-A48B-384596F2ED7C}"
@@ -24,10 +22,6 @@ Global
 		{71D3D7E3-7648-4068-A657-5521E5E25BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71D3D7E3-7648-4068-A657-5521E5E25BFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71D3D7E3-7648-4068-A657-5521E5E25BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CAB8320-87CE-440C-9DEA-BA8B6C34BC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A92463A6-83D7-4BB2-817C-0A58D8874370}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A92463A6-83D7-4BB2-817C-0A58D8874370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A92463A6-83D7-4BB2-817C-0A58D8874370}.Release|Any CPU.Build.0 = Release|Any CPU
