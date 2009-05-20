@@ -77,10 +77,14 @@ Get "error/500sub":
 Get "redirect/user":
   redirect "/user/baz/42"
 
+Behavior TargetsNotFound:
+  target "not_found"
+  before_action:
+    request.Controller.ViewData["notFoundMessage"] = "this is a not found message."
+
 not_found:
   view.url = url
   spark "Error/NotFound.spark"
-
 
 Behavior SetNHamlMasterPath:
   target "nhaml"

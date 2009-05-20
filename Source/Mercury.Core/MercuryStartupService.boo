@@ -30,7 +30,8 @@ public class MercuryStartupService(RouteBase):
     notFoundRoute as MercuryRoute
     for routeType in _uninstantiatedRoutes:
       routeAction = routeType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IMercuryRouteAction
-      behaviorsForThisRoute = GetBehaviorsForRoute(routeAction.RouteString, _behaviors)
+      behaviorRouteString = (routeAction.RouteString if not routeAction.RouteString == "{*url}" else "not_found")
+      behaviorsForThisRoute = GetBehaviorsForRoute(behaviorRouteString, _behaviors)
       if routeAction.RouteString == "{*url}":
         raise "cannot have multiple not_found routes!" if not notFoundRoute is null
         notFoundRoute = MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod)

@@ -1,4 +1,6 @@
-﻿<viewdata url="System.String"/>
+﻿<viewdata url="System.String" notFoundMessage="System.String"/>
 <div>
-  '${url}' matches no defined routes.
+  '${url}' matches no defined routes.<br />
+  <br />
+  ${notFoundMessage}
 </div>
