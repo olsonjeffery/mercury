@@ -57,7 +57,16 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="Default.aspx.boo" />
+    <Compile Include="Domain\ITestService.boo" />
     <Compile Include="Global.asax.boo" />
+    <Compile Include="Routes\Dependencies.boo" />
+    <Compile Include="Routes\FailingBehaviors.boo" />
+    <Compile Include="Routes\Halting.boo" />
+    <Compile Include="Routes\HelloWorld.boo" />
+    <Compile Include="Routes\NHaml.boo" />
+    <Compile Include="Routes\NotFoundRoute.boo" />
+    <Compile Include="Routes\Parameters.boo" />
+    <Compile Include="Routes\RouteResults.boo" />
     <None Include="Content\Site.css" />
     <None Include="Default.aspx" />
     <None Include="Global.asax" />
@@ -83,15 +92,13 @@
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mercury.ExampleApplication\Mercury.ExampleApplication.booproj">
-      <Project>{A92463A6-83D7-4BB2-817C-0A58D8874370}</Project>
-      <Name>Mercury.ExampleApplication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mercury.View.NHaml\Mercury.View.NHaml.booproj">
       <Project>{538A1386-3853-4708-BFF5-20DCDAD3565B}</Project>
       <Name>Mercury.View.NHaml</Name>
     </ProjectReference>
     <Folder Include="Content" />
+    <Folder Include="Domain" />
+    <Folder Include="Routes" />
     <Folder Include="Views" />
     <Folder Include="Scripts" />
     <Folder Include="Views\Home" />
