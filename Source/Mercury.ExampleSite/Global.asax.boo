@@ -10,7 +10,7 @@ import Spark.Web.Mvc
 import Mercury.Core
 import Machine.Container
 import Microsoft.Practices.ServiceLocation
-import Mercury.ExampleApplication
+import Mercury.ExampleSite.Domain
 
 import System.Web.Mvc.RouteCollectionExtensions from System.Web.Mvc
 
