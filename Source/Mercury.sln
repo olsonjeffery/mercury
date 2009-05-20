@@ -12,6 +12,8 @@ Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Specs", "Mercury.Sp
 EndProject
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.ExampleSite", "Mercury.ExampleSite\Mercury.ExampleSite.booproj", "{C8992617-8D7D-46EF-9204-81DEC657E532}"
 EndProject
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.View.NHaml", "Mercury.View.NHaml\Mercury.View.NHaml.booproj", "{538A1386-3853-4708-BFF5-20DCDAD3565B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,5 +40,9 @@ Global
 		{C8992617-8D7D-46EF-9204-81DEC657E532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8992617-8D7D-46EF-9204-81DEC657E532}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8992617-8D7D-46EF-9204-81DEC657E532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538A1386-3853-4708-BFF5-20DCDAD3565B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538A1386-3853-4708-BFF5-20DCDAD3565B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538A1386-3853-4708-BFF5-20DCDAD3565B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538A1386-3853-4708-BFF5-20DCDAD3565B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal
