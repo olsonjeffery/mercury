@@ -77,6 +77,8 @@
     <None Include="Views\Home\Index.spark" />
     <None Include="Views\Home\Nested\UserInfo.spark" />
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\NHaml\Index.haml" />
+    <None Include="Views\NHaml\Layouts\Application.haml" />
     <None Include="Views\Web.config" />
     <None Include="Web.config" />
   </ItemGroup>
@@ -89,6 +91,10 @@
       <Project>{A92463A6-83D7-4BB2-817C-0A58D8874370}</Project>
       <Name>Mercury.ExampleApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mercury.View.NHaml\Mercury.View.NHaml.booproj">
+      <Project>{538A1386-3853-4708-BFF5-20DCDAD3565B}</Project>
+      <Name>Mercury.View.NHaml</Name>
+    </ProjectReference>
     <Folder Include="Content" />
     <Folder Include="Controllers" />
     <Folder Include="Views" />
@@ -97,6 +103,8 @@
     <Folder Include="Views\Home\Nested" />
     <Folder Include="Views\Layouts" />
     <Folder Include="Views\Error" />
+    <Folder Include="Views\NHaml" />
+    <Folder Include="Views\NHaml\Layouts" />
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
