@@ -80,3 +80,14 @@ Get "redirect/user":
 not_found:
   view.url = url
   spark "Error/NotFound.spark"
+
+
+Behavior SetNHamlMasterPath:
+  target "nhaml"
+  before_action:
+    request.Controller.ViewData["nhamlMasterName"] = "layouts/Application.haml"
+
+Get "views/nhaml/hw":
+  view.hw = "Hello world from NHaml!"
+  nhaml "Index.haml"
+  
