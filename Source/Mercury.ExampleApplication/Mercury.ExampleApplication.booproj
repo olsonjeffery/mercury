@@ -48,6 +48,10 @@
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mercury.View.NHaml\Mercury.View.NHaml.booproj">
+      <Project>{538A1386-3853-4708-BFF5-20DCDAD3565B}</Project>
+      <Name>Mercury.View.NHaml</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
