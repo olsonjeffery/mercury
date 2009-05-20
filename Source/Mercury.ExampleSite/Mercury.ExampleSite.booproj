@@ -56,13 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.boo" />
-    <Compile Include="Controllers\AccountController.boo" />
-    <Compile Include="Controllers\HomeController.boo" />
     <Compile Include="Default.aspx.boo" />
     <Compile Include="Global.asax.boo" />
     <None Include="Content\Site.css" />
-    <None Include="Controllers\AccountController.cs" />
-    <None Include="Controllers\HomeController.cs" />
     <None Include="Default.aspx" />
     <None Include="Global.asax" />
     <None Include="Scripts\jquery-1.2.6-vsdoc.js" />
@@ -96,7 +92,6 @@
       <Name>Mercury.View.NHaml</Name>
     </ProjectReference>
     <Folder Include="Content" />
-    <Folder Include="Controllers" />
     <Folder Include="Views" />
     <Folder Include="Scripts" />
     <Folder Include="Views\Home" />
