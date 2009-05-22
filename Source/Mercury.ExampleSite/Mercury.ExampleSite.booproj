@@ -41,9 +41,6 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\Libraries\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Spark.Web.Mvc">
-      <HintPath>..\..\Libraries\Spark\Spark.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -95,6 +92,10 @@
     <ProjectReference Include="..\Mercury.View.NHaml\Mercury.View.NHaml.booproj">
       <Project>{538A1386-3853-4708-BFF5-20DCDAD3565B}</Project>
       <Name>Mercury.View.NHaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mercury.View.Spark\Mercury.View.Spark.booproj">
+      <Project>{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}</Project>
+      <Name>Mercury.View.Spark</Name>
     </ProjectReference>
     <Folder Include="Content" />
     <Folder Include="Domain" />

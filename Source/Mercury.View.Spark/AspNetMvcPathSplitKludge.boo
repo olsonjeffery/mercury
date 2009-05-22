@@ -2,7 +2,7 @@ namespace Mercury.Core
 
 import System
 
-class AspNetMvcPathSplitKludge:
+public class AspNetMvcPathSplitKludge:
 """Description of AspNetMvcPathSplitKludge"""
   public def constructor():
     pass

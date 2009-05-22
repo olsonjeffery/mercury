@@ -89,6 +89,10 @@
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mercury.View.Spark\Mercury.View.Spark.booproj">
+      <Project>{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}</Project>
+      <Name>Mercury.View.Spark</Name>
+    </ProjectReference>
     <Folder Include="Behaviors" />
     <Folder Include="Framework" />
     <Folder Include="Framework\Creators" />

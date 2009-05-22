@@ -6,7 +6,6 @@ import System.Linq
 import System.Web
 import System.Web.Mvc
 import System.Web.Routing
-import Spark.Web.Mvc
 import Mercury.Core
 import Machine.Container
 import Microsoft.Practices.ServiceLocation
@@ -38,6 +37,6 @@ public class MercuryApplication(System.Web.HttpApplication):
     return CommonServiceLocatorAdapter(container)
   
   protected static def ConfigureViewEngines() as ViewEngineCollection:
-    ViewEngines.Engines.Add(SparkViewFactory())
+    ViewEngines.Engines.Add(MercurySparkViewEngine())
     ViewEngines.Engines.Add(MercuryNHamlViewEngine())
     return ViewEngines.Engines

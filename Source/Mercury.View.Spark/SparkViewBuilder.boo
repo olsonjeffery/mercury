@@ -10,7 +10,7 @@ public class SparkViewBuilder:
   public def GetView(viewData as ViewDataDictionary, tempData as TempDataDictionary, controller as string, view as string, viewEngines as ViewEngineCollection, controllerContext as ControllerContext) as RenderViewResult:
     masterName as string = (viewData["masterName"] if viewData.ContainsKey("masterName") else null)
     controllerContext.RequestContext.RouteData.Values.Add("controller", controller)
-    sparkViewGenerator = i for i in viewEngines if i.GetType().Name == "SparkViewFactory"
+    sparkViewGenerator = i for i in viewEngines if i isa MercurySparkViewEngine
     sparkViewEngine = List[of IViewEngine](sparkViewGenerator)
     if sparkViewEngine.Count == 0:
       raise "No spark engine registered!"

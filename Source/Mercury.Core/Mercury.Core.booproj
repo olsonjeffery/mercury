@@ -79,7 +79,6 @@
     <Compile Include="Macros\Run_afterMacro.boo" />
     <Compile Include="Macros\Run_beforeMacro.boo" />
     <Compile Include="Macros\Run_lastMacro.boo" />
-    <Compile Include="Macros\SparkMacro.boo" />
     <Compile Include="Macros\TargetMacro.boo" />
     <Compile Include="Macros\Target_notMacro.boo" />
     <Compile Include="MercuryStartupService.boo" />
@@ -99,10 +98,8 @@
     <Compile Include="RunTime\RouteActionRunner.boo" />
     <Compile Include="RunTime\RouteResultProcessor.boo" />
     <Compile Include="RunTime\RunTimeTypeInstantiator.boo" />
-    <Compile Include="ViewRendering\AspNetMvcPathSplitKludge.boo" />
     <Compile Include="ViewRendering\JsonResultBuilder.boo" />
     <Compile Include="ViewRendering\RedirectBuilder.boo" />
-    <Compile Include="ViewRendering\SparkViewBuilder.boo" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Macros" />
