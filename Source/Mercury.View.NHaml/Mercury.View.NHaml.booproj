@@ -31,6 +31,9 @@
       <HintPath>..\..\Libraries\boo\Boo.Lang.PatternMatching.dll</HintPath>
     </Reference>
     <Reference Include="Boo.Lang.Useful" />
+    <Reference Include="NHaml">
+      <HintPath>..\..\Libraries\nhaml\NHaml.dll</HintPath>
+    </Reference>
     <Reference Include="NHaml.Web.Mvc">
       <HintPath>..\..\Libraries\nhaml\NHaml.Web.Mvc.dll</HintPath>
     </Reference>
@@ -39,10 +42,12 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

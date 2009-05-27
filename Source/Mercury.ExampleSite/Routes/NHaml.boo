@@ -8,8 +8,8 @@ import System.Web.Mvc
 Behavior SetNHamlMasterPath:
   target "nhaml"
   before_action:
-    request.Controller.ViewData["nhamlMasterName"] = "layouts/Application.haml"
+    request.Controller.ViewData["nhamlMasterName"] = "NHaml/Layouts/Application.haml"
 
-Get "views/nhaml/hw":
+Get "nhaml":
   view.hw = "Hello world from NHaml!"
-  nhaml "Index.haml"
+  nhaml "nhaml/Index.haml"
