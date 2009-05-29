@@ -12,6 +12,8 @@ Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.View.NHaml", "Mercu
 EndProject
 Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.View.Spark", "Mercury.View.Spark\Mercury.View.Spark.booproj", "{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}"
 EndProject
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Mercury.Routing", "Mercury.Routing\Mercury.Routing.booproj", "{F535A7C8-5B21-4F21-AB88-2540B8A69934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,5 +40,9 @@ Global
 		{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F535A7C8-5B21-4F21-AB88-2540B8A69934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F535A7C8-5B21-4F21-AB88-2540B8A69934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F535A7C8-5B21-4F21-AB88-2540B8A69934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F535A7C8-5B21-4F21-AB88-2540B8A69934}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal
