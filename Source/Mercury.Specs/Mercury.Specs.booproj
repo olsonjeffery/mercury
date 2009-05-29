@@ -78,6 +78,7 @@
     <Compile Include="Framework\TestRouteData.boo" />
     <Compile Include="RouteBuilding\RouteParameterNameExtractorSpecs.boo" />
     <Compile Include="RouteBuilding\MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="RoutingEngine\ParsingRouteStringsIntoRouteTreeSpecs.boo" />
     <Compile Include="Runtime\RouteParamsSpecs.boo" />
     <Compile Include="Runtime\RouteResultProcessingSpecs.boo" />
     <Compile Include="Runtime\RunTimeTypeInstantiatorSpecs.boo" />
@@ -89,6 +90,10 @@
       <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
       <Name>Mercury.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mercury.Routing\Mercury.Routing.booproj">
+      <Project>{F535A7C8-5B21-4F21-AB88-2540B8A69934}</Project>
+      <Name>Mercury.Routing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mercury.View.Spark\Mercury.View.Spark.booproj">
       <Project>{7B00A42C-EC3E-4C55-A05E-E14D6907CE9B}</Project>
       <Name>Mercury.View.Spark</Name>
@@ -96,6 +101,7 @@
     <Folder Include="Behaviors" />
     <Folder Include="Framework" />
     <Folder Include="Framework\Creators" />
+    <Folder Include="RoutingEngine" />
     <Folder Include="Startup" />
     <Folder Include="Runtime" />
     <Folder Include="ViewRendering" />
