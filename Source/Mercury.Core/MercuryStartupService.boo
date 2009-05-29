@@ -4,12 +4,11 @@ import System
 import System.Collections.Generic
 import System.Text.RegularExpressions
 import System.Reflection
-import System.Web
 import System.Web.Routing
 import System.Web.Mvc
 import Microsoft.Practices.ServiceLocation
 
-public class MercuryStartupService(RouteBase):
+public class MercuryStartupService:
   
   private _uninstantiatedRoutes as IEnumerable of Type;
   private _container as object
@@ -79,14 +78,8 @@ public class MercuryStartupService(RouteBase):
   public def Instantiate(behaviorType as Type) as IBehavior:
     return behaviorType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IBehavior
   
-  public def GetRouteData(httpContext as HttpContextBase) as RouteData:
-    url = httpContext.Request.Url;
-    method = httpContext.Request.HttpMethod;
-    raise "url: " + url + " method: " + method + " # of routes: " + List of Type(_uninstantiatedRoutes).Count
-  
   public def ParseReferencedAssembliesForTypesThatImplement(assemblies as Assembly*, iface as Type) as Type*:
     types = List of Type();
-    names = ""
     for assembly in assemblies:
       for type in assembly.GetTypes():
         if iface in (type.GetInterfaces()):
