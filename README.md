@@ -291,8 +291,8 @@ A few things worth mentioning in this example:
 To expand upon the utility of the first item mentioned above:
 
     behavior AuthenticatedUsersOnly:
-      target "^[^(Public)].*$"
-      target "^[^(User\/Login)].*$"
+      target_not "Public"
+      target_not "User/Login"
       dependency userAuthService as IUserAuthenticationService
       before_action:
         redirect "User/Login" if not userAuthService.sessionIsAuthentication(controllerContext.HttpContext.Session)
@@ -332,7 +332,7 @@ Render semantics work like:
     Get "spark\helloworld":
       spark "spark\foo.spark"
 
-The mentioned early in the document, the provided paths in these example route actions would map to `AppRoot\nhaml\foo.haml` and `AppRoot\Views\spark\foo.spark`, respectively. Please be mindful that, if you're going to use Mercury's view engine wrappers, you'll want to add the view engines on startup:
+The mentioned early in the document, the provided paths in these example route actions would map to `AppRoot\Views\nhaml\foo.haml` and `AppRoot\Views\spark\foo.spark`, respectively. Please be mindful that, if you're going to use Mercury's view engine wrappers, you'll want to add the view engines on startup:
 
     protected static def ConfigureViewEngines() as ViewEngineCollection:
       ViewEngines.Engines.Add(MercurySparkViewEngine())
