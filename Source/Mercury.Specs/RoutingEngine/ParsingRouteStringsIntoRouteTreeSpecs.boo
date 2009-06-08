@@ -6,13 +6,23 @@ import Mercury.Routing
 import Msb
 import System.Linq.Enumerable from System.Core
 
-when "parsing a route for foo/bar/baz":
+when "parsing a route for foo/bar/baz", ParsingRouteStringsIntoRouteTreeSpecs:
+  establish:
+    routeString = "foo/bar/baz"
+  
+  because_of:
+    routeNodes = RouteStringParser().ParseRouteString(routeString)
+  
   it "should split the route into four nodes":
     routeNodes.Count().ShouldEqual(4)
   
   it "should create an initial node for the root of the application":
-    routeNodes.ElementAt(0).GetType().ToString().ShouldEqual("RootRouteNode")
-  it "should split the rest of the nodes on the forward slash and create nodes for each"  
+    routeNodes.ElementAt(0).GetType().ToString().ShouldEqual(typeof(RootRouteNode).ToString())
+  
+  it "should split the rest of the nodes on the forward slash and create nodes for each":
+    routeNodes.ElementAt(1).Name.ShouldEqual('foo')
+    routeNodes.ElementAt(2).Name.ShouldEqual('bar')
+    routeNodes.ElementAt(3).Name.ShouldEqual('baz')
 
 when "parsing a route for the root of the application", ParsingRouteStringsIntoRouteTreeSpecs:
   it "should put the handler at the base of the RouteTree"
@@ -33,3 +43,4 @@ public class ParsingRouteStringsIntoRouteTreeSpecs(CommonSpecBase):
     pass
   
   protected routeNodes as IRouteNode*
+  protected routeString as string

@@ -1,15 +1,17 @@
 namespace Mercury.Routing
 
 import System
+import Mercury.Core
 
 public interface IRouteNode:
   Name as string:
     get
-  IsParameter as string:
+  IsParameter as bool:
     get
-  Handler as Mercury
+  Handler as MercuryRouteHandler:
+    get
 
-public class RouteNode:
+public class RouteNode(IRouteNode):
   public def constructor(name as string):
     _name = name
   
@@ -22,7 +24,7 @@ public class RouteNode:
     get:
       return false
 
-public class ParameterRouteNode:
+public class ParameterRouteNode(IRouteNode):
   public def constructor(name as string):
     _name = name
   
@@ -35,7 +37,7 @@ public class ParameterRouteNode:
     get:
       return true
 
-public class RootRouteNode:
+public class RootRouteNode(IRouteNode):
   public def constructor():
     pass
   
@@ -43,6 +45,6 @@ public class RootRouteNode:
     get:
       return string.Empty
   
-  public virtual IsParameter as string:
+  public virtual IsParameter as bool:
     get:
       return false
