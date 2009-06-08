@@ -110,10 +110,6 @@
     <Folder Include="ViewRendering" />
     <Folder Include="RunTime" />
     <Folder Include="Routing" />
-    <ProjectReference Include="..\Mercury.Routing\Mercury.Routing.booproj">
-      <Project>{F535A7C8-5B21-4F21-AB88-2540B8A69934}</Project>
-      <Name>Mercury.Routing</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>

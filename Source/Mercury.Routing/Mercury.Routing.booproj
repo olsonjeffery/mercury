@@ -43,5 +43,11 @@
     <Compile Include="RouteNode.boo" />
     <Compile Include="RouteStringParser.boo" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
+      <Project>{71D3D7E3-7648-4068-A657-5521E5E25BFB}</Project>
+      <Name>Mercury.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
 </Project>
