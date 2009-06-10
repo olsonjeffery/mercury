@@ -2,6 +2,7 @@ namespace Mercury.Specs.RoutingEngine
 
 import System
 import Mercury.Specs
+import Mercury.Core
 import Mercury.Routing
 import Msb
 import System.Linq.Enumerable from System.Core
@@ -30,6 +31,7 @@ when "parsing a route for the root of the application", ParsingRouteStringsIntoR
   
   because_of:
     routeNodes = RouteStringParser().ParseRouteString(routeString)
+    routeNodes.Last().AddHandler(StubbedRouteHandler())
   
   it "should have a single route for a root route":
     routeNodes.ElementAt(0).ShouldBeOfType(RootRouteNode)
@@ -50,9 +52,10 @@ when "parsing a route that targest Foo/{param}/Bar", ParsingRouteStringsIntoRout
   it "should have the third node's name be 'param'":
     routeNodes.ElementAt(2).Name.ShouldEqual('param')
   
-public class ParsingRouteStringsIntoRouteNodeSpecs(CommonSpecBase):
-  public def constructor():
-    pass
-  
+public class ParsingRouteStringsIntoRouteNodeSpecs(CommonSpecBase):  
   protected routeNodes as IRouteNode*
   protected routeString as string
+
+public class StubbedRouteHandler(MercuryRouteHandler):
+  public def constructor():
+    super(null, null, null, null)
