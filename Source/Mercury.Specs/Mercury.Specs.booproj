@@ -78,6 +78,7 @@
     <Compile Include="Framework\TestRouteData.boo" />
     <Compile Include="RouteBuilding\RouteParameterNameExtractorSpecs.boo" />
     <Compile Include="RouteBuilding\MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="RoutingEngine\MatchingRequestsToRoutesInTheRouteTree.boo" />
     <Compile Include="RoutingEngine\ParsingRouteStringsIntoRouteNodesSpecs.boo" />
     <Compile Include="RoutingEngine\PlacingRouteNodesIntoRoutingTreeSpecs.boo" />
     <Compile Include="Runtime\RouteParamsSpecs.boo" />

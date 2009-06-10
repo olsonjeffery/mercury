@@ -39,3 +39,6 @@ public class RouteTree:
      else:
        parentNode.Nodes.Add(targetNode.Name, targetNode) if not parentNode.Nodes.ContainsKey(targetNode.Name)
        return parentNode.Nodes[targetNode.Name]
+   
+   public static def GetRouteDataMatchingRequestUrl(method as string, routeString as string) as RouteData:
+     pass
