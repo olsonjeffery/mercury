@@ -42,6 +42,7 @@
     <Compile Include="MercuryRoutingModule.boo" />
     <Compile Include="RouteNode.boo" />
     <Compile Include="RouteStringParser.boo" />
+    <Compile Include="RouteTree.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mercury.Core\Mercury.Core.booproj">
