@@ -6,7 +6,7 @@ import Mercury.Routing
 import Msb
 import System.Linq.Enumerable from System.Core
 
-when "parsing a route for foo/bar/baz", ParsingRouteStringsIntoRouteTreeSpecs:
+when "parsing a route for foo/bar/baz", ParsingRouteStringsIntoRouteNodeSpecs:
   establish:
     routeString = "foo/bar/baz"
   
@@ -24,7 +24,7 @@ when "parsing a route for foo/bar/baz", ParsingRouteStringsIntoRouteTreeSpecs:
     routeNodes.ElementAt(2).Name.ShouldEqual('bar')
     routeNodes.ElementAt(3).Name.ShouldEqual('baz')
 
-when "parsing a route for the root of the application", ParsingRouteStringsIntoRouteTreeSpecs:
+when "parsing a route for the root of the application", ParsingRouteStringsIntoRouteNodeSpecs:
   establish:
     routeString = "/"
   
@@ -34,7 +34,7 @@ when "parsing a route for the root of the application", ParsingRouteStringsIntoR
   it "should have a single route for a root route":
     routeNodes.ElementAt(0).ShouldBeOfType(RootRouteNode)
     
-when "parsing a route that targest Foo/{param}/Bar", ParsingRouteStringsIntoRouteTreeSpecs:
+when "parsing a route that targest Foo/{param}/Bar", ParsingRouteStringsIntoRouteNodeSpecs:
   establish:
     routeString = "Foo/{param}/Bar"
   
@@ -50,7 +50,7 @@ when "parsing a route that targest Foo/{param}/Bar", ParsingRouteStringsIntoRout
   it "should have the third node's name be 'param'":
     routeNodes.ElementAt(2).Name.ShouldEqual('param')
   
-public class ParsingRouteStringsIntoRouteTreeSpecs(CommonSpecBase):
+public class ParsingRouteStringsIntoRouteNodeSpecs(CommonSpecBase):
   public def constructor():
     pass
   
