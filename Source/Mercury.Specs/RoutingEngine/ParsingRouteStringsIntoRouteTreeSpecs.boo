@@ -25,18 +25,30 @@ when "parsing a route for foo/bar/baz", ParsingRouteStringsIntoRouteTreeSpecs:
     routeNodes.ElementAt(3).Name.ShouldEqual('baz')
 
 when "parsing a route for the root of the application", ParsingRouteStringsIntoRouteTreeSpecs:
-  it "should put the handler at the base of the RouteTree"
-
-when "parsing a route that targets Foo/Bar":
-  it "should break the route into three nodes"
-  it "should have the first node be for the root of the application"
-  it "should have the second node be for Foo"
-  it "should have the third node be for Bar"
-  it "should put the handler in the node for Bar"
-
-when "parsing a route that targest Foo/Bar/{param}", ParsingRouteStringsIntoRouteTreeSpecs:
-  it "should break the route into four nodes"
-  it "should put the fourth node in a Parameter node underneath the node for Bar"
+  establish:
+    routeString = "/"
+  
+  because_of:
+    routeNodes = RouteStringParser().ParseRouteString(routeString)
+  
+  it "should have a single route for a root route":
+    routeNodes.ElementAt(0).ShouldBeOfType(RootRouteNode)
+    
+when "parsing a route that targest Foo/{param}/Bar", ParsingRouteStringsIntoRouteTreeSpecs:
+  establish:
+    routeString = "Foo/{param}/Bar"
+  
+  because_of:
+    routeNodes = RouteStringParser().ParseRouteString(routeString)
+  
+  it "should break the route into four nodes":
+    routeNodes.Count().ShouldEqual(4)
+    
+  it "should have the third node be a parameter node":
+    routeNodes.ElementAt(2).ShouldBeOfType(ParameterRouteNode)
+  
+  it "should have the third node's name be 'param'":
+    routeNodes.ElementAt(2).Name.ShouldEqual('param')
   
 public class ParsingRouteStringsIntoRouteTreeSpecs(CommonSpecBase):
   public def constructor():
