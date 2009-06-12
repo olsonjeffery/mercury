@@ -9,8 +9,20 @@ import System.Collections.Generic
 import System.Linq.Enumerable from System.Core
 
 when "having a stored route with a handler for foo/bar and receiving a request for /foo/bar", MatchingRequestsToRoutesInTheRouteTree:
-  it "should return the route handler stored in the route"
-  it "should have no parameters stored in the Values"
+  establish:
+    firstRoute = routeStringParser.ParseRouteString("foo/bar")
+    firstRouteHandler = StubbedRouteHandler("foo/bar", "GET")
+    firstRoute.Last().AddHandler(firstRouteHandler)
+    routeTree.AddNodes(firstRoute)
+  
+  because_of:
+    routeData = routeTree.GetFirstRouteMatchingRequestUrl("GET", "/foo/bar")
+  
+  it "should return the route handler stored in the route":
+    routeData.Handler.ShouldEqual(firstRouteHandler)
+    
+  it "should have no parameters stored in the Values":
+    routeData.Values.Values.Count.ShouldEqual(0)
 
 when "having a stored route with a handler for foo/bar/{baz} and receiving a request for foo/bar/42", MatchingRequestsToRoutesInTheRouteTree:
   it "should return the route handler stored in the route"
@@ -30,3 +42,14 @@ public class MatchingRequestsToRoutesInTheRouteTree:
   context_ as Establish = def():
     routeStringParser = RouteStringParser()
     routeTree = RouteTree()
+  
+  handler as MercuryRouteHandler
+  firstRoute as IRouteNode*
+  secondRoute as IRouteNode*
+  firstRouteHandler as MercuryRouteHandler
+  secondRouteHandler as MercuryRouteHandler
+  routeStringParser as RouteStringParser
+  routeTree as RouteTree
+  routeData as RouteData
+  routeString as string
+  method as string

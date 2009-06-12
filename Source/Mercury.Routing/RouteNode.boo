@@ -22,6 +22,9 @@ public interface IRouteNode:
   
   ParameterChildNode as IRouteNode:
     get
+  
+  def ContainsNonParameterNodeNamed(name as string) as bool
+  def HasAtLeastOneHandler() as bool
 
 abstract class BaseRouteNode(IRouteNode):
   public virtual Name as string:
@@ -62,6 +65,15 @@ abstract class BaseRouteNode(IRouteNode):
   public virtual ParameterChildNode as IRouteNode:
     get:
       return Nodes.Values.Where({ x as IRouteNode | x.IsParameter}).Single()
+  
+  public virtual def ContainsNonParameterNodeNamed(name as string) as bool:
+    if Nodes.ContainsKey(name):
+      if not Nodes[name].IsParameter:
+        return true
+    return false
+  
+  public virtual def HasAtLeastOneHandler() as bool:
+    return _handlers.Count > 0
   
 
 public class RouteNode(BaseRouteNode):
