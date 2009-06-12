@@ -5,7 +5,7 @@ import Mercury.Core
 import System.Collections.Generic
 import System.Linq.Enumerable from System.Core
 
-public interface IRouteNode(IQuackFu):
+public interface IRouteNode:
   Name as string:
     get
   IsParameter as bool:
@@ -39,11 +39,6 @@ abstract class BaseRouteNode(IRouteNode):
       return _nodes
     set:
       _nodes = value
-  
-  public virtual def QuackGet(childName as string, params as (object)) as object:
-    Nodes = Dictionary[of string, IRouteNode]() if Nodes is null
-    raise "Route node '"+Name+"' does not contain a child node named '"+ childName +"'" if not Nodes.ContainsKey(childName)
-    return Nodes[childName]
   
   _handlers as List of MercuryRouteHandler
   public virtual Handlers as MercuryRouteHandler*:
