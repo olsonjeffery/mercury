@@ -9,6 +9,7 @@ import System.Linq.Enumerable from System.Core
 
 when "placing a series of route nodes for a route string of foo/bar into the RouteTree", PlacingRouteNodesIntoRoutingTreeSpecs:
   establish:
+    routeTree.Flush()
     routeString = "foo/bar"
     routeNodes = routeStringParser.ParseRouteString(routeString)
     routeNodes.Last().AddHandler(StubbedRouteHandler())

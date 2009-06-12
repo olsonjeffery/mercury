@@ -42,3 +42,6 @@ public class RouteTree:
    
    public static def GetRouteDataMatchingRequestUrl(method as string, routeString as string) as RouteData:
      pass
+   
+   public static def Flush():
+     _root = RootRouteNode()
