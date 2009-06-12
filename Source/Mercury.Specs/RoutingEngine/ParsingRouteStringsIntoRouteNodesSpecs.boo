@@ -58,4 +58,7 @@ public class ParsingRouteStringsIntoRouteNodeSpecs(CommonSpecBase):
 
 public class StubbedRouteHandler(MercuryRouteHandler):
   public def constructor():
-    super(null, null, null, null)
+    super(null, null, null, null, null)
+  
+  public def constructor(routeString as string, method as string):
+    super(null, null, null, null, RouteSpecification(routeString, method))
