@@ -14,11 +14,15 @@ public class MercuryRouteHandler(IRouteHandler):
   _viewEngines as ViewEngineCollection
   _behaviors as Type*
   
-  def constructor(container as IServiceLocator, routeType as Type, viewEngines as ViewEngineCollection, behaviors as Type*):
+  [property(RouteSpecification)]
+  _routeSpec as RouteSpecification
+  
+  def constructor(container as IServiceLocator, routeType as Type, viewEngines as ViewEngineCollection, behaviors as Type*, routeSpec as RouteSpecification):
     _container = container
     _routeType = routeType    
     _viewEngines = viewEngines
     _behaviors = behaviors
+    _routeSpec = routeSpec
     
     _factory = RunTimeTypeInstantiator(_container)
   

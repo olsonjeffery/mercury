@@ -31,11 +31,12 @@ public class MercuryStartupService:
       routeAction = routeType.GetConstructor(array(typeof(Type), 0)).Invoke(array(typeof(Type), 0)) as IMercuryRouteAction
       behaviorRouteString = (routeAction.RouteString if not routeAction.RouteString == "{*url}" else "not_found")
       behaviorsForThisRoute = GetBehaviorsForRoute(behaviorRouteString, _behaviors)
+      routeSpec = RouteSpecification(routeAction.RouteString, routeAction.HttpMethod)
       if routeAction.RouteString == "{*url}":
         raise "cannot have multiple not_found routes!" if not notFoundRoute is null
-        notFoundRoute = MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod)
+        notFoundRoute = MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute, routeSpec), routeAction.HttpMethod)
       else:
-        routes.Add(MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute), routeAction.HttpMethod))
+        routes.Add(MercuryRoute(routeAction.RouteString, MercuryRouteHandler(_container, routeType, _viewEngines, behaviorsForThisRoute, routeSpec), routeAction.HttpMethod))
     
     routes.Add(notFoundRoute) if not notFoundRoute is null
     return routes

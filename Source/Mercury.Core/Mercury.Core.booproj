@@ -94,6 +94,7 @@
     <Compile Include="Routing\RenderViewResult.boo" />
     <Compile Include="Routing\RouteParameterNameExtractor.boo" />
     <Compile Include="Routing\RouteParameters.boo" />
+    <Compile Include="Routing\RouteSpecification.boo" />
     <Compile Include="Routing\ViewAndTempWrapper.boo" />
     <Compile Include="RunTime\BehaviorResultProcessor.boo" />
     <Compile Include="RunTime\RouteActionRunner.boo" />
