@@ -43,6 +43,10 @@ public class MercuryRouteAstBuilder:
     for i in oldBody.Statements:
       newBody.Statements.Add(i)
     
+    routeValidator = RouteValidator()
+    sanitizedRouteString = routeString.Trim().Replace("'", string.Empty)
+    routeValidator.Validate(sanitizedRouteString)
+    
     postParamsBody = ApplyParameterDeclarationsTo(newBody, routeString, excludeList)
     
     routeBody.Body = postParamsBody
