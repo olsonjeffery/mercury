@@ -17,6 +17,8 @@ task :vssln do
   end
 end
 
+# This requires SharpDevelop.exe's location to be in your PATH..
+# usually something like {ProgramFiles}\SharpDevelop\3.0\bin
 task :sln do
   Thread.new do
     system "SharpDevelop Source/Mercury.sln"
