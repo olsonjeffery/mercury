@@ -54,6 +54,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\Libraries\MVC\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml" />
@@ -78,6 +81,7 @@
     <Compile Include="Framework\TestRouteData.boo" />
     <Compile Include="RouteBuilding\RouteParameterNameExtractorSpecs.boo" />
     <Compile Include="RouteBuilding\MercuryRouteBuilderSpecs.boo" />
+    <Compile Include="RouteBuilding\ValidatingTheRouteStringAtExapansionTimeSpecs.boo" />
     <Compile Include="RoutingEngine\MatchingRequestsToRoutesInTheRouteTree.boo" />
     <Compile Include="RoutingEngine\ParsingRouteStringsIntoRouteNodesSpecs.boo" />
     <Compile Include="RoutingEngine\PlacingRouteNodesIntoRoutingTreeSpecs.boo" />
