@@ -24,6 +24,12 @@ when "having a stored route with a handler for foo/bar and receiving a request f
   it "should have no parameters stored in the Values":
     routeData.Values.Values.Count.ShouldEqual(0)
 
+when "having stored two route actions, both matching the route 'foo/bar' with the same http method and processing a request that would match either route", MatchingRequestsToRoutesInTheRouteTree:
+  it "should return the first matching route in the order it was added to the RouteTree"
+  
+when "having stored two route actions, both matching the route 'foo/bar', but each with GET and POST http methods and processing a request for the route with a POST method", MatchingRequestsToRoutesInTheRouteTree:
+  it "should return the route that had a POST associated with it"
+
 when "having a stored route with a handler for foo/bar/{baz} and receiving a request for foo/bar/42", MatchingRequestsToRoutesInTheRouteTree:
   it "should return the route handler stored in the route"
   it "should have a parameter in the Values named 'baz'"
