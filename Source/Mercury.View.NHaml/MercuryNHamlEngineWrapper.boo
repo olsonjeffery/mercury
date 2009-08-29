@@ -8,11 +8,22 @@ import NHaml.Web.Mvc
 import System.Web
 import System.Web.Routing
 import System.Web.Mvc
+import System.Reflection
 
 public class MercuryNHamlViewEngine(NHamlMvcViewEngine):
   
+  _engine as TemplateEngine
+  
   public def constructor():
-    pass
+    options = GetTemplateEngineOptions()
+    _engine = TemplateEngine(options)
+  
+  public def GetTemplateEngineOptions():
+    options = NHaml.TemplateOptions()
+    for asmName as AssemblyName in GetType().Assembly.GetReferencedAssemblies():
+      asm = Assembly.Load(asmName)
+      options.AddReference(asm)
+    return options
   
   public def CreateView(controllerContext as ControllerContext, viewPath as string, masterPath as string):
     templatePath = VirtualPathToPhysicalPath(controllerContext.RequestContext, viewPath)
@@ -21,7 +32,7 @@ public class MercuryNHamlViewEngine(NHamlMvcViewEngine):
     paths.Add(templatePath)
     paths.Add(masterPath)
     
-    return NHaml.TemplateEngine().Compile(
+    return _engine.Compile(
     paths,
     GetViewBaseType(controllerContext)).CreateInstance() as IView;
   
