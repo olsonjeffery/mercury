@@ -5,9 +5,6 @@
 require 'rake'
 require 'rake/testtask'
 require 'pathname'
-require 'rubygems'
-gem 'activerecord', '>=1.15.3'
-require 'active_record'
 require 'fileutils'
 include FileUtils
 
