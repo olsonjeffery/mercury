@@ -6,6 +6,7 @@ require 'rake'
 require 'rake/testtask'
 require 'pathname'
 require 'fileutils'
+require 'bbh.rb'
 include FileUtils
 
 task :vssln do
@@ -46,3 +47,31 @@ namespace :specs do
     system "start Specs.html"
   end
 end
+
+# mono build stuff
+booc = "mono Libraries/boo/booc.exe "
+
+task :mbuild do
+  sh booc + "foo.boo"
+end
+
+namespace :projects do
+  
+  BooLang = "Libraries/boo/Boo.Lang.dll"
+  BooLangCompiler = "Libraries/boo/Boo.Lang.Compiler.dll"
+  BooLangUseful = "Libraries/boo/Boo.Lang.Useful.dll"
+  MicrosoftPracticesServiceLocation = "Libraries/CommonServiceLocator/Microsoft.Practices.ServiceLocation.dll"
+  SystemWeb = "System.Web"
+  SystemWebAbstractions = "System.Web.Abstractions"
+  SystemWebExtensions = "System.Web.Extensions"
+  SystemWebMvc = "Libraries/MVC/System.Web.Mvc.dll"
+  SystemWebRouting = "System.Web.Routing"
+  SystemXml = "System.Xml"
+  
+  task :core do
+    name = 'Mercury.Core'
+    refs = [BooLang, BooLangCompiler, BooLangUseful, MicrosoftPracticesServiceLocation, SystemWeb, SystemWebExtensions, SystemWebRouting, SystemWebAbstractions, SystemXml, SystemWebMvc]
+    sh booc + '-o:Mercury.Core.dll ' + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild('Source/Mercury.Core/Mercury.Core.booproj', true) + Bbh.findBooFilesIn('Source\Mercury.Core')
+  end
+end
+
