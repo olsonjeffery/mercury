@@ -61,9 +61,24 @@ class Bbh
   end
   
   def self.convertToPlatformSeparator(path)
-    path.gsub(/(\\|\/)/, File::SEPARATOR)
+    separator = File::SEPARATOR
+    if isWindowsPlatform
+      puts 'feg'
+      separator = File::ALT_SEPARATOR
+    end
+    path.gsub(/(\\|\/)/, separator)
   end
   
+  def self.isWindowsPlatform
+    proc, platform, *rest = RUBY_PLATFORM.split('-')
+    if platform == 'mswin32'
+      return true
+    else
+      return false
+    end
+  end
+
+
   # internal stuff
   def self.findFilesWithExtensionInBaseDir(baseDir, extension)
     arr = []
@@ -81,7 +96,7 @@ class Bbh
         exploreDirSearchForFilesAndStoreInList(path, extension, arr)
       else
         if File.extname(path).downcase == extension
-          arr.push(path)
+          arr.push(convertToPlatformSeparator(path))
         end
       end
     end

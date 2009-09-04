@@ -50,6 +50,10 @@ end
 
 # mono build stuff
 booc = "mono Libraries/boo/booc.exe "
+if Bbh.isWindowsPlatform
+  booc = 'Libraries\boo\booc.exe '
+end
+
 
 task :mbuild do
   sh booc + "foo.boo"
