@@ -1,16 +1,29 @@
 require 'find'
+require 'fileutils'
 require 'rexml/document'
+require 'ftools'
 
 # BooBuildHelper (Bbh)
 class Bbh
   def initialize()
   end
   
-  # public stuff
   def self.findBooFilesIn(baseDir)
     findFilesWithExtensionInBaseDir(baseDir, '.boo').join(' ')
   end
   
+  def self.createFolderIfNeeded(path)
+    Dir.mkdir(path) unless File.directory?(path)
+  end
+
+  def self.removeFolderIfNeeded(path)
+    FileUtils.rm_rf path unless !File.directory?(path)
+  end
+
+  def self.outputTo(directory, fileName)
+    '-o:' + convertToPlatformSeparator(directory + '/' + fileName) + ' '
+  end
+ 
   def self.referenceAssemblies(assemblies)
     cleanAsms = []
     assemblies.each do |path|
@@ -19,7 +32,30 @@ class Bbh
     end
     "-r:"+cleanAsms.join(',') + ' '
   end
-  
+   
+  def self.copyNonGacDependenciesTo(buildDir, projFilePath, isRelativePath)
+    buildDir = convertToPlatformSeparator(buildDir)
+    path = convertToPlatformSeparator(projFilePath)
+    projFile = REXML::Document.new File.read(path)
+    dirName = File.dirname(path)
+    hintPaths = []
+    projFile.elements.each('Project/ItemGroup/Reference') do |reference|
+      if reference.elements['HintPath'] != nil
+        reference.elements.each('HintPath') do |path|
+          if isRelativePath
+            hintPaths.push convertToPlatformSeparator(dirName + "/" + path.text)
+          else
+            hintPaths.push convertToPlatformSeparator(path.text)
+          end
+        end
+      end
+    end
+
+    hintPaths.each do |path|
+      File.copy(path, buildDir)
+    end
+  end
+ 
   def self.dllTarget
     '-target:library '
   end
@@ -28,7 +64,7 @@ class Bbh
     '-target:exe '
   end
 
-  def self.referenceDependenciesInMSBuild(path, isRelativePath)
+  def self.referenceDependenciesInMSBuild(path, projectRefsBinPath, isRelativePath)
     path = convertToPlatformSeparator(path)
     projFile = REXML::Document.new File.read(path)
     dirName = File.dirname(path)
@@ -57,7 +93,20 @@ class Bbh
         refs.push hintPaths[i]
       end
     end
+    projRefs = referenceProjectReferences(convertToPlatformSeparator(projectRefsBinPath), projFile)
+    projRefs.each do |ref|
+      refs.push ref
+    end
     referenceAssemblies(refs)
+  end
+
+  def self.referenceProjectReferences(referenceBinsPath, projFile)
+    refs = []
+    projFile.elements.each('/Project/ItemGroup/ProjectReference/Name') do |name|
+      puts name.text
+      refs.push(convertToPlatformSeparator(referenceBinsPath + '/' + name.text + '.dll'))
+    end
+    refs
   end
   
   def self.convertToPlatformSeparator(path)
@@ -78,8 +127,6 @@ class Bbh
     end
   end
 
-
-  # internal stuff
   def self.findFilesWithExtensionInBaseDir(baseDir, extension)
     arr = []
     baseDir = convertToPlatformSeparator(baseDir)
@@ -103,3 +150,5 @@ class Bbh
   end
 
 end
+
+
