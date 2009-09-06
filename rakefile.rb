@@ -54,6 +54,11 @@ if Bbh.isWindowsPlatform
   booc = 'Libraries\boo\booc.exe '
 end
 
+mspec = 'Libraries\Machine\Specifications\Machine.Specifications.ConsoleRunner.exe'
+if !Bbh.isWindowsPlatform
+  mspec = Bbh.convertToPlatformSeparator('mono ' + mspec)
+end
+
 
 task :mbuild => ['projects:examplesite', 'project:specs']do
 end
@@ -75,8 +80,8 @@ namespace :projects do
 
   task :core => :create_build_dir do
     name = 'Mercury.Core'
-    projFile = 'Source/Mercury.Core/Mercury.Core.booproj'
-    projDir = 'Source/Mercury.Core'
+    projFile = 'Source/'+name+'/'+name+'.booproj'
+    projDir = 'Source/'+name
     sh booc + Bbh.outputTo(buildDir, name+'.dll') + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild(projFile, buildDir, true) + Bbh.findBooFilesIn(projDir)
 
     Bbh.copyNonGacDependenciesTo(buildDir, projFile, true)
@@ -84,8 +89,8 @@ namespace :projects do
 
   task :viewnhaml => :core do
     name = 'Mercury.View.NHaml'
-    projFile = 'Source/Mercury.View.NHaml/Mercury.View.NHaml.booproj'
-    projDir = 'Source/Mercury.View.NHaml'
+    projFile = 'Source/'+name+'/'+name+'.booproj'
+    projDir = 'Source/'+name
     sh booc + Bbh.outputTo(buildDir, name+'.dll') + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild(projFile, buildDir, true) + Bbh.findBooFilesIn(projDir)
 
     Bbh.copyNonGacDependenciesTo(buildDir, projFile, true)
@@ -93,12 +98,28 @@ namespace :projects do
 
   task :viewspark => :core do
     name = 'Mercury.View.Spark'
-    projFile = 'Source/Mercury.View.Spark/Mercury.View.Spark.booproj'
-    projDir = 'Source/Mercury.View.Spark'
+    projFile = 'Source/'+name+'/'+name+'.booproj'
+    projDir = 'Source/'+name
+    sh booc + Bbh.outputTo(buildDir, name+'.dll') + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild(projFile, buildDir, true) + Bbh.findBooFilesIn(projDir)
+
+    Bbh.copyNonGacDependenciesTo(buildDir, projFile, true)
+  end
+  
+  task :routing => :core do
+    name = 'Mercury.Routing'
+    projFile = 'Source/'+name+'/'+name+'.booproj'
+    projDir = 'Source/'+name
     sh booc + Bbh.outputTo(buildDir, name+'.dll') + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild(projFile, buildDir, true) + Bbh.findBooFilesIn(projDir)
 
     Bbh.copyNonGacDependenciesTo(buildDir, projFile, true)
   end
 
-end
+  task :specs => [:core, :viewspark, :viewnhaml, :routing, ] do
+    name = 'Mercury.Specs'
+    projFile = 'Source/'+name+'/'+name+'.booproj'
+    projDir = 'Source/'+name
+    sh booc + Bbh.outputTo(buildDir, name+'.dll') + Bbh.dllTarget + Bbh.referenceDependenciesInMSBuild(projFile, buildDir, true) + Bbh.findBooFilesIn(projDir)
 
+    Bbh.copyNonGacDependenciesTo(buildDir, projFile, true)
+  end
+end
