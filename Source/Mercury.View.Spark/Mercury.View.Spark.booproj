@@ -25,6 +25,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Boo.Lang.Useful" />
+    <Reference Include="Spark">
+      <HintPath>..\..\Libraries\Spark\Spark.dll</HintPath>
+    </Reference>
     <Reference Include="Spark.Web.Mvc">
       <HintPath>..\..\Libraries\Spark\Spark.Web.Mvc.dll</HintPath>
     </Reference>
