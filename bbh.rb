@@ -55,6 +55,16 @@ class Bbh
       File.copy(path, buildDir)
     end
   end
+
+  def self.copyAllFilesFromTo(fromPath, toPath)
+    fromPath = convertToPlatformSeparator(fromPath)
+    toPath = convertToPlatformSeparator(toPath)
+    files = []
+    exploreDirSearchForFilesAndStoreInList(fromPath, nil, files)
+    files.each do |path|
+      File.copy(path, toPath)
+    end
+  end
  
   def self.dllTarget
     '-target:library '
@@ -142,7 +152,7 @@ class Bbh
       if FileTest.directory?(path)
         exploreDirSearchForFilesAndStoreInList(path, extension, arr)
       else
-        if File.extname(path).downcase == extension
+        if extension == nil || File.extname(path).downcase == extension
           arr.push(convertToPlatformSeparator(path))
         end
       end
