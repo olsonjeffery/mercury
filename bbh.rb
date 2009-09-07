@@ -122,7 +122,6 @@ class Bbh
   def self.convertToPlatformSeparator(path)
     separator = File::SEPARATOR
     if isWindowsPlatform
-      puts 'feg'
       separator = File::ALT_SEPARATOR
     end
     path.gsub(/(\\|\/)/, separator)
