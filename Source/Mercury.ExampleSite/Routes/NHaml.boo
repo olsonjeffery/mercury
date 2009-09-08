@@ -12,8 +12,8 @@ Behavior SetNHamlMasterPath:
 
 Get "nhaml":
   view.hw = "Hello world from NHaml!"
-  nhaml "nhaml/Index.haml"
+  nhaml "NHaml/Index.haml"
 
 Get "nhaml/noextension":
   view.hw = "hello world from extensionless nhaml!"
-  nhaml "nhaml/Index"
+  nhaml "NHaml/Index"
