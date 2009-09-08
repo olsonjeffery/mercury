@@ -153,5 +153,6 @@ namespace :projects do
 
     Bbh.copyNonGacDependenciesTo(binDir, projFile, true)
     Bbh.copyAllFilesFromTo(buildDir, binDir)
+    Bbh.copyAllFilesFromTo('Libraries/Machine/Container', binDir)
   end
 end
